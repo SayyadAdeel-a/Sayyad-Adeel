@@ -1,4 +1,4 @@
-import { Target, User, Cpu, Rocket } from 'lucide-react';
+import { Target, User, Rocket } from 'lucide-react';
 
 export default function About() {
   return (
@@ -52,15 +52,25 @@ export default function About() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-white/5 blur-[100px] rounded-full pointer-events-none" />
             
             <div className="relative w-full max-w-md space-y-4">
+              {/* PORTRAIT IMAGE CARD */}
               <div className="transform hover:-translate-y-2 transition-transform duration-500">
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl shadow-2xl">
-                  <Cpu className="w-10 h-10 text-white mb-6" />
-                  <div className="text-2xl font-bold text-white mb-2">AI-First Approach</div>
-                  <p className="text-zinc-400">Leveraging AI workflows to build smarter products faster.</p>
+                <div className="rounded-[40px] border border-white/10 bg-white/5 p-3 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
+                  <div className="aspect-[4/5] overflow-hidden rounded-[32px] bg-zinc-900">
+                    <img 
+                      src="/my iamge.jpg"
+                      alt="Sayyad Adeel"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      onError={(e) => (e.currentTarget.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop")}
+                    />
+                  </div>
+                  <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-zinc-950/80 backdrop-blur-md border border-white/10">
+                    <div className="text-white font-bold">Sayyad Adeel</div>
+                    <div className="text-zinc-500 text-[10px] uppercase tracking-widest">AI & SaaS Builder | Swat, Pakistan</div>
+                  </div>
                 </div>
               </div>
               
-              <div className="ml-12 transform hover:-translate-y-2 transition-transform duration-500 delay-150">
+              <div className="ml-12 transform hover:-translate-y-2 transition-transform duration-500 delay-150 relative z-10">
                 <div className="rounded-3xl border border-white/10 bg-zinc-900/50 p-6 backdrop-blur-xl shadow-xl">
                   <div className="flex items-center gap-4">
                     <div className="h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />
