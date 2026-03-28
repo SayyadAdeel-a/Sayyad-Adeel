@@ -1,16 +1,9 @@
-import React from "react";
 import { 
   ArrowRight, 
   Target, 
   Crown, 
   Star,
-  Mail,
-  Hexagon,
-  Triangle,
-  Command,
-  Ghost,
-  Gem,
-  Cpu
+  Mail
 } from "lucide-react";
 import { GitHubIcon, InstagramIcon } from "@/components/Icons";
 

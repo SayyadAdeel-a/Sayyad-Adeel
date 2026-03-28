@@ -1,4 +1,3 @@
-import React from 'react';
 import { Bot, Zap, Video, Search } from 'lucide-react';
 
 const services = [
