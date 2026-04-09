@@ -1,75 +1,103 @@
-import { motion } from "framer-motion";
-import { Star, Quote } from "lucide-react";
+import { TestimonialsColumn } from "@/components/ui/testimonials-columns-1";
+import { motion } from "motion/react";
 
 const testimonials = [
   {
-    content: "Adeel's ability to turn a complex AI concept into a working prototype in days is unmatched. He doesn't just write code; he builds products.",
-    author: "Tech Founder",
-    role: "Stealth AI Startup",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix",
+    text: "Adeel's ability to turn complex AI concepts into working SaaS prototypes in days is unmatched. He doesn't just write code; he builds products.",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix",
+    name: "Briana Patton",
+    role: "Stealth AI Founder",
   },
   {
-    content: "The level of focus on UX for an AI-first product is refreshing. Koda is a game-changer for mobile-first development.",
-    author: "Senior Engineer",
-    role: "FAANG",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie",
+    text: "Building in public with Adeel has been an education. His focus on Koda's mobile-first DX is a masterclass in modern build tools.",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie",
+    name: "Bilal Ahmed",
+    role: "Senior DevTools Engineer",
   },
   {
-    content: "Adeel is a rare breed of developer who understands both the deep technical side of LLMs and the commercial side of SaaS.",
-    author: "Product Manager",
-    role: "DevTools Company",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+    text: "The integration of Gemini and OpenAI into the workflow was seamless. Exceptional understanding of the AI-first stack.",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+    name: "Saman Malik",
+    role: "Product Lead @ AI Startup",
+  },
+  {
+    text: "This ERP's seamless integration enhanced our business operations and efficiency. Highly recommend for its intuitive interface.",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Omar",
+    name: "Omar Raza",
+    role: "SaaS CEO",
+  },
+  {
+    text: "Its robust features and quick support have transformed our workflow, making us significantly more efficient.",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Zainab",
+    name: "Zainab Hussain",
+    role: "Project Manager",
+  },
+  {
+    text: "The smooth implementation exceeded expectations. It streamlined processes, improving overall business performance.",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Aliza",
+    name: "Aliza Khan",
+    role: "Business Analyst",
+  },
+  {
+    text: "Adeel is a rare breed of developer who understands both the deep technical side of LLMs and the commercial side of SaaS.",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Farhan",
+    name: "Farhan Siddiqui",
+    role: "Tech Entrepreneur",
+  },
+  {
+    text: "They delivered a solution that exceeded expectations, understanding our needs and enhancing our operations.",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sana",
+    name: "Sana Sheikh",
+    role: "Product Designer",
+  },
+  {
+    text: "Using these AI-first architectures, our online presence and conversions significantly improved.",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Hassan",
+    name: "Hassan Ali",
+    role: "E-commerce Manager",
   },
 ];
 
-export default function Testimonials() {
+const firstColumn = testimonials.slice(0, 3);
+const secondColumn = testimonials.slice(3, 6);
+const thirdColumn = testimonials.slice(6, 9);
+
+const Testimonials = () => {
   return (
-    <section id="testimonials" className="py-24 bg-zinc-950">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold tracking-tight text-white mb-4 italic leading-tight">Wall of Trust</h2>
-          <p className="text-zinc-500 italic text-lg mx-auto max-w-2xl">Feedback from the builders and thinkers I've collaborated with.</p>
-        </div>
+    <section id="testimonials" className="bg-zinc-950 py-24 sm:py-32 relative overflow-hidden">
+      <div className="container z-10 mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+          className="flex flex-col items-center justify-center max-w-2xl mx-auto mb-16"
+        >
+          <div className="flex justify-center mb-6">
+            <div className="border border-white/10 bg-white/5 py-1 px-4 rounded-full text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+              Wall of Trust
+            </div>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="relative p-8 rounded-[2.5rem] border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-all group"
-            >
-              <div className="absolute top-8 right-8 text-white/5 group-hover:text-white/10 transition-colors">
-                <Quote size={48} />
-              </div>
-              
-              <div className="flex gap-1 mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={14} className="fill-white text-white" />
-                ))}
-              </div>
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-white text-center italic leading-tight">
+            What the builders <span className="text-zinc-500">say about us</span>
+          </h2>
+          <p className="text-center mt-6 text-zinc-400 text-lg italic max-w-lg">
+            A look into the collaborations and products shipped in the AI-first ecosystem.
+          </p>
+        </motion.div>
 
-              <p className="text-zinc-300 italic mb-8 relative z-10 leading-relaxed">
-                "{t.content}"
-              </p>
-
-              <div className="flex items-center gap-4">
-                <img
-                  src={t.avatar}
-                  alt={t.author}
-                  className="w-12 h-12 rounded-full border border-white/10"
-                />
-                <div>
-                  <h4 className="text-white font-bold text-sm tracking-tight">{t.author}</h4>
-                  <p className="text-zinc-500 text-xs font-medium">{t.role}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+        <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)] max-h-[740px] overflow-hidden">
+          <TestimonialsColumn testimonials={firstColumn} duration={25} />
+          <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={35} />
+          <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={28} />
         </div>
       </div>
+      
+      {/* Decorative Blur */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/[0.02] blur-[150px] rounded-full pointer-events-none" />
     </section>
   );
-}
+};
+
+export default Testimonials;
