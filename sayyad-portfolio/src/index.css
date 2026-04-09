@@ -90,13 +90,13 @@
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 500ms;
-}
 
-@utility glass-card:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.25);
-  --tw-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    --tw-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
 }
 
 @utility glass-panel {
@@ -109,28 +109,28 @@
 
 @utility cyber-border {
   position: relative;
-}
 
-@utility cyber-border:after {
-  content: "";
-  position: absolute;
-  inset: 0px;
-  border-radius: inherit;
-  border-width: 1px;
-  border-color: transparent;
-  background-image: linear-gradient(to right, var(--color-ai-cyan), var(--color-ai-magenta));
-  opacity: 0;
-  transition-property: opacity;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 500ms;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
+  &:after {
+    content: "";
+    position: absolute;
+    inset: 0px;
+    border-radius: inherit;
+    border-width: 1px;
+    border-color: transparent;
+    background-image: linear-gradient(to right, var(--color-ai-cyan), var(--color-ai-magenta));
+    opacity: 0;
+    transition-property: opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 500ms;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
 
-@utility cyber-border:hover:after {
-  opacity: 0.3;
+  &:hover:after {
+    opacity: 0.3;
+  }
 }
 
 @keyframes float {
