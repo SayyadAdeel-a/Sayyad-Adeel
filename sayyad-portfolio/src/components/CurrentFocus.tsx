@@ -1,5 +1,4 @@
 import { Activity, Globe, Send } from 'lucide-react';
-import { BGPattern } from '@/components/ui/bg-pattern';
 
 const currentFocus = [
   {
@@ -21,8 +20,7 @@ const currentFocus = [
 
 export default function CurrentFocus() {
   return (
-    <section className="relative py-24 sm:py-32 bg-zinc-950 overflow-hidden">
-      <BGPattern variant="checkerboard" size={48} fill="#ffffff04" mask="fade-edges" />
+    <section className="py-24 sm:py-32 bg-zinc-950">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-16">
           <div className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4">Live Status</div>

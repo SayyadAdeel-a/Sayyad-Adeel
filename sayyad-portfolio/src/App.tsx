@@ -3,6 +3,7 @@ import NavigationMenu from '@/components/ui/navigation-menu'
 import About from '@/components/About'
 import Services from '@/components/Services'
 import Skills from '@/components/Skills'
+import Journey from '@/components/Journey'
 import Projects from '@/components/Projects'
 import CurrentFocus from '@/components/CurrentFocus'
 import Contact from '@/components/Contact'
@@ -17,6 +18,7 @@ function App() {
         <About />
         <Services />
         <Skills />
+        <Journey />
         <Projects />
         <CurrentFocus />
         <Contact />

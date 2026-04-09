@@ -1,5 +1,4 @@
 import { Bot, Zap, Video, Search } from 'lucide-react';
-import { BGPattern } from '@/components/ui/bg-pattern';
 
 const services = [
   {
@@ -34,8 +33,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="relative py-24 sm:py-32 bg-zinc-950 overflow-hidden">
-      <BGPattern variant="diagonal-stripes" size={60} fill="#ffffff05" mask="fade-edges" />
+    <section id="services" className="relative py-24 sm:py-32 bg-zinc-950">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         <div className="text-center mb-16 space-y-4">

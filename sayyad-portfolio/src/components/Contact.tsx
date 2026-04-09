@@ -1,6 +1,5 @@
 import { Mail, ArrowRight } from 'lucide-react';
 import { GitHubIcon, InstagramIcon } from '@/components/Icons';
-import { BGPattern } from '@/components/ui/bg-pattern';
 
 export default function Contact() {
   const socialLinks = [
@@ -10,8 +9,7 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="relative py-24 sm:py-32 bg-zinc-950 overflow-hidden">
-      <BGPattern variant="dots" size={24} fill="#ffffff08" mask="fade-edges" />
+    <section id="contact" className="py-24 sm:py-32 bg-zinc-950">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         
         <div className="flex flex-col lg:flex-row gap-16 lg:items-center relative z-10">
