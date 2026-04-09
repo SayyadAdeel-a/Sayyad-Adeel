@@ -1,4 +1,5 @@
 import HeroSection from '@/components/ui/glassmorphism-trust-hero'
+import NavigationMenu from '@/components/ui/navigation-menu'
 import About from '@/components/About'
 import Services from '@/components/Services'
 import Skills from '@/components/Skills'
@@ -10,6 +11,7 @@ import Footer from '@/components/Footer'
 function App() {
   return (
     <main className="min-h-screen bg-zinc-950 selection:bg-white selection:text-black">
+      <NavigationMenu />
       <HeroSection />
       <div className="space-y-0">
         <About />
