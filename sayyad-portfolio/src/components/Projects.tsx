@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ExternalLink, CheckCircle2, Sparkles } from 'lucide-react';
+import { BGPattern } from '@/components/ui/bg-pattern';
 import WaitlistModal from './WaitlistModal';
 
 const projects = [
@@ -44,7 +45,8 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="py-24 sm:py-32 bg-zinc-950">
+    <section id="projects" className="relative py-24 sm:py-32 bg-zinc-950 overflow-hidden">
+      <BGPattern variant="grid" size={48} fill="#ffffff08" mask="fade-edges" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">

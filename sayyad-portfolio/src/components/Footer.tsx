@@ -1,6 +1,9 @@
+import { BGPattern } from '@/components/ui/bg-pattern';
+
 export default function Footer() {
   return (
-    <footer className="py-12 bg-zinc-950 border-t border-white/5">
+    <footer className="relative py-12 bg-zinc-950 border-t border-white/5 overflow-hidden">
+      <BGPattern variant="grid" size={40} fill="#ffffff04" mask="fade-top" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-zinc-500 text-sm font-medium tracking-widest uppercase text-center md:text-left leading-relaxed">

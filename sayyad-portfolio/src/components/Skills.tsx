@@ -1,4 +1,5 @@
 import { Code2, Layout, Terminal, Blocks, Search, Smartphone, Bot, Zap, Video } from 'lucide-react';
+import { BGPattern } from '@/components/ui/bg-pattern';
 
 export default function Skills() {
   const skillList = [
@@ -14,7 +15,8 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="py-24 bg-zinc-950">
+    <section id="skills" className="relative py-24 bg-zinc-950 overflow-hidden">
+      <BGPattern variant="dots" size={24} fill="#ffffff08" mask="fade-edges" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         <div className="text-center mb-12">
