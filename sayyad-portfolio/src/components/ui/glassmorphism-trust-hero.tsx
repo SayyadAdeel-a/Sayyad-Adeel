@@ -2,7 +2,6 @@ import {
   ArrowRight, 
   Target, 
   Crown, 
-  Star,
   Mail,
   Zap
 } from "lucide-react";
