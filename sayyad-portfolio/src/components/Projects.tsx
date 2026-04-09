@@ -1,6 +1,18 @@
-import { ExternalLink, CheckCircle2 } from 'lucide-react';
+import { useState } from 'react';
+import { ExternalLink, CheckCircle2, Sparkles } from 'lucide-react';
+import WaitlistModal from './WaitlistModal';
 
 const projects = [
+  {
+    title: "Koda",
+    description: "Ship code from your phone. A futuristic mobile-first workspace designed for the next generation of builders and developers.",
+    highlights: ["Mobile Code Editor", "Instant Deployments", "AI-Powered Autocomplete"],
+    image: "/koda-mockup.png",
+    link: "#",
+    btnText: "Join Waitlist",
+    isWaitlist: true,
+    status: "Building"
+  },
   {
     title: "Landlord Tenant Tracker",
     description: "A smart system designed to simplify communication between tenants and landlords by tracking requests and sending real-time notifications.",
@@ -20,6 +32,17 @@ const projects = [
 ];
 
 export default function Projects() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeProject, setActiveProject] = useState("");
+
+  const handleBtnClick = (e: React.MouseEvent, project: typeof projects[0]) => {
+    if (project.isWaitlist) {
+      e.preventDefault();
+      setActiveProject(project.title);
+      setIsModalOpen(true);
+    }
+  };
+
   return (
     <section id="projects" className="py-24 sm:py-32 bg-zinc-950">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -30,15 +53,15 @@ export default function Projects() {
             <p className="text-zinc-500 italic">Selected works that solve real problems through AI and automation.</p>
           </div>
           <div className="text-zinc-500 text-sm font-medium tracking-widest uppercase">
-            Scroll to explore
+            {projects.length} PROJECTS SHIPPED / SHIPPING
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <div 
               key={index}
-              className="group relative flex flex-col rounded-3xl border border-white/10 bg-white/5 overflow-hidden transition-all hover:border-white/20"
+              className={`group relative flex flex-col rounded-3xl border border-white/10 bg-white/5 overflow-hidden transition-all hover:border-white/20 ${project.status === 'Building' ? 'ring-1 ring-white/10' : ''}`}
             >
               <div className="relative h-64 overflow-hidden">
                 <img 
@@ -47,25 +70,39 @@ export default function Projects() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 to-transparent opacity-60" />
+                
+                {project.status && (
+                  <div className="absolute top-4 left-4 z-10">
+                    <div className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/60 px-3 py-1 backdrop-blur-md">
+                      <div className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-white">
+                        {project.status === 'Building' ? 'Building in Public' : project.status}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="p-8 space-y-6 flex-grow flex flex-col">
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-zinc-300 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-zinc-400 text-sm leading-relaxed">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-2xl font-bold text-white group-hover:text-zinc-300 transition-colors">
+                      {project.title}
+                    </h3>
+                    {project.status === 'Building' && <Sparkles size={16} className="text-yellow-500 animate-pulse" />}
+                  </div>
+                  <p className="text-zinc-400 text-sm leading-relaxed h-12 overflow-hidden line-clamp-2">
                     {project.description}
                   </p>
                 </div>
 
                 <div className="space-y-3 flex-grow">
                   <div className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Highlights</div>
-                  <ul className="space-y-2">
+                  <ul className="space-y-1.5">
                     {project.highlights.map((highlight, hIndex) => (
                       <li key={hIndex} className="flex items-center gap-2 text-sm text-zinc-300">
-                        <CheckCircle2 className="w-4 h-4 text-white opacity-40" />
-                        {highlight}
+                        <CheckCircle2 className="w-4 h-4 text-white opacity-40 shrink-0" />
+                        <span className="truncate">{highlight}</span>
                       </li>
                     ))}
                   </ul>
@@ -73,21 +110,28 @@ export default function Projects() {
 
                 <a 
                   href={project.link} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-white mt-4 border border-white/10 bg-white/5 py-3 px-6 rounded-full transition-all hover:bg-white hover:text-black"
+                  target={project.isWaitlist ? undefined : "_blank"} 
+                  rel={project.isWaitlist ? undefined : "noopener noreferrer"}
+                  onClick={(e) => handleBtnClick(e, project)}
+                  className={`inline-flex items-center justify-center gap-2 text-sm font-semibold mt-4 border border-white/10 py-3 px-6 rounded-full transition-all ${project.isWaitlist ? 'bg-white text-black hover:bg-zinc-200' : 'bg-white/5 text-white hover:bg-white hover:text-black'}`}
                 >
                   {project.btnText}
                   <ExternalLink className="w-4 h-4" />
                 </a>
               </div>
 
-              <div className="absolute top-0 -inset-full h-full w-1/2 z-20 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-10 group-hover:animate-shine" />
+              <div className="absolute top-0 -inset-full h-full w-1/2 z-20 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-5 group-hover:animate-shine pointer-events-none" />
             </div>
           ))}
         </div>
 
       </div>
+
+      <WaitlistModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        projectTitle={activeProject} 
+      />
     </section>
   );
 }

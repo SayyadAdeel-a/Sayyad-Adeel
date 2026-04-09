@@ -3,8 +3,8 @@ import { Activity, Globe, Send } from 'lucide-react';
 const currentFocus = [
   {
     icon: Activity,
-    title: "Building AI SaaS Products",
-    description: "Developing intelligent tools that solve specific problems for businesses and individuals."
+    title: "Building Koda App",
+    description: "Developing a futuristic mobile-first workspace that lets you ship code from your phone."
   },
   {
     icon: Globe,
