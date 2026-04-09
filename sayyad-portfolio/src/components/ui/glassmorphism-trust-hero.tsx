@@ -3,197 +3,191 @@ import {
   Target, 
   Crown, 
   Star,
-  Mail
+  Mail,
+  Zap
 } from "lucide-react";
 import { GitHubIcon, InstagramIcon } from "@/components/Icons";
 
 const StatItem = ({ value, label }: { value: string; label: string }) => (
-  <div className="flex flex-col items-center justify-center transition-transform hover:-translate-y-1 cursor-default">
-    <span className="text-xl font-bold text-white sm:text-2xl">{value}</span>
-    <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-medium sm:text-xs text-center">{label}</span>
+  <div className="flex flex-col items-center justify-center transition-transform hover:-translate-y-1 cursor-default group">
+    <span className="text-xl font-bold text-white sm:text-2xl group-hover:text-ai-cyan transition-colors">{value}</span>
+    <span className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-bold sm:text-[10px] text-center">{label}</span>
   </div>
 );
 
 export default function HeroSection() {
   return (
-    <div className="relative w-full bg-zinc-950 text-white overflow-hidden font-sans">
+    <div className="relative w-full min-h-screen flex items-center bg-transparent text-white overflow-hidden font-sans">
       <style>{`
         @keyframes fadeSlideIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+          to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
         @keyframes marquee {
           from { transform: translateX(0); }
           to { transform: translateX(-50%); }
         }
         .animate-fade-in {
-          animation: fadeSlideIn 0.8s ease-out forwards;
+          animation: fadeSlideIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
           opacity: 0;
         }
         .animate-marquee {
-          animation: marquee 40s linear infinite;
+          animation: marquee 60s linear infinite;
         }
         .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-400 { animation-delay: 0.4s; }
-        .delay-500 { animation-delay: 0.5s; }
+        .delay-200 { animation-delay: 0.3s; }
+        .delay-300 { animation-delay: 0.5s; }
+        .delay-400 { animation-delay: 0.7s; }
+        .delay-500 { animation-delay: 0.9s; }
       `}</style>
 
-      {/* Navbar Integration - Removed in favor of AnimatedNavFramer */}
+      {/* Hero Background Elements */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-ai-cyan/10 rounded-full blur-[120px] mix-blend-screen animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-ai-purple/10 rounded-full blur-[140px] mix-blend-screen animate-pulse delay-700" />
+      </div>
 
-      <div 
-        className="absolute inset-0 z-0 bg-[url(https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600&auto=format&fit=crop)] bg-cover bg-center opacity-40"
-        style={{
-          maskImage: "linear-gradient(180deg, transparent, black 0%, black 70%, transparent)",
-          WebkitMaskImage: "linear-gradient(180deg, transparent, black 0%, black 70%, transparent)",
-        }}
-      />
-
-      <div className="relative z-10 mx-auto max-w-7xl px-4 pt-48 pb-12 sm:px-6 md:pb-20 lg:px-8">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8 items-start">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 pt-32 pb-12 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-8 items-center">
           
-          <div className="lg:col-span-7 flex flex-col justify-center space-y-8 pt-8">
+          <div className="lg:col-span-7 flex flex-col justify-center space-y-10">
             <div className="animate-fade-in delay-100">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 backdrop-blur-md">
-                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-zinc-300 flex items-center gap-2">
-                  BUILDING IN PUBLIC
-                  <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
+              <div className="inline-flex items-center gap-3 rounded-full border border-ai-cyan/20 bg-ai-cyan/5 px-4 py-2 backdrop-blur-md shadow-[0_0_20px_rgba(0,255,255,0.05)]">
+                <div className="h-2 w-2 rounded-full bg-ai-cyan animate-pulse shadow-[0_0_8px_rgba(0,255,255,0.8)]" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-ai-cyan italic">
+                  Architecting Autonomous Futures
                 </span>
               </div>
             </div>
 
-            <h1 
-              className="animate-fade-in delay-200 text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-medium tracking-tighter leading-[1.0]"
-              style={{
-                maskImage: "linear-gradient(180deg, black 0%, black 80%, transparent 100%)",
-                WebkitMaskImage: "linear-gradient(180deg, black 0%, black 80%, transparent 100%)"
-              }}
-            >
-              Building AI Tools <br />
-              <span className="bg-gradient-to-br from-white via-white to-[#ffcd75] bg-clip-text text-transparent">
-                & SaaS Products
-              </span>
+            <h1 className="animate-fade-in delay-200 text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-heading font-bold tracking-tight leading-[0.9] text-white">
+              Ship AI tools <br />
+              <span className="text-gradient-ai">faster than ever.</span>
             </h1>
 
-            <p className="animate-fade-in delay-300 max-w-xl text-lg text-zinc-400 leading-relaxed">
-              Full-stack AI engineer building things that scale. 
-              <span className="text-white font-medium"> 8+ Products Shipped </span> including 
-              <span className="italic text-zinc-300"> Koda, Tenreq, DataWall, and more.</span>
+            <p className="animate-fade-in delay-300 max-w-xl text-lg sm:text-xl text-zinc-400 leading-relaxed font-sans">
+              I architect <span className="text-white font-medium">high-fidelity AI ecosystems</span> and SaaS products that scale. 
+              Currently shipping <span className="italic text-ai-cyan font-bold">Koda</span> — the mobile-first IDE.
             </p>
 
-            <div className="animate-fade-in delay-400 space-y-6">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button 
-                  onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-zinc-950 transition-all hover:scale-[1.02] hover:bg-zinc-200 active:scale-[0.98]"
-                >
-                  View Projects
+            <div className="animate-fade-in delay-400 flex flex-col sm:flex-row items-center gap-6 pt-4">
+              <button 
+                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                className="group relative w-full sm:w-auto overflow-hidden rounded-full p-[1px] transition-transform active:scale-95"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-ai-cyan via-ai-purple to-ai-magenta animate-spin-slow" />
+                <div className="relative flex items-center justify-center gap-2 rounded-full bg-bg-deep px-10 py-5 text-sm font-bold uppercase tracking-widest text-white transition-all group-hover:bg-transparent group-hover:text-black">
+                  Explore Artifacts
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </button>
-                
-                <button 
-                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/10"
-                >
-                  Contact Me
-                </button>
-              </div>
+                </div>
+              </button>
+              
+              <button 
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                className="group inline-flex items-center justify-center gap-3 rounded-full border border-white/10 bg-white/5 px-10 py-5 text-sm font-bold uppercase tracking-widest text-white backdrop-blur-md transition-all hover:bg-white/10 hover:border-white/20"
+              >
+                Connect
+              </button>
+            </div>
 
-              {/* Social Link Mini-Icons */}
-              <div className="flex items-center gap-6 pl-2">
-                <a href="https://instagram.com/buildwithsayyad" target="_blank" className="text-zinc-500 hover:text-white transition-colors flex items-center gap-2 text-xs font-medium">
-                  <InstagramIcon className="w-4 h-4" />
-                  @buildwithsayyad
-                </a>
-                <a href="https://github.com/SayyadAdeel-a" target="_blank" className="text-zinc-500 hover:text-white transition-colors flex items-center gap-2 text-xs font-medium">
-                  <GitHubIcon className="w-4 h-4" />
-                  GitHub
-                </a>
-                <a href="mailto:adeelsayyad.a@gmail.com" className="text-zinc-500 hover:text-white transition-colors flex items-center gap-2 text-xs font-medium">
-                  <Mail className="w-4 h-4" />
-                  Email
-                </a>
-              </div>
+            {/* Social Icons */}
+            <div className="animate-fade-in delay-500 flex items-center gap-8 pl-1 pt-4">
+              <a href="https://instagram.com/buildwithsayyad" target="_blank" className="text-zinc-500 hover:text-ai-cyan transition-all hover:scale-110">
+                <InstagramIcon className="w-5 h-5" />
+              </a>
+              <a href="https://github.com/SayyadAdeel-a" target="_blank" className="text-zinc-500 hover:text-ai-purple transition-all hover:scale-110">
+                <GitHubIcon className="w-5 h-5" />
+              </a>
+              <a href="mailto:adeelsayyad.a@gmail.com" className="text-zinc-500 hover:text-ai-magenta transition-all hover:scale-110">
+                <Mail className="w-5 h-5" />
+              </a>
             </div>
           </div>
 
-          <div className="lg:col-span-5 space-y-6 lg:mt-12">
-            <div className="animate-fade-in delay-500 relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl shadow-2xl">
-              <div className="relative z-10">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/20">
-                    <Target className="h-6 w-6 text-white" />
+          <div className="lg:col-span-5 relative mt-12 lg:mt-0">
+            <div className="animate-fade-in delay-500 relative z-20 glass-card p-1 rounded-[3rem] shadow-2xl">
+              <div className="glass-card rounded-[2.8rem] p-8 sm:p-12 overflow-hidden relative">
+                <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-40 h-40 bg-ai-cyan/20 blur-[60px] rounded-full" />
+                
+                <div className="relative z-10 flex flex-col space-y-10">
+                  <div className="flex items-center gap-5">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-ai-cyan/20 to-ai-purple/20 border border-white/10 shadow-inner">
+                      <Target className="h-8 w-8 text-white" />
+                    </div>
+                    <div>
+                      <div className="text-4xl font-heading font-bold tracking-tight text-white italic">8+</div>
+                      <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-ai-cyan">SaaS Shipped</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-3xl font-bold tracking-tight text-white">8+ Products Shipped</div>
-                    <div className="text-sm text-zinc-500">Koda • Tenreq • DataWall • AutoVideo</div>
-                  </div>
-                </div>
 
-                <div className="space-y-3 mb-8">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-zinc-400 italic">Building in Public</span>
-                    <span className="text-white font-medium">Active</span>
+                  <div className="space-y-4">
+                    <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest">
+                      <span className="text-zinc-500 italic flex items-center gap-2">
+                        <Zap size={12} className="text-yellow-500" />
+                        Live Metrics
+                      </span>
+                      <span className="text-white">Active Growth</span>
+                    </div>
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/5 border border-white/5 p-[1px]">
+                      <div className="h-full w-[85%] rounded-full bg-gradient-to-r from-ai-cyan via-ai-purple to-ai-magenta" />
+                    </div>
+                    <div className="flex justify-between text-[9px] text-zinc-500 font-medium">
+                      <span>Koda v1.2</span>
+                      <span>92% User Love</span>
+                    </div>
                   </div>
-                  <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-800/50">
-                    <div className="h-full w-[65%] rounded-full bg-gradient-to-r from-white to-zinc-400" />
+
+                  <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+                  <div className="grid grid-cols-2 gap-8 items-start">
+                    <StatItem value="12+" label="Months Shipping" />
+                    <StatItem value="AI-1st" label="Stack Focused" />
                   </div>
-                </div>
 
-                <div className="h-px w-full bg-white/10 mb-6" />
-
-                <div className="grid grid-cols-3 gap-2 text-center items-start">
-                  <StatItem value="12+" label="Months Shipping" />
-                  <div className="w-px h-10 bg-white/10 mx-auto mt-2" />
-                  <StatItem value="AI-First" label="Stack: OpenAI + Gemini" />
-                  <div className="w-px h-10 bg-white/10 mx-auto mt-2" />
-                  <StatItem value="Open to Work" label="SaaS & AI Collabs" />
-                </div>
-
-                <div className="mt-8 flex flex-wrap gap-2">
-                  <div className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-medium tracking-wide text-zinc-300">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                    </span>
-                    AVAILABLE
-                  </div>
-                  <div className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-medium tracking-wide text-zinc-300">
-                    <Crown className="w-3 h-3 text-yellow-500" />
-                    PREMIUM BUILDER
+                  <div className="pt-2 flex flex-wrap gap-2">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-ai-cyan/30 bg-ai-cyan/10 px-4 py-1.5 text-[9px] font-bold tracking-widest text-ai-cyan">
+                      <div className="h-2 w-2 rounded-full bg-ai-cyan animate-pulse" />
+                      AUTO-BUILDING
+                    </div>
+                    <div className="inline-flex items-center gap-2 rounded-full border border-ai-purple/30 bg-ai-purple/10 px-4 py-1.5 text-[9px] font-bold tracking-widest text-ai-purple uppercase">
+                      <Crown size={12} className="text-yellow-500" />
+                      AI Architect
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="animate-fade-in delay-500 relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 py-8 backdrop-blur-xl">
-              <h3 className="mb-6 px-8 text-sm font-medium text-zinc-400">Stack</h3>
+            {/* Technical Marquee Mini Card */}
+            <div className="animate-fade-in delay-500 mt-8 glass-card rounded-3xl py-6 overflow-hidden relative">
+              <h3 className="mb-4 px-8 text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-500 italic">Core Ecosystem</h3>
               
               <div 
                 className="relative flex overflow-hidden"
                 style={{
-                  maskImage: "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
-                  WebkitMaskImage: "linear-gradient(to right, transparent, black 20%, black 80%, transparent)"
+                  maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+                  WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)"
                 }}
               >
-                <div className="animate-marquee flex gap-12 whitespace-nowrap px-4 text-xs font-bold uppercase tracking-widest text-white/40">
+                <div className="animate-marquee flex gap-12 whitespace-nowrap px-4 text-[10px] font-bold uppercase tracking-[0.4em] text-white/30">
                   {[1,2,3].map(i => (
-                    <div key={i} className="flex gap-12 items-center">
-                      <span>Tailwind CSS</span>
-                      <span>Next.js</span>
-                      <span>TypeScript</span>
-                      <span>OpenAI API</span>
-                      <span>Cursor AI</span>
+                    <div key={i} className="flex gap-12 items-center italic">
+                      <span>Tailwind CSS v4</span>
+                      <span>Next.js 15</span>
+                      <span>Gemini 3.5</span>
+                      <span>Claude 3.7</span>
                       <span>Supabase</span>
-                      <span>Vercel</span>
+                      <span>Agentic Workflows</span>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-
+            
+            {/* Background Decorative Gradient */}
+            <div className="absolute -z-10 -bottom-20 -right-20 w-80 h-80 bg-ai-magenta/10 blur-[100px] rounded-full" />
           </div>
+
         </div>
       </div>
     </div>

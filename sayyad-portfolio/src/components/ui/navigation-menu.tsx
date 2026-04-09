@@ -121,15 +121,15 @@ export default function NavigationMenu() {
         whileTap={!isExpanded ? { scale: 0.95 } : {}}
         onClick={handleNavClick}
         className={cn(
-          "flex items-center overflow-hidden rounded-full border border-white/10 bg-zinc-950/80 shadow-2xl backdrop-blur-md h-12 px-2 transition-colors",
-          !isExpanded && "cursor-pointer justify-center px-0"
+          "flex items-center overflow-hidden rounded-full h-12 px-2 transition-all duration-500 glass-card border-white/10",
+          !isExpanded && "cursor-pointer justify-center px-0 w-12"
         )}
       >
         <motion.div
           variants={logoVariants}
-          className="flex-shrink-0 flex items-center font-bold px-4"
+          className="flex-shrink-0 flex items-center font-heading font-bold px-4"
         >
-          <div className="w-6 h-6 rounded bg-white flex items-center justify-center text-zinc-950 text-xs">S</div>
+          <div className="w-6 h-6 rounded bg-ai-cyan flex items-center justify-center text-zinc-950 text-xs shadow-[0_0_10px_rgba(0,255,255,0.5)]">S</div>
         </motion.div>
         
         <motion.div
@@ -147,10 +147,10 @@ export default function NavigationMenu() {
                 e.stopPropagation();
                 scrollToSection(e, item.href);
               }}
-              className="group flex items-center gap-2 text-xs font-semibold text-zinc-400 hover:text-white transition-colors px-3 py-1.5 rounded-full hover:bg-white/5 active:bg-white/10 uppercase tracking-widest"
+              className="group flex items-center gap-2 text-[10px] font-bold text-zinc-400 hover:text-ai-cyan transition-colors px-3 py-1.5 rounded-full hover:bg-ai-cyan/5 active:bg-ai-cyan/10 uppercase tracking-[0.2em]"
             >
               <item.icon className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">{item.name}</span>
+              <span className="hidden lg:inline">{item.name}</span>
             </motion.a>
           ))}
         </motion.div>

@@ -64,38 +64,39 @@ const thirdColumn = testimonials.slice(6, 9);
 
 const Testimonials = () => {
   return (
-    <section id="testimonials" className="bg-zinc-950 py-24 sm:py-32 relative overflow-hidden">
+    <section id="testimonials" className="bg-transparent py-24 sm:py-32 relative overflow-hidden">
       <div className="container z-10 mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="flex flex-col items-center justify-center max-w-2xl mx-auto mb-16"
+          className="flex flex-col items-center justify-center max-w-2xl mx-auto mb-20"
         >
           <div className="flex justify-center mb-6">
-            <div className="border border-white/10 bg-white/5 py-1 px-4 rounded-full text-[10px] font-bold uppercase tracking-widest text-zinc-400">
-              Wall of Trust
+             <div className="inline-flex items-center gap-2 rounded-full border border-ai-cyan/20 bg-ai-cyan/5 px-5 py-2 text-[10px] font-bold uppercase tracking-[0.4em] text-ai-cyan">
+              Validation
             </div>
           </div>
 
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-white text-center italic leading-tight">
-            What the builders <span className="text-zinc-500">say about us</span>
+          <h2 className="text-5xl sm:text-7xl font-heading font-bold tracking-tight text-white text-center leading-[1.05]">
+            Global Builder <br />
+            <span className="text-gradient-ai text-glow-cyan">Testimonials.</span>
           </h2>
-          <p className="text-center mt-6 text-zinc-400 text-lg italic max-w-lg">
-            A look into the collaborations and products shipped in the AI-first ecosystem.
+          <p className="text-center mt-8 text-zinc-500 text-lg leading-relaxed max-w-lg font-sans italic opacity-80">
+            Collaborating with founders and engineers to architect the next wave of intelligent agents.
           </p>
         </motion.div>
 
-        <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)] max-h-[740px] overflow-hidden">
-          <TestimonialsColumn testimonials={firstColumn} duration={25} />
-          <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={35} />
-          <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={28} />
+        <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)] max-h-[800px] overflow-hidden">
+          <TestimonialsColumn testimonials={firstColumn} duration={35} />
+          <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={45} />
+          <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={40} />
         </div>
       </div>
       
       {/* Decorative Blur */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/[0.02] blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-ai-purple/5 blur-[150px] rounded-full pointer-events-none opacity-20" />
     </section>
   );
 };

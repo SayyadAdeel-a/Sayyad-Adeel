@@ -32,19 +32,19 @@ export const TestimonialsColumn = (props: {
           ...new Array(2).fill(0).map((_, index) => (
             <React.Fragment key={index}>
               {props.testimonials.map(({ text, image, name, role }, i) => (
-                <div className="p-10 rounded-3xl border border-white/10 bg-white/5 shadow-lg shadow-white/5 max-w-xs w-full" key={i}>
-                  <div className="text-zinc-300 italic">"{text}"</div>
-                  <div className="flex items-center gap-2 mt-5">
+                <div className="p-8 sm:p-10 rounded-[2.5rem] glass-card border-white/5 shadow-2xl max-w-xs w-full group/card transition-all duration-500 hover:-translate-y-2 hover:border-white/20" key={i}>
+                  <div className="text-zinc-400 font-sans italic leading-relaxed text-sm sm:text-base">"{text}"</div>
+                  <div className="flex items-center gap-4 mt-8">
                     <img
-                      width={40}
-                      height={40}
+                      width={48}
+                      height={48}
                       src={image}
                       alt={name}
-                      className="h-10 w-10 rounded-full grayscale border border-white/10"
+                      className="h-12 w-12 rounded-full grayscale group-hover/card:grayscale-0 transition-all duration-700 border-2 border-white/10"
                     />
                     <div className="flex flex-col">
-                      <div className="font-medium tracking-tight leading-5 text-white">{name}</div>
-                      <div className="leading-5 opacity-60 tracking-tight text-zinc-500 text-xs">{role}</div>
+                      <div className="font-heading font-bold tracking-tight text-white leading-tight uppercase text-xs">{name}</div>
+                      <div className="leading-5 opacity-60 tracking-widest text-zinc-500 text-[10px] font-bold uppercase">{role}</div>
                     </div>
                   </div>
                 </div>

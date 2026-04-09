@@ -1,0 +1,59 @@
+## UI Pro Max Search Results
+**Domain:** color | **Query:** AI tech
+**Source:** colors.csv | **Found:** 5 results
+
+### Result 1
+- **Product Type:** Pet Tech App
+- **Keywords:** pet, tech, app
+- **Primary (Hex):** #3B82F6
+- **Secondary (Hex):** #60A5FA
+- **CTA (Hex):** #F97316
+- **Background (Hex):** #F8FAFC
+- **Text (Hex):** #1E293B
+- **Border (Hex):** #E2E8F0
+- **Notes:** Playful + Warm colors
+
+### Result 2
+- **Product Type:** Agriculture/Farm Tech
+- **Keywords:** agriculture, farm, tech
+- **Primary (Hex):** #3B82F6
+- **Secondary (Hex):** #60A5FA
+- **CTA (Hex):** #F97316
+- **Background (Hex):** #F8FAFC
+- **Text (Hex):** #1E293B
+- **Border (Hex):** #E2E8F0
+- **Notes:** Earth Green (#4A7C23) + Brown + Sky Blue
+
+### Result 3
+- **Product Type:** Space Tech / Aerospace
+- **Keywords:** space, aerospace, tech, futuristic
+- **Primary (Hex):** #FFFFFF
+- **Secondary (Hex):** #94A3B8
+- **CTA (Hex):** #3B82F6
+- **Background (Hex):** #0B0B10
+- **Text (Hex):** #F8FAFC
+- **Border (Hex):** #1E293B
+- **Notes:** Deep Space Black + Star White + Metallic
+
+### Result 4
+- **Product Type:** Fintech/Crypto
+- **Keywords:** fintech, crypto
+- **Primary (Hex):** #F59E0B
+- **Secondary (Hex):** #FBBF24
+- **CTA (Hex):** #8B5CF6
+- **Background (Hex):** #0F172A
+- **Text (Hex):** #F8FAFC
+- **Border (Hex):** #334155
+- **Notes:** Dark tech colors + trust + vibrant accents
+
+### Result 5
+- **Product Type:** Quantum Computing
+- **Keywords:** quantum, qubit, tech
+- **Primary (Hex):** #00FFFF
+- **Secondary (Hex):** #7B61FF
+- **CTA (Hex):** #FF00FF
+- **Background (Hex):** #050510
+- **Text (Hex):** #E0E0FF
+- **Border (Hex):** #333344
+- **Notes:** Interference patterns + Neon + Deep Dark
+

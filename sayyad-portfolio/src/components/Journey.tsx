@@ -4,9 +4,9 @@ import { Zap, Target, Rocket, GraduationCap, Code } from "lucide-react";
 const journeyData = [
   {
     id: 1,
-    title: "The Beginning",
+    title: "Logic Genesis",
     date: "Early 2023",
-    content: "Dived into web development, mastering HTML, CSS, and JavaScript. Completed 50+ tutorials and built 5 foundational web apps.",
+    content: "Mastered full-stack fundamentals. Built 50+ experimental projects exploring React, Node.js, and architectural patterns.",
     category: "Learning",
     icon: GraduationCap,
     relatedIds: [2],
@@ -15,9 +15,9 @@ const journeyData = [
   },
   {
     id: 2,
-    title: "Landlord-Tenant Tracker",
+    title: "First Deployment",
     date: "June 2023",
-    content: "Launched my first production app. A productivity tool for property management deployed to 10+ beta testers for real-world feedback.",
+    content: "Launched my first SaaS: A property management suite. Deployed to beta testers in Pakistan, providing real-world productivity value.",
     category: "Product",
     icon: Target,
     relatedIds: [1, 3],
@@ -26,9 +26,9 @@ const journeyData = [
   },
   {
     id: 3,
-    title: "Creator Tools Hub",
-    date: "September 2023",
-    content: "Developed VidToolbox, a comprehensive platform with 60+ AI-powered modules. First taste of scaling a complex SaaS project.",
+    title: "Scaling Complexity",
+    date: "Sept 2023",
+    content: "Developed VidToolbox. Architected a multi-modular hub with 60+ toolsets, handling complex state and high-velocity rendering.",
     category: "Project",
     icon: Rocket,
     relatedIds: [2, 4],
@@ -37,9 +37,9 @@ const journeyData = [
   },
   {
     id: 4,
-    title: "AI Integration Mastery",
-    date: "January 2024",
-    content: "Deep dived into AI Agent frameworks and LLM integrations. Mastered OpenAI SDK and Gemini API, shipping 3 automated AI tools in 4 weeks.",
+    title: "AI Paradigm Shift",
+    date: "Jan 2024",
+    content: "Pivoted to AI-First development. Mastered agentic frameworks, shipping automated LLM workers and autonomous research tools.",
     category: "Growth",
     icon: Zap,
     relatedIds: [3, 5],
@@ -48,10 +48,10 @@ const journeyData = [
   },
   {
     id: 5,
-    title: "Koda - Mobile First Dev",
-    date: "March 2024",
-    content: "The current mission: 'Ship code from your phone'. Building a revolutionary mobile IDE. 100+ commits and 5 core modules ready.",
-    category: "Present",
+    title: "The Koda Mission",
+    date: "Present",
+    content: "Building the world's most powerful mobile IDE. Redefining how we ship production code using agentic workflows on high-fidelity mobile interfaces.",
+    category: "Focus",
     icon: Code,
     relatedIds: [4],
     status: "in-progress" as const,
@@ -61,27 +61,52 @@ const journeyData = [
 
 export default function Journey() {
   return (
-    <section id="journey" className="py-24 bg-zinc-950 overflow-hidden relative">
+    <section id="journey" className="py-24 sm:py-32 bg-transparent overflow-hidden relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16">
-          <h2 className="text-4xl font-bold tracking-tight text-white mb-4 italic leading-tight">My Journey</h2>
-          <p className="text-zinc-500 italic max-w-2xl">
-            A visual representation of my growth, the projects I've built, and the milestones I've reached in the world of tech and AI.
+        
+        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+          <div className="max-w-xl space-y-4">
+            <div className="inline-flex items-center gap-2 rounded-full border border-ai-magenta/20 bg-ai-magenta/5 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-ai-magenta shadow-[0_0_15px_rgba(255,0,255,0.1)]">
+              Evolution
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-heading font-bold tracking-tight text-white leading-tight">
+              The Path of an <br/>
+              <span className="text-gradient-ai italic">AI Builder.</span>
+            </h2>
+          </div>
+          <p className="text-zinc-500 max-w-sm italic text-lg leading-relaxed font-sans group-hover:text-zinc-400 transition-colors duration-700">
+            A non-linear journey through pixels, logic, and intelligent agents.
           </p>
         </div>
         
-        <div className="h-[700px] border border-white/5 rounded-[2.5rem] bg-white/[0.02] shadow-2xl relative">
-            <RadialOrbitalTimeline timelineData={journeyData} />
-            
-            {/* Legend or hint */}
-            <div className="absolute bottom-10 left-10 text-zinc-500 text-xs flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-white"></div>
-                    <span>Completed</span>
+        <div className="h-[750px] p-1 glass-2 rounded-[3.5rem] relative group border-white/5 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)]">
+            <div className="w-full h-full rounded-[3.4rem] bg-bg-deep/50 overflow-hidden relative">
+                <RadialOrbitalTimeline timelineData={journeyData} />
+                
+                {/* Interface Hints */}
+                <div className="absolute top-10 left-10 p-6 glass-3 border-white/20 rounded-3xl hidden lg:block backdrop-blur-3xl shadow-2xl">
+                  <div className="flex items-center gap-4">
+                    <div className="flex -space-x-2">
+                       <div className="w-7 h-7 rounded-full border-2 border-bg-deep bg-ai-cyan shadow-[0_0_10px_rgba(0,255,255,0.5)]" />
+                       <div className="w-7 h-7 rounded-full border-2 border-bg-deep bg-ai-purple shadow-[0_0_10px_rgba(123,97,255,0.5)]" />
+                       <div className="w-7 h-7 rounded-full border-2 border-bg-deep bg-ai-magenta shadow-[0_0_10px_rgba(255,0,255,0.5)]" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-[10px] font-extrabold uppercase tracking-[0.3em] text-white">Multimodal Journey</span>
+                      <span className="text-[8px] text-zinc-500 uppercase tracking-widest font-bold">Node Visualization v4.2</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-white/20 border border-white"></div>
-                    <span>In Progress</span>
+
+                <div className="absolute bottom-10 left-10 text-zinc-500 text-[10px] font-extrabold uppercase tracking-[0.4em] flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-12 italic">
+                    <div className="flex items-center gap-3 group/node cursor-default">
+                        <div className="w-3 h-3 rounded-full bg-ai-cyan shadow-[0_0_15px_rgba(0,255,255,0.9)] transition-all group-hover/node:scale-125" />
+                        <span className="group-hover/node:text-ai-cyan transition-colors">Completed Node</span>
+                    </div>
+                    <div className="flex items-center gap-3 group/node cursor-default">
+                        <div className="w-3 h-3 rounded-full bg-white animate-pulse transition-all group-hover/node:scale-125" />
+                        <span className="group-hover/node:text-white transition-colors">In Mutation</span>
+                    </div>
                 </div>
             </div>
         </div>
