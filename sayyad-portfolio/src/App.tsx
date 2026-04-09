@@ -4,10 +4,12 @@ import About from '@/components/About'
 import Services from '@/components/Services'
 import Skills from '@/components/Skills'
 import Journey from '@/components/Journey'
+import Testimonials from '@/components/Testimonials'
 import Projects from '@/components/Projects'
-import CurrentFocus from '@/components/CurrentFocus'
+import Newsletter from '@/components/Newsletter'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
+import FloatingCTA from '@/components/FloatingCTA'
 
 function App() {
   return (
@@ -19,11 +21,13 @@ function App() {
         <Services />
         <Skills />
         <Journey />
+        <Testimonials />
         <Projects />
-        <CurrentFocus />
+        <Newsletter />
         <Contact />
       </div>
       <Footer />
+      <FloatingCTA />
     </main>
   )
 }

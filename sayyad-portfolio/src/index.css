@@ -36,3 +36,4 @@
   backdrop-filter: blur(24px);
 }
 
+@keyframes shine { from { left: -100%; } to { left: 100%; } } .animate-shine { animation: shine 1.5s ease-in-out infinite; }

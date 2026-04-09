@@ -26,27 +26,82 @@ export default function Contact() {
             </button>
           </div>
 
-          <div className="flex-grow grid grid-cols-1 sm:grid-cols-2 gap-4 lg:grid-cols-1">
-            {socialLinks.map((link, index) => (
-              <a 
-                key={index}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-between p-6 rounded-3xl border border-white/10 bg-white/5 transition-all hover:bg-white/10 hover:border-white/20"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-white/10 flex items-center justify-center group-hover:bg-zinc-800 transition-all">
-                    <link.icon className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-zinc-500 uppercase tracking-widest">{link.name}</div>
-                    <div className="text-lg font-medium text-white">{link.value}</div>
-                  </div>
-                </div>
-                <ArrowRight className="w-5 h-5 text-zinc-600 transition-all group-hover:translate-x-1 group-hover:text-white" />
-              </a>
-            ))}
+          <div className="flex-grow">
+            <form 
+              action="https://formspree.io/f/mjgpdolb" 
+              method="POST"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-10 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-xl"
+            >
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest px-2">Name</label>
+                <input 
+                  type="text" 
+                  name="name" 
+                  required
+                  placeholder="Your Name"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-white placeholder:text-zinc-700 focus:outline-none focus:border-white/30 transition-all italic"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest px-2">Email</label>
+                <input 
+                  type="email" 
+                  name="email" 
+                  required
+                  placeholder="your@email.com"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-white placeholder:text-zinc-700 focus:outline-none focus:border-white/30 transition-all italic"
+                />
+              </div>
+              <div className="sm:col-span-2 space-y-2">
+                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest px-2">Project Type</label>
+                <select 
+                  name="project_type"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-white appearance-none focus:outline-none focus:border-white/30 transition-all italic"
+                  required
+                >
+                  <option value="" className="bg-zinc-950">Select what we're building...</option>
+                  <option value="AI Tool / Agent" className="bg-zinc-950">AI Tool / Agent</option>
+                  <option value="SaaS MVP" className="bg-zinc-950">SaaS MVP</option>
+                  <option value="Mobile App (Flutter)" className="bg-zinc-950">Mobile App (Flutter)</option>
+                  <option value="Consultation" className="bg-zinc-950">Consultation</option>
+                </select>
+              </div>
+              <div className="sm:col-span-2 space-y-2">
+                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest px-2">Message</label>
+                <textarea 
+                  name="message" 
+                  rows={4}
+                  required
+                  placeholder="Tell me about your vision..."
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-white placeholder:text-zinc-700 focus:outline-none focus:border-white/30 transition-all italic"
+                />
+              </div>
+              
+              <div className="sm:col-span-2 pt-4">
+                <button 
+                  type="submit"
+                  className="w-full group flex items-center justify-center gap-3 bg-white text-black py-5 rounded-2xl font-bold text-sm hover:bg-zinc-200 transition-all active:scale-[0.98]"
+                >
+                  Initiate Project
+                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </form>
+
+            <div className="mt-8 flex flex-wrap justify-center gap-8">
+              {socialLinks.map((link, index) => (
+                <a 
+                  key={index}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 group"
+                >
+                  <link.icon className="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" />
+                  <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest group-hover:text-white transition-colors">{link.name}</span>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 

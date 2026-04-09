@@ -13,16 +13,16 @@ export default function About() {
             </div>
             
             <h2 className="text-4xl sm:text-5xl font-medium tracking-tight text-white leading-tight">
-              A 17-year-old builder crafting <br />
-              <span className="text-zinc-500 italic">the future of AI.</span>
+              Teen AI builder turning ideas into <br />
+              <span className="text-zinc-500 italic">shipped SaaS products.</span>
             </h2>
 
             <div className="space-y-6 text-lg text-zinc-400 leading-relaxed">
               <p>
-                Based in <span className="text-white font-medium">Swat, Pakistan</span>, I focus on building AI-powered tools that turn simple ideas into real digital products. I enjoy creating SaaS tools, automations and web apps that solve real-world problems.
+                Based in <span className="text-white font-medium">Swat, Pakistan</span>, I’m a full-stack engineer focused on building tools that scale. From mobile IDEs to AI-powered automations, I specialize in turning complex problems into elegant, production-ready software.
               </p>
               <p>
-                My mission is to simplify complex workflows using AI and build products that are fast, useful and accessible to everyone.
+                My mission is to simplify workflows using AI and build products that are fast, useful, and accessible to everyone. Currently shipping weekly and building in public.
               </p>
             </div>
 
@@ -57,7 +57,7 @@ export default function About() {
                 <div className="rounded-[40px] border border-white/10 bg-white/5 p-3 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
                   <div className="aspect-[4/5] overflow-hidden rounded-[32px] bg-zinc-900">
                     <img 
-                      src="/my iamge.jpg"
+                      src="/profile.jpg"
                       alt="Sayyad Adeel"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       onError={(e) => (e.currentTarget.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop")}

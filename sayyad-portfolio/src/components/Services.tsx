@@ -1,33 +1,19 @@
-import { Bot, Zap, Video, Search } from 'lucide-react';
+import { Bot, Zap } from 'lucide-react';
 
 const services = [
   {
     title: "AI Tool Development",
-    description: "Building AI-powered web and mobile apps using modern no-code and AI workflows.",
+    description: "Building AI-powered web and mobile apps using modern AI agent frameworks and LLM integrations.",
     icon: Bot,
     color: "from-cyan-500/20 to-blue-500/20",
     iconColor: "text-cyan-400"
   },
   {
     title: "SaaS & Automation",
-    description: "Creating tools that automate tasks and solve real-world problems for users.",
+    description: "Creating full-stack SaaS platforms that automate complex workflows and solve real-world problems.",
     icon: Zap,
     color: "from-purple-500/20 to-indigo-500/20",
     iconColor: "text-purple-400"
-  },
-  {
-    title: "Video Editing & Design",
-    description: "Creating content, visuals, and simple branding with 1 year of experience.",
-    icon: Video,
-    color: "from-pink-500/20 to-rose-500/20",
-    iconColor: "text-pink-400"
-  },
-  {
-    title: "Basic SEO",
-    description: "Optimizing projects and websites for better discoverability and organic reach.",
-    icon: Search,
-    color: "from-emerald-500/20 to-teal-500/20",
-    iconColor: "text-emerald-400"
   }
 ];
 

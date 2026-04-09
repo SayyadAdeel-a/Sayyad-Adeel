@@ -6,9 +6,11 @@ export default function Footer() {
           <div className="text-zinc-500 text-sm font-medium tracking-widest uppercase text-center md:text-left leading-relaxed">
             © 2026 Sayyad Adeel — Building AI tools from Swat, Pakistan
           </div>
-          <div className="flex gap-8 text-xs font-bold text-zinc-600 uppercase tracking-widest">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-[10px] font-bold text-zinc-600 uppercase tracking-widest">
             <a href="#about" className="hover:text-white transition-colors">About</a>
-            <a href="#projects" className="hover:text-white transition-colors">Projects</a>
+            <a href="#journey" className="hover:text-white transition-colors">Journey</a>
+            <a href="#testimonials" className="hover:text-white transition-colors">Wall of Love</a>
+            <a href="#projects" className="hover:text-white transition-colors">Products</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
           </div>
         </div>

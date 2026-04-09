@@ -77,8 +77,9 @@ export default function HeroSection() {
             </h1>
 
             <p className="animate-fade-in delay-300 max-w-xl text-lg text-zinc-400 leading-relaxed">
-              I turn ideas into real AI-powered tools, web apps and automations. 
-              Building in public and sharing the journey.
+              Full-stack AI engineer building things that scale. 
+              <span className="text-white font-medium"> 8+ Products Shipped </span> including 
+              <span className="italic text-zinc-300"> Koda, Tenreq, DataWall, and more.</span>
             </p>
 
             <div className="animate-fade-in delay-400 space-y-6">
@@ -125,8 +126,8 @@ export default function HeroSection() {
                     <Target className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <div className="text-3xl font-bold tracking-tight text-white">2+ Projects Built</div>
-                    <div className="text-sm text-zinc-500">Real tools shipped</div>
+                    <div className="text-3xl font-bold tracking-tight text-white">8+ Products Shipped</div>
+                    <div className="text-sm text-zinc-500">Koda • Tenreq • DataWall • AutoVideo</div>
                   </div>
                 </div>
 
@@ -143,11 +144,11 @@ export default function HeroSection() {
                 <div className="h-px w-full bg-white/10 mb-6" />
 
                 <div className="grid grid-cols-3 gap-2 text-center items-start">
-                  <StatItem value="1+" label="Building & Learning" />
+                  <StatItem value="12+" label="Months Shipping" />
                   <div className="w-px h-10 bg-white/10 mx-auto mt-2" />
-                  <StatItem value="AI Focused" label="Tools & Automation" />
+                  <StatItem value="AI-First" label="Stack: OpenAI + Gemini" />
                   <div className="w-px h-10 bg-white/10 mx-auto mt-2" />
-                  <StatItem value="Open to Work" label="Freelance & Collabs" />
+                  <StatItem value="Open to Work" label="SaaS & AI Collabs" />
                 </div>
 
                 <div className="mt-8 flex flex-wrap gap-2">

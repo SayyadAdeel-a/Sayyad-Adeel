@@ -1,37 +1,63 @@
-import { Code2, Layout, Terminal, Blocks, Search, Smartphone, Bot, Zap, Video } from 'lucide-react';
+import { Code2, Server, Bot, Terminal } from 'lucide-react';
+
+const skillCategories = [
+  {
+    name: "Frontend",
+    icon: Code2,
+    skills: ["React.js", "Next.js", "Flutter", "TypeScript", "Tailwind CSS"]
+  },
+  {
+    name: "Backend",
+    icon: Server,
+    skills: ["Supabase", "Node.js", "Edge Functions", "PostgreSQL", "REST APIs"]
+  },
+  {
+    name: "AI & ML",
+    icon: Bot,
+    skills: ["OpenAI API", "Google Gemini", "Prompt Engineering", "AI Agent Frameworks"]
+  },
+  {
+    name: "Tools & DevOps",
+    icon: Terminal,
+    skills: ["Git/GitHub", "Vercel", "Cursor IDE", "Figma", "CI/CD"]
+  }
+];
 
 export default function Skills() {
-  const skillList = [
-    { name: "AI Development", icon: Bot },
-    { name: "No-Code Tools", icon: Blocks },
-    { name: "Web App Building", icon: Code2 },
-    { name: "Mobile App Prototyping", icon: Smartphone },
-    { name: "Automation Workflows", icon: Zap },
-    { name: "Prompt Engineering", icon: Terminal },
-    { name: "Video Editing", icon: Video },
-    { name: "UI Design", icon: Layout },
-    { name: "Basic SEO", icon: Search },
-  ];
-
   return (
     <section id="skills" className="py-24 bg-zinc-950">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-white mb-4">Skills & Tools</h2>
-          <div className="h-1 w-20 bg-white/20 mx-auto rounded-full" />
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+          <div className="max-w-xl text-left">
+            <h2 className="text-4xl font-bold tracking-tight text-white mb-4 italic leading-tight">My Stack</h2>
+            <p className="text-zinc-500 italic">Built for speed, scale, and intelligence.</p>
+          </div>
+          <div className="text-zinc-500 text-sm font-medium tracking-widest uppercase">
+            Modern AI-First Architecture
+          </div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-4">
-          {skillList.map((skill, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {skillCategories.map((category, index) => (
             <div 
               key={index}
-              className="inline-flex items-center gap-3 rounded-2xl border border-white/5 bg-white/[0.03] px-6 py-4 backdrop-blur-md transition-all hover:bg-white/[0.08] hover:border-white/10 hover:-translate-y-1 group"
+              className="group p-8 rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-md transition-all hover:bg-white/[0.05] hover:border-white/10"
             >
-              <skill.icon className="w-5 h-5 text-zinc-500 group-hover:text-white transition-colors" />
-              <span className="text-sm font-medium text-zinc-400 group-hover:text-white transition-colors">
-                {skill.name}
-              </span>
+              <div className="w-12 h-12 rounded-2xl bg-zinc-900 border border-white/10 flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
+                <category.icon className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-4 italic">{category.name}</h3>
+              <div className="flex flex-wrap gap-2">
+                {category.skills.map((skill, sIndex) => (
+                  <span 
+                    key={sIndex}
+                    className="text-xs font-medium px-3 py-1.5 rounded-full bg-white/5 text-zinc-400 group-hover:text-white transition-colors border border-white/5 shadow-sm"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
           ))}
         </div>
