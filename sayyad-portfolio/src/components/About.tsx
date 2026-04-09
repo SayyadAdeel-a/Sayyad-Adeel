@@ -1,8 +1,10 @@
 import { Target, User, Rocket } from 'lucide-react';
+import { BGPattern } from '@/components/ui/bg-pattern';
 
 export default function About() {
   return (
     <section id="about" className="relative py-24 sm:py-32 overflow-hidden bg-zinc-950">
+      <BGPattern variant="grid" size={40} fill="#ffffff10" mask="fade-edges" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
