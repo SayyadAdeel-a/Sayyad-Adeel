@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import HeroSection from '@/components/ui/glassmorphism-trust-hero'
 import NavigationMenu from '@/components/ui/navigation-menu'
 import About from '@/components/About'
@@ -22,6 +23,7 @@ function App() {
         <Contact />
       </div>
       <Footer />
+      <Analytics />
     </main>
   )
 }
