@@ -16,7 +16,7 @@ interface Rotation {
   y: number
 }
 
-export function use3DTransform(ref: React.RefObject<HTMLElement>) {
+export function use3DTransform(ref: React.RefObject<HTMLElement | null>) {
   const [rotation, setRotation] = React.useState<Rotation>({ x: 0, y: 0 })
   const { isMobile } = useGlassEffect()
 
