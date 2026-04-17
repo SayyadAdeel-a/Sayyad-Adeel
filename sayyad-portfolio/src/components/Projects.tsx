@@ -68,7 +68,7 @@ const projects = [
 ];
 
 function ProjectCard({ project, index, isInView, isMobile }: any) {
-  const cardRef = useRef(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"]

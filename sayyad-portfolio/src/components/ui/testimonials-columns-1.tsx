@@ -13,7 +13,7 @@ interface Testimonial {
 }
 
 const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
-  const cardRef = useRef(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const { rotation } = use3DTransform(cardRef);
   const { isMobile } = useGlassEffect();
 
