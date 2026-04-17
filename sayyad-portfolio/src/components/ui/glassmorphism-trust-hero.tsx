@@ -57,7 +57,7 @@ export default function HeroSection() {
             <div className="animate-fade-in delay-100">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 backdrop-blur-md">
                 <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-zinc-300 flex items-center gap-2">
-                  BUILDING IN PUBLIC
+                  AI-NATIVE PRODUCT BUILDER
                   <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
                 </span>
               </div>
@@ -70,16 +70,14 @@ export default function HeroSection() {
                 WebkitMaskImage: "linear-gradient(180deg, black 0%, black 80%, transparent 100%)"
               }}
             >
-              Building AI Tools <br />
+              Architecting the Future <br />
               <span className="bg-gradient-to-br from-white via-white to-[#ffcd75] bg-clip-text text-transparent">
-                & SaaS Products
+                with AI Agents
               </span>
             </h1>
 
             <p className="animate-fade-in delay-300 max-w-xl text-lg text-zinc-400 leading-relaxed">
-              Full-stack AI engineer building things that scale. 
-              <span className="text-white font-medium"> 8+ Products Shipped </span> including 
-              <span className="italic text-zinc-300"> Koda, Tenreq, DataWall, and more.</span>
+              I don't just write code; I orchestrate <span className="text-white font-medium">Claude Code, Copilot, and Gemini</span> to ship scalable SaaS products at lightspeed. From concept to deployment, I solve complex problems using AI-first workflows.
             </p>
 
             <div className="animate-fade-in delay-400 space-y-6">

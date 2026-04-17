@@ -5,7 +5,7 @@ import WaitlistModal from './WaitlistModal';
 const projects = [
   {
     title: "Koda - AI Mobile IDE",
-    description: "Full-featured code editor for Android with AI-powered assistance. Monaco-inspired editor, ANSI terminal, and live tool execution.",
+    description: "Full-featured code editor for Android with AI-powered assistance. Solved mobile coding limitations by directing AI to build a Monaco-inspired editor and ANSI terminal in record time. Built by orchestrating AI agents to handle complex logic and UI generation.",
     highlights: ["Built with Flutter from scratch", "AI chat with tool use capabilities", "File explorer + ANSI terminal", "Live code execution"],
     image: "/koda-mockup.png",
     link: "#",
@@ -17,7 +17,7 @@ const projects = [
   },
   {
     title: "Landlord Tenant Tracker",
-    description: "A smart system designed to simplify communication between tenants and landlords by tracking requests and sending real-time notifications.",
+    description: "A smart system designed to simplify communication. Solved tenant-landlord friction by directing AI to build a real-time tracking dashboard in record time. Built by orchestrating AI agents to handle complex logic and UI generation.",
     highlights: ["Request tracking dashboard", "Notifications & updates", "Real-world productivity tool"],
     image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1000&auto=format&fit=crop",
     link: "https://tenreq.qzz.io/",
@@ -26,7 +26,7 @@ const projects = [
   },
   {
     title: "DataWall",
-    description: "Secure data visualization and management platform for teams. Featuring real-time sync and custom dashboard builder.",
+    description: "Secure data visualization and management platform. Solved data silos by directing AI to build a custom dashboard builder with real-time sync in record time. Built by orchestrating AI agents to handle complex logic and UI generation.",
     highlights: ["Real-time data sync", "Role-based access control", "Custom dashboard builder"],
     image: "https://images.unsplash.com/photo-1551288049-bbbda536339a?q=80&w=1000&auto=format&fit=crop",
     link: "#",
@@ -35,7 +35,7 @@ const projects = [
   },
   {
     title: "AutoVideo AI",
-    description: "AI-powered video automation tool for content creators. Automated editing and AI script generation.",
+    description: "AI-powered video automation tool. Solved manual video editing by directing AI to build automated scripting and batch processing pipelines in record time. Built by orchestrating AI agents to handle complex logic and UI generation.",
     highlights: ["Automated video editing", "AI script generation", "Batch processing"],
     image: "https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=1000&auto=format&fit=crop",
     link: "#",
@@ -44,7 +44,7 @@ const projects = [
   },
   {
     title: "everywheres.app",
-    description: "Location-based productivity and habit tracking. Geofenced reminders and privacy-first design.",
+    description: "Location-based productivity tracker. Solved habit inconsistency by directing AI to build geofenced reminders in record time. Built by orchestrating AI agents to handle complex logic and UI generation.",
     highlights: ["Geofenced reminders", "Location-based habits", "Privacy-first design"],
     image: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=1000&auto=format&fit=crop",
     link: "https://everywheres.app",
@@ -53,7 +53,7 @@ const projects = [
   },
   {
     title: "Creator Tools Hub",
-    description: "An all-in-one platform featuring 60+ AI tools and generators designed to help creators work faster.",
+    description: "An all-in-one creator platform. Solved workflow fragmentation by directing AI to build 60+ integrated tools in record time. Built by orchestrating AI agents to handle complex logic and UI generation.",
     highlights: ["60+ AI powered tools", "Built for creators & students", "Productivity focused platform"],
     image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop",
     link: "https://vidtoolbox.qzz.io/",

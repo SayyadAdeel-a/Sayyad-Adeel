@@ -2,24 +2,24 @@ import { Code2, Server, Bot, Terminal } from 'lucide-react';
 
 const skillCategories = [
   {
-    name: "Frontend",
+    name: "Primary Agents",
+    icon: Bot,
+    skills: ["Claude Code", "GitHub Copilot", "Google Gemini", "Cursor AI"]
+  },
+  {
+    name: "Frontend Deployed",
     icon: Code2,
     skills: ["React.js", "Next.js", "Flutter", "TypeScript", "Tailwind CSS"]
   },
   {
-    name: "Backend",
+    name: "Backend Deployed",
     icon: Server,
     skills: ["Supabase", "Node.js", "Edge Functions", "PostgreSQL", "REST APIs"]
   },
   {
-    name: "AI & ML",
-    icon: Bot,
-    skills: ["OpenAI API", "Google Gemini", "Prompt Engineering", "AI Agent Frameworks"]
-  },
-  {
-    name: "Tools & DevOps",
+    name: "Orchestration & Tools",
     icon: Terminal,
-    skills: ["Git/GitHub", "Vercel", "Cursor IDE", "Figma", "CI/CD"]
+    skills: ["Prompt Engineering", "System Architecture", "Git/GitHub", "Vercel"]
   }
 ];
 
@@ -30,11 +30,11 @@ export default function Skills() {
         
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
           <div className="max-w-xl text-left">
-            <h2 className="text-4xl font-bold tracking-tight text-white mb-4 italic leading-tight">My Stack</h2>
-            <p className="text-zinc-500 italic">Built for speed, scale, and intelligence.</p>
+            <h2 className="text-4xl font-bold tracking-tight text-white mb-4 italic leading-tight">My AI Command Center</h2>
+            <p className="text-zinc-500 italic">Primary Agents: Claude Code, GitHub Copilot, Google Gemini. My co-pilots for architecture, code generation, and rapid debugging.</p>
           </div>
           <div className="text-zinc-500 text-sm font-medium tracking-widest uppercase">
-            Modern AI-First Architecture
+            Technologies I Deploy via AI
           </div>
         </div>
 

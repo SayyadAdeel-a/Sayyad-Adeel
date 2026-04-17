@@ -13,16 +13,16 @@ export default function About() {
             </div>
             
             <h2 className="text-4xl sm:text-5xl font-medium tracking-tight text-white leading-tight">
-              Teen AI builder turning ideas into <br />
+              AI-native product builder turning ideas into <br />
               <span className="text-zinc-500 italic">shipped SaaS products.</span>
             </h2>
 
             <div className="space-y-6 text-lg text-zinc-400 leading-relaxed">
               <p>
-                Based in <span className="text-white font-medium">Swat, Pakistan</span>, I’m a full-stack engineer focused on building tools that scale. From mobile IDEs to AI-powered automations, I specialize in turning complex problems into elegant, production-ready software.
+                Based in <span className="text-white font-medium">Swat, Pakistan</span>, I am a builder who leverages the world's most advanced AI models (Claude, Gemini, Copilot) as my engineering team. While others struggle with syntax, I focus on architecture, logic, and user value.
               </p>
               <p>
-                My mission is to simplify workflows using AI and build products that are fast, useful, and accessible to everyone. Currently shipping weekly and building in public.
+                My expertise lies in prompt engineering, debugging AI outputs, and integrating multiple AI agents to build functional, production-ready apps. I orchestrate solutions from concept to deployment at lightspeed.
               </p>
             </div>
 
@@ -41,8 +41,8 @@ export default function About() {
                   <Rocket className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h4 className="text-white font-medium">Fast Iteration</h4>
-                  <p className="text-sm text-zinc-500">Building quickly with AI</p>
+                  <h4 className="text-white font-medium">AI Orchestration</h4>
+                  <p className="text-sm text-zinc-500">Directing agents to build quickly</p>
                 </div>
               </div>
             </div>
@@ -65,7 +65,7 @@ export default function About() {
                   </div>
                   <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-zinc-950/80 backdrop-blur-md border border-white/10">
                     <div className="text-white font-bold">Sayyad Adeel</div>
-                    <div className="text-zinc-500 text-[10px] uppercase tracking-widest">AI & SaaS Builder | Swat, Pakistan</div>
+                    <div className="text-zinc-500 text-[10px] uppercase tracking-widest">AI Orchestrator | Swat, Pakistan</div>
                   </div>
                 </div>
               </div>
