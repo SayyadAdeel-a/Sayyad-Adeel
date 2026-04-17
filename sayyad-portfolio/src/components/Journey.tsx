@@ -1,5 +1,7 @@
 import RadialOrbitalTimeline from "./ui/radial-orbital-timeline";
 import { Zap, Target, Rocket, GraduationCap, Code } from "lucide-react";
+import { motion } from "framer-motion";
+import { useScrollTrigger } from "@/hooks/useScrollTrigger";
 
 const journeyData = [
   {
@@ -60,31 +62,43 @@ const journeyData = [
 ];
 
 export default function Journey() {
+  const { ref: triggerRef, isInView } = useScrollTrigger();
+
   return (
-    <section id="journey" className="py-24 bg-zinc-950 overflow-hidden relative">
+    <section id="journey" className="py-24 bg-zinc-950 overflow-hidden relative" ref={triggerRef}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16">
+        <motion.div 
+          className="mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8 }}
+        >
           <h2 className="text-4xl font-bold tracking-tight text-white mb-4 italic leading-tight">My Journey</h2>
           <p className="text-zinc-500 italic max-w-2xl">
             A visual representation of my growth, the projects I've built, and the milestones I've reached in the world of tech and AI.
           </p>
-        </div>
+        </motion.div>
         
-        <div className="h-[700px] border border-white/5 rounded-[2.5rem] bg-white/[0.02] shadow-2xl relative">
+        <motion.div 
+          className="h-[700px] border border-white/5 rounded-[2.5rem] shadow-2xl relative"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
             <RadialOrbitalTimeline timelineData={journeyData} />
             
             {/* Legend or hint */}
-            <div className="absolute bottom-10 left-10 text-zinc-500 text-xs flex items-center gap-4">
+            <div className="absolute bottom-10 left-10 text-zinc-500 text-xs flex items-center gap-4 pointer-events-none z-10">
                 <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-white"></div>
-                    <span>Completed</span>
+                    <div className="w-2 h-2 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]"></div>
+                    <span className="backdrop-blur-sm bg-black/20 px-2 py-1 rounded">Completed</span>
                 </div>
                 <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-white/20 border border-white"></div>
-                    <span>In Progress</span>
+                    <div className="w-2 h-2 rounded-full bg-white/20 border border-white shadow-[0_0_10px_rgba(255,255,255,0.2)]"></div>
+                    <span className="backdrop-blur-sm bg-black/20 px-2 py-1 rounded">In Progress</span>
                 </div>
             </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

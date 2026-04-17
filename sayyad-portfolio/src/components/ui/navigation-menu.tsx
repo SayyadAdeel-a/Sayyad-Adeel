@@ -121,7 +121,7 @@ export default function NavigationMenu() {
         whileTap={!isExpanded ? { scale: 0.95 } : {}}
         onClick={handleNavClick}
         className={cn(
-          "flex items-center overflow-hidden rounded-full border border-white/10 bg-zinc-950/80 shadow-2xl backdrop-blur-md h-12 px-2 transition-colors",
+          "flex items-center overflow-hidden rounded-full border border-white/10 bg-white/10 shadow-2xl backdrop-blur-xl h-12 px-2 transition-colors",
           !isExpanded && "cursor-pointer justify-center px-0"
         )}
       >
@@ -147,7 +147,16 @@ export default function NavigationMenu() {
                 e.stopPropagation();
                 scrollToSection(e, item.href);
               }}
-              className="group flex items-center gap-2 text-xs font-semibold text-zinc-400 hover:text-white transition-colors px-3 py-1.5 rounded-full hover:bg-white/5 active:bg-white/10 uppercase tracking-widest"
+              className="group flex items-center gap-2 text-xs font-semibold text-zinc-400 hover:text-white transition-all px-3 py-1.5 rounded-full hover:bg-white/10 active:bg-white/15 uppercase tracking-widest relative overflow-hidden"
+              style={{
+                boxShadow: "0 0 0px rgba(0, 255, 200, 0)"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 0 20px rgba(0, 255, 200, 0.3)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "0 0 0px rgba(0, 255, 200, 0)";
+              }}
             >
               <item.icon className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">{item.name}</span>

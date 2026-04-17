@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { GlassCard } from "@/components/ui/glass-card";
 
 export default function FloatingCTA() {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,16 +26,19 @@ export default function FloatingCTA() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
-          className="fixed bottom-8 right-8 z-50"
+          className="fixed bottom-8 right-8 z-50 perspective-[1000px]"
         >
-          <a
-            href="#contact"
-            className="group flex items-center gap-3 bg-white text-black pl-5 pr-2 py-2 rounded-full font-bold text-sm shadow-[0_20px_50px_rgba(255,255,255,0.1)] hover:shadow-[0_20px_50px_rgba(255,255,255,0.2)] transition-all hover:scale-105 active:scale-95"
-          >
-            Hire a SaaS Builder
-            <div className="bg-black text-white p-2 rounded-full group-hover:bg-zinc-800 transition-colors">
-              <ArrowRight size={16} />
-            </div>
+          <a href="#contact" className="group">
+            <GlassCard 
+              opacity="high" 
+              hoverEffect="scale"
+              className="flex items-center gap-3 pl-5 pr-2 py-2 rounded-full font-bold text-sm shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(34,211,238,0.4)] transition-all active:scale-95"
+            >
+              <span className="text-white group-hover:text-cyan-100 transition-colors">Hire a SaaS Builder</span>
+              <div className="bg-white text-black p-2 rounded-full group-hover:bg-cyan-400 group-hover:scale-110 transition-all">
+                <ArrowRight size={16} />
+              </div>
+            </GlassCard>
           </a>
         </motion.div>
       )}

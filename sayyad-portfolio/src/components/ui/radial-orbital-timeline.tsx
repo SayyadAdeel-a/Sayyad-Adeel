@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { ArrowRight, Zap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { GlassCard } from "@/components/ui/glass-card";
 
 interface TimelineItem {
   id: number;
@@ -151,8 +152,7 @@ export default function RadialOrbitalTimeline({
   };
 
   return (
-    <div
-      className="w-full h-[600px] flex flex-col items-center justify-center bg-black/50 overflow-hidden rounded-[40px] border border-white/10"
+    <GlassCard opacity="high" className="w-full h-[600px] flex flex-col items-center justify-center overflow-hidden rounded-[40px] border border-white/10"
       ref={containerRef}
       onClick={handleContainerClick}
     >
@@ -234,6 +234,15 @@ export default function RadialOrbitalTimeline({
                   transition-all duration-300 transform
                   ${isExpanded ? "scale-150" : ""}
                 `}
+                  style={!isExpanded ? {
+                    boxShadow: "0 0 0px rgba(0, 255, 200, 0)"
+                  } : {}}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = "0 0 16px rgba(0, 255, 200, 0.4)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = "0 0 0px rgba(0, 255, 200, 0)";
+                  }}
                 >
                   <Icon size={16} />
                 </div>
@@ -250,7 +259,7 @@ export default function RadialOrbitalTimeline({
                 </div>
 
                 {isExpanded && (
-                  <Card className="absolute top-20 left-1/2 -translate-x-1/2 w-72 bg-zinc-900 border-white/20 shadow-2xl overflow-visible z-[300]">
+                  <GlassCard opacity="high" className="absolute top-20 left-1/2 -translate-x-1/2 w-72 rounded-2xl shadow-2xl overflow-visible z-[300]">
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-px h-3 bg-white/50"></div>
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-center">
@@ -326,13 +335,13 @@ export default function RadialOrbitalTimeline({
                         </div>
                       )}
                     </CardContent>
-                  </Card>
+                  </GlassCard>
                 )}
               </div>
             );
           })}
         </div>
       </div>
-    </div>
+    </GlassCard>
   );
 }
