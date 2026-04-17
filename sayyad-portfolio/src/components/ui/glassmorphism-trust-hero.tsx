@@ -10,7 +10,6 @@ import { useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { GitHubIcon, InstagramIcon } from "@/components/Icons";
 import { GlassCard } from "@/components/ui/glass-card";
-import { useScrollTrigger } from "@/hooks/useScrollTrigger";
 import { useGlassEffect } from "@/hooks/useGlassEffect";
 
 const StatItem = ({ value, label }: { value: string; label: string }) => (
@@ -24,7 +23,6 @@ export default function HeroSection() {
   const heroRef = useRef(null);
   const { scrollY } = useScroll();
   const { isMobile } = useGlassEffect();
-  const backgroundY = useTransform(scrollY, [0, 500], [0, -300]);
   
   const parallaxStyle = !isMobile 
     ? { y: useTransform(scrollY, [0, 500], [0, -150]) }
