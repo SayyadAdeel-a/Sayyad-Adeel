@@ -254,9 +254,12 @@ function ProjectCard({ project, index, isInView }: any) {
 }
 
 export default function Projects() {
+  const [showAll, setShowAll] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeProject, setActiveProject] = useState("");
   const { ref: triggerRef, isInView } = useScrollTrigger();
+
+  const displayedProjects = showAll ? projects : projects.slice(0, 3);
 
   return (
     <section id="projects" className="py-32 bg-black border-b border-border-visible relative overflow-hidden" ref={triggerRef}>
@@ -308,17 +311,56 @@ export default function Projects() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {projects.map((project, index) => (
-            <div key={index} onClick={() => {
-              if (project.isWaitlist) {
-                setActiveProject(project.title);
-                setIsModalOpen(true);
-              }
-            }} className={project.isWaitlist ? 'cursor-pointer' : ''}>
-              <ProjectCard project={project} index={index} isInView={isInView} />
-            </div>
-          ))}
+          <AnimatePresence mode="popLayout">
+            {displayedProjects.map((project, index) => (
+              <motion.div 
+                key={project.id}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+                onClick={() => {
+                  if (project.isWaitlist) {
+                    setActiveProject(project.title);
+                    setIsModalOpen(true);
+                  }
+                }} 
+                className={project.isWaitlist ? 'cursor-pointer' : ''}
+              >
+                <ProjectCard project={project} index={index} isInView={isInView} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
+
+        {projects.length > 3 && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+            className="mt-20 flex justify-center"
+          >
+            <button 
+              onClick={() => setShowAll(!showAll)}
+              className="group/more relative flex items-center gap-6 font-mono text-[11px] font-bold uppercase tracking-[0.3em] py-5 px-12 border border-border-visible text-text-display hover:border-text-display transition-all bg-surface/20 backdrop-blur-sm overflow-hidden"
+            >
+              <div className="flex items-center gap-3 relative z-10">
+                <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse shadow-[0_0_8px_rgba(var(--accent-rgb),0.8)]" />
+                <span>{showAll ? 'COLLAPSE_ARCHIVE' : 'EXPAND_PROJECT_ARCHIVE'}</span>
+              </div>
+              <Activity size={14} className={`relative z-10 transition-transform duration-700 ${showAll ? 'rotate-180 text-accent' : 'group-hover/more:rotate-90'}`} />
+              
+              {/* Button Hover Background */}
+              <div className="absolute inset-0 bg-text-display/5 translate-y-full group-hover/more:translate-y-0 transition-transform duration-500 ease-out" />
+              
+              {/* Corner Accents */}
+              <div className="absolute top-0 left-0 w-2 h-[1px] bg-text-display opacity-0 group-hover/more:opacity-100 transition-opacity" />
+              <div className="absolute top-0 left-0 w-[1px] h-2 bg-text-display opacity-0 group-hover/more:opacity-100 transition-opacity" />
+              <div className="absolute bottom-0 right-0 w-2 h-[1px] bg-text-display opacity-0 group-hover/more:opacity-100 transition-opacity" />
+              <div className="absolute bottom-0 right-0 w-[1px] h-2 bg-text-display opacity-0 group-hover/more:opacity-100 transition-opacity" />
+            </button>
+          </motion.div>
+        )}
       </div>
 
       <WaitlistModal 
