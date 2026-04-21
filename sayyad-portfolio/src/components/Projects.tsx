@@ -20,6 +20,18 @@ const projects = [
     featured: true
   },
   {
+    id: "PRJ-001B",
+    title: "Nudge - Minimalist CRM",
+    description: "Orchestrated the build of a 'zero-friction' CRM for solo freelancers. Designed to handle high-throughput client data with automated 'nudges' and integrated pro features via Firebase & PostHog.",
+    highlights: ["Rapid Client Onboarding", "Chronological Activity Logs", "Automated Smart Reminders", "Integrated Pro Upgrades"],
+    image: "/nudge-mockup.png",
+    link: "https://nudge-crm.vercel.app/",
+    btnText: "Live Demo →",
+    tech: ["Next.js 16", "Firebase", "PostHog", "Tailwind v4"],
+    metrics: { cpu: "14%", latency: "18ms", uptime: "100%" },
+    featured: false
+  },
+  {
     id: "PRJ-002",
     title: "TenReq Tracker",
     description: "Streamlining the rental ecosystem. Orchestrated the build of a real-time request tracking system that eliminates tenant-landlord friction through automated status updates.",
