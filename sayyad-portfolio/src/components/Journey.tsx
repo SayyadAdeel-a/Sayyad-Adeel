@@ -1,5 +1,5 @@
 import RadialOrbitalTimeline from "./ui/radial-orbital-timeline";
-import { Zap, Target, Rocket, GraduationCap, Code } from "lucide-react";
+import { Zap, Target, Rocket, GraduationCap, Code, Timer, BarChart3, Binary } from "lucide-react";
 import { motion } from "framer-motion";
 import { useScrollTrigger } from "@/hooks/useScrollTrigger";
 
@@ -65,38 +65,82 @@ export default function Journey() {
   const { ref: triggerRef, isInView } = useScrollTrigger();
 
   return (
-    <section id="journey" className="py-24 bg-zinc-950 overflow-hidden relative" ref={triggerRef}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          className="mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className="text-4xl font-bold tracking-tight text-white mb-4 italic leading-tight">My Journey</h2>
-          <p className="text-zinc-500 italic max-w-2xl">
-            A visual representation of my growth, the projects I've built, and the milestones I've reached in the world of tech and AI.
-          </p>
-        </motion.div>
+    <section id="journey" className="py-24 sm:py-32 bg-black overflow-hidden relative border-b border-border-visible" ref={triggerRef}>
+      <div className="mx-auto max-w-7xl px-6">
+        
+        <div className="flex flex-col lg:flex-row justify-between items-start mb-20 gap-12">
+          <motion.div 
+            className="max-w-2xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <Timer className="w-4 h-4 text-text-secondary" />
+              <span className="label-text text-text-display">[ CHRONOLOGY_INDEX ]</span>
+            </div>
+            
+            <h2 className="text-5xl sm:text-7xl font-display font-bold tracking-tighter text-text-display mb-8 uppercase leading-none glow-text">
+              Operational <br />
+              Timeline
+            </h2>
+            
+            <p className="font-sans text-text-secondary text-lg leading-relaxed border-l-2 border-border-visible pl-6">
+              A trace of my evolution from a curious learner to an AI-native orchestrator. Each node represents a major deployment or technical breakthrough.
+            </p>
+          </motion.div>
+
+          <motion.div 
+            className="flex flex-col gap-4 min-w-[240px]"
+            initial={{ opacity: 0, x: 20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+          >
+            <div className="card-surface p-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <BarChart3 className="w-4 h-4 text-success" />
+                <span className="label-text text-[10px]">TOTAL_MILESTONES</span>
+              </div>
+              <span className="font-mono text-text-display font-bold">05</span>
+            </div>
+            <div className="card-surface p-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Binary className="w-4 h-4 text-interactive" />
+                <span className="label-text text-[10px]">COMMIT_LEVEL</span>
+              </div>
+              <span className="font-mono text-text-display font-bold">HIGH</span>
+            </div>
+          </motion.div>
+        </div>
         
         <motion.div 
-          className="h-[700px] border border-white/5 rounded-[2.5rem] shadow-2xl relative"
+          className="h-[700px] card-surface relative overflow-hidden group"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
+            {/* Background elements for the visualization */}
+            <div className="absolute inset-0 dot-grid-subtle opacity-30 pointer-events-none" />
+            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border-visible to-transparent" />
+            <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border-visible to-transparent" />
+            
             <RadialOrbitalTimeline timelineData={journeyData} />
             
-            {/* Legend or hint */}
-            <div className="absolute bottom-10 left-10 text-zinc-500 text-xs flex items-center gap-4 pointer-events-none z-10">
-                <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]"></div>
-                    <span className="backdrop-blur-sm bg-black/20 px-2 py-1 rounded">Completed</span>
+            {/* Legend / Status Indicators */}
+            <div className="absolute bottom-8 right-8 font-mono text-text-secondary text-[8px] flex flex-col items-end gap-3 pointer-events-none z-10 uppercase tracking-[0.2em]">
+                <div className="flex items-center gap-3 px-3 py-1.5 border border-border-visible bg-black/80 backdrop-blur-sm">
+                    <span className="text-text-display">STATUS: COMPLETED</span>
+                    <div className="w-2 h-2 bg-text-display"></div>
                 </div>
-                <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-white/20 border border-white shadow-[0_0_10px_rgba(255,255,255,0.2)]"></div>
-                    <span className="backdrop-blur-sm bg-black/20 px-2 py-1 rounded">In Progress</span>
+                <div className="flex items-center gap-3 px-3 py-1.5 border border-border-visible bg-black/80 backdrop-blur-sm">
+                    <span className="text-text-display">STATUS: IN_PROGRESS</span>
+                    <div className="w-2 h-2 border border-text-display animate-pulse"></div>
                 </div>
+            </div>
+
+            {/* Corner metadata */}
+            <div className="absolute top-4 left-4 font-mono text-[8px] text-text-disabled opacity-50 select-none">
+              COORD_SYSTEM: RADIAL_ORBITAL_V2<br />
+              PROJECTION: SPHERICAL_DATA
             </div>
         </motion.div>
       </div>

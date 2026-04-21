@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { GlassCard } from "@/components/ui/glass-card";
-
 export default function FloatingCTA() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -29,16 +27,14 @@ export default function FloatingCTA() {
           className="fixed bottom-8 right-8 z-50 perspective-[1000px]"
         >
           <a href="#contact" className="group">
-            <GlassCard 
-              opacity="high" 
-              hoverEffect="scale"
-              className="flex items-center gap-3 pl-5 pr-2 py-2 rounded-full font-bold text-sm shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(34,211,238,0.4)] transition-all active:scale-95"
+            <div 
+              className="flex items-center gap-3 pl-5 pr-2 py-2 font-mono font-bold text-sm bg-black border border-border-visible hover:bg-text-display transition-all active:scale-95"
             >
-              <span className="text-white group-hover:text-cyan-100 transition-colors">Hire a SaaS Builder</span>
-              <div className="bg-white text-black p-2 rounded-full group-hover:bg-cyan-400 group-hover:scale-110 transition-all">
+              <span className="text-text-primary group-hover:text-black transition-colors uppercase tracking-widest text-[10px]">Hire a Builder</span>
+              <div className="bg-text-display text-black p-2 border border-black group-hover:bg-black group-hover:text-text-display group-hover:border-text-display transition-all">
                 <ArrowRight size={16} />
               </div>
-            </GlassCard>
+            </div>
           </a>
         </motion.div>
       )}

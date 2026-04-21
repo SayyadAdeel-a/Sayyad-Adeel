@@ -13,7 +13,7 @@ import FloatingCTA from '@/components/FloatingCTA'
 
 function App() {
   return (
-    <main className="min-h-screen bg-zinc-950 selection:bg-white selection:text-black">
+    <main className="min-h-screen bg-black selection:bg-white selection:text-black noise-overlay">
       <NavigationMenu />
       <HeroSection />
       <div className="space-y-0">

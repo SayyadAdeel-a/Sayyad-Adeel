@@ -1,171 +1,241 @@
-import { useState, useRef } from 'react';
-import { ExternalLink, CheckCircle2, Sparkles } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useState } from 'react';
+import { ExternalLink, Terminal, Code2, Cpu, Activity, Zap, Box, Layers } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import WaitlistModal from './WaitlistModal';
-import { GlassCard } from '@/components/ui/glass-card';
 import { useScrollTrigger } from '@/hooks/useScrollTrigger';
-import { use3DTransform } from '@/hooks/use3DTransform';
-import { useGlassEffect } from '@/hooks/useGlassEffect';
 
 const projects = [
   {
+    id: "PRJ-001",
     title: "Koda - AI Mobile IDE",
-    description: "Full-featured code editor for Android with AI-powered assistance. Solved mobile coding limitations by directing AI to build a Monaco-inspired editor and ANSI terminal in record time. Built by orchestrating AI agents to handle complex logic and UI generation.",
-    highlights: ["Built with Flutter from scratch", "AI chat with tool use capabilities", "File explorer + ANSI terminal", "Live code execution"],
+    description: "Engineering the first professional-grade code editor for Android. Directed AI agents to implement a custom Monaco-based engine with full ANSI terminal support, enabling high-performance development on the move.",
+    highlights: ["Custom Monaco-inspired engine", "Multi-agent tool use architecture", "Integrated ANSI terminal", "Real-time sync & deployment"],
     image: "/koda-mockup.png",
     link: "#",
     btnText: "Join Waitlist",
     isWaitlist: true,
-    status: "Building",
-    tech: ["Flutter", "OpenAI API", "Edge Functions"],
+    status: "ACTIVE_BUILD",
+    tech: ["Flutter", "OpenAI", "Edge Runtime"],
+    metrics: { cpu: "84%", latency: "12ms", uptime: "99.9%" },
     featured: true
   },
   {
-    title: "Landlord Tenant Tracker",
-    description: "A smart system designed to simplify communication. Solved tenant-landlord friction by directing AI to build a real-time tracking dashboard in record time. Built by orchestrating AI agents to handle complex logic and UI generation.",
-    highlights: ["Request tracking dashboard", "Notifications & updates", "Real-world productivity tool"],
+    id: "PRJ-002",
+    title: "TenReq Tracker",
+    description: "Streamlining the rental ecosystem. Orchestrated the build of a real-time request tracking system that eliminates tenant-landlord friction through automated status updates.",
+    highlights: ["Automated status workflows", "Transparent activity logs", "Real-time notification node"],
     image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1000&auto=format&fit=crop",
     link: "https://tenreq.qzz.io/",
     btnText: "Live Demo →",
-    tech: ["React", "Supabase", "Node.js"]
+    tech: ["React", "Supabase", "Node.js"],
+    metrics: { cpu: "12%", latency: "45ms", uptime: "100%" }
   },
   {
+    id: "PRJ-003",
     title: "DataWall",
-    description: "Secure data visualization and management platform. Solved data silos by directing AI to build a custom dashboard builder with real-time sync in record time. Built by orchestrating AI agents to handle complex logic and UI generation.",
-    highlights: ["Real-time data sync", "Role-based access control", "Custom dashboard builder"],
-    image: "https://images.unsplash.com/photo-1551288049-bbbda536339a?q=80&w=1000&auto=format&fit=crop",
+    description: "Next-gen data infrastructure for modern teams. Directed the architecture of a custom dashboard builder with atomic state management and encrypted synchronization pipelines.",
+    highlights: ["Atomic state synchronization", "Zero-trust access control", "Modular architecture"],
+    image: "https://images.unsplash.com/photo-1551288049-bbbda536339a?q=80&w=1200&auto=format&fit=crop",
     link: "#",
-    btnText: "Live Demo",
-    tech: ["Next.js", "Supabase", "TypeScript"]
+    btnText: "Review Stack",
+    tech: ["Next.js", "Supabase", "TypeScript"],
+    metrics: { cpu: "31%", latency: "28ms", uptime: "99.8%" }
   },
   {
+    id: "PRJ-004",
     title: "AutoVideo AI",
-    description: "AI-powered video automation tool. Solved manual video editing by directing AI to build automated scripting and batch processing pipelines in record time. Built by orchestrating AI agents to handle complex logic and UI generation.",
-    highlights: ["Automated video editing", "AI script generation", "Batch processing"],
+    description: "Automating visual storytelling. Designed a batch processing pipeline that leverages LLMs for script-to-video synthesis, reducing production overhead.",
+    highlights: ["Script-to-video synthesis", "Scene detection", "Batch render pipeline"],
     image: "https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=1000&auto=format&fit=crop",
     link: "#",
     btnText: "Coming Soon",
-    tech: ["Python", "OpenAI API", "FFmpeg"]
+    tech: ["Python", "OpenAI", "FFmpeg"],
+    metrics: { cpu: "92%", latency: "140ms", uptime: "N/A" }
   },
   {
+    id: "PRJ-005",
     title: "everywheres.app",
-    description: "Location-based productivity tracker. Solved habit inconsistency by directing AI to build geofenced reminders in record time. Built by orchestrating AI agents to handle complex logic and UI generation.",
-    highlights: ["Geofenced reminders", "Location-based habits", "Privacy-first design"],
+    description: "Context-aware productivity. Engineered a geofenced habit system that triggers specific workflows based on spatial coordinates, with privacy-first encryption.",
+    highlights: ["Spatial triggers", "Privacy-first", "Cross-platform sync"],
     image: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=1000&auto=format&fit=crop",
     link: "https://everywheres.app",
     btnText: "Visit Site",
-    tech: ["React Native", "Supabase", "Maps API"]
+    tech: ["React Native", "Supabase", "Maps"],
+    metrics: { cpu: "08%", latency: "110ms", uptime: "100%" }
   },
   {
-    title: "Creator Tools Hub",
-    description: "An all-in-one creator platform. Solved workflow fragmentation by directing AI to build 60+ integrated tools in record time. Built by orchestrating AI agents to handle complex logic and UI generation.",
-    highlights: ["60+ AI powered tools", "Built for creators & students", "Productivity focused platform"],
+    id: "PRJ-006",
+    title: "Creator Hub",
+    description: "Consolidating the creator tech stack. Directed the rapid development of 60+ integrated micro-services for digital entrepreneurs and researchers.",
+    highlights: ["60+ micro-services", "High-throughput API", "Researcher-first UX"],
     image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop",
     link: "https://vidtoolbox.qzz.io/",
-    btnText: "Visit Website →",
-    tech: ["React", "AI APIs"]
+    btnText: "Explore Tools →",
+    tech: ["React", "AI APIs"],
+    metrics: { cpu: "44%", latency: "32ms", uptime: "99.9%" }
   }
 ];
 
-function ProjectCard({ project, index, isInView, isMobile }: any) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "end start"]
-  });
-  const { rotation } = use3DTransform(cardRef);
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+function ProjectCard({ project, index, isInView }: any) {
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.8, delay: index * 0.15 }}
+      transition={{ duration: 0.8, delay: index * 0.1 }}
       className={project.featured ? 'lg:col-span-2' : ''}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <div 
-        ref={cardRef}
-        className="h-full"
-        style={!isMobile ? {
-          perspective: '1000px',
-          transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
-          transition: 'transform 0.1s ease-out'
-        } : {}}
-      >
-        <GlassCard 
-          opacity="low" 
-          hoverEffect="glow"
-          className={`group h-full flex flex-col overflow-hidden transition-all duration-300 ${project.status === 'Building' ? 'ring-1 ring-white/10' : ''}`}
-        >
-          <div className={`relative ${project.featured ? 'h-80' : 'h-64'} overflow-hidden`}>
-            <motion.img 
-              style={{ y: !isMobile ? imageY : 0, scale: 1.15 }}
-              src={project.image} 
-              alt={project.title}
-              className="w-full h-full object-cover origin-center transition-transform duration-700 group-hover:scale-125"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 to-transparent opacity-60" />
-            
-            {project.status && (
-              <div className="absolute top-4 left-4 z-10">
-                <div className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/60 px-3 py-1 backdrop-blur-md shadow-[0_0_15px_rgba(34,211,238,0.2)]">
-                  <div className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-white">
-                    {project.status === 'Building' ? 'Building in Public' : project.status}
-                  </span>
-                </div>
-              </div>
-            )}
-
-            <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
-              {project.tech?.map((t: string, ti: number) => (
-                <span key={ti} className="text-[9px] font-bold uppercase tracking-tight bg-white/10 text-white/70 px-2 py-0.5 rounded-md backdrop-blur-sm border border-white/5">
-                  {t}
-                </span>
-              ))}
+      <div className={`group h-full flex flex-col card-surface relative overflow-hidden transition-all duration-500 ${isHovered ? 'ring-1 ring-text-display/30 shadow-[0_0_30px_rgba(255,255,255,0.05)]' : ''}`}>
+        
+        {/* Hardware Status Header */}
+        <div className="flex items-center justify-between border-b border-border-visible px-4 py-3 bg-surface/50 backdrop-blur-md">
+          <div className="flex items-center gap-3">
+            <div className="flex gap-1">
+              <div className={`w-1.5 h-1.5 rounded-full ${isHovered ? 'bg-text-display' : 'bg-text-disabled'} transition-colors animate-pulse`} />
+              <div className={`w-1.5 h-1.5 rounded-full ${project.status === 'ACTIVE_BUILD' ? 'bg-accent' : 'bg-text-disabled opacity-30'}`} />
             </div>
+            <span className="label-text text-[10px] tracking-widest">{project.id}</span>
           </div>
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex items-center gap-2 opacity-50">
+              <Activity size={10} />
+              <span className="font-mono text-[8px]">{project.metrics.latency}</span>
+            </div>
+            <div className="h-4 w-[1px] bg-border-visible" />
+            <span className="label-text text-[9px] text-text-display">{project.status || 'DEPLOYED'}</span>
+          </div>
+        </div>
 
-          <div className="p-8 space-y-6 flex-grow flex flex-col relative z-20 bg-zinc-950/80 backdrop-blur-md">
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <h3 className={`text-2xl font-bold text-white group-hover:text-zinc-300 transition-colors ${project.featured ? 'text-3xl' : ''}`}>
-                  {project.title}
-                </h3>
-                {project.status === 'Building' && <Sparkles size={16} className="text-yellow-500 animate-pulse" />}
-              </div>
-              <p className="text-zinc-400 text-sm leading-relaxed min-h-12 overflow-hidden">
+        {/* Viewport Area */}
+        <div className={`relative overflow-hidden bg-black ${project.featured ? 'h-96' : 'h-72'}`}>
+          {/* Grid Overlay */}
+          <div className="absolute inset-0 dot-grid opacity-20 pointer-events-none" />
+          
+          <img 
+            src={project.image} 
+            alt={project.title}
+            className="w-full h-full object-cover transition-all duration-1000 grayscale opacity-40 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
+          />
+          
+          {/* Technical Metadata Overlay */}
+          <AnimatePresence>
+            {isHovered && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 bg-black/40 backdrop-blur-[2px] p-6 flex flex-col justify-between"
+              >
+                <div className="flex justify-between items-start">
+                  <div className="space-y-1">
+                    <p className="label-text text-white text-[8px] opacity-70">CORE_ARCHITECTURE</p>
+                    <p className="font-mono text-[10px] text-white">X86-64_COMPATIBLE</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="label-text text-white text-[8px] opacity-70">ENCRYPTION</p>
+                    <p className="font-mono text-[10px] text-white">AES-256-GCM</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-4">
+                  {Object.entries(project.metrics).map(([key, value]: [string, any]) => (
+                    <div key={key} className="border-l border-white/20 pl-3">
+                      <p className="label-text text-white text-[8px] opacity-50">{key.toUpperCase()}</p>
+                      <p className="font-mono text-xs text-white">{value}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="absolute inset-0 scanline opacity-0 group-hover:opacity-20 pointer-events-none" />
+          
+          {/* Tech Stack Chips */}
+          <div className="absolute bottom-4 left-4 flex flex-wrap gap-2 transition-transform duration-500 group-hover:translate-y-[-4px]">
+            {project.tech?.map((t: string, ti: number) => (
+              <span key={ti} className="label-text bg-black/90 text-text-display px-2 py-1 border border-border-visible backdrop-blur-md shadow-lg">
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Project Description & Data */}
+        <div className="p-8 space-y-6 flex-grow flex flex-col relative bg-surface/30">
+          <div className="flex items-start justify-between">
+            <div className="space-y-3">
+              <h3 className={`font-display font-bold text-text-display uppercase tracking-tighter group-hover:glow-text transition-all duration-500 ${project.featured ? 'text-4xl' : 'text-2xl'}`}>
+                {project.title}
+              </h3>
+              <p className="font-sans text-text-secondary text-sm leading-relaxed max-w-lg">
                 {project.description}
               </p>
             </div>
+            {project.featured && (
+              <div className="hidden lg:block">
+                <Box size={24} className="text-text-display opacity-20" />
+              </div>
+            )}
+          </div>
 
-            <div className="space-y-3 flex-grow">
-              <div className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Major Functions</div>
-              <ul className="grid grid-cols-1 gap-1.5">
-                {project.highlights.map((highlight: string, hIndex: number) => (
-                  <li key={hIndex} className="flex items-center gap-2 text-sm text-zinc-300">
-                    <CheckCircle2 className="w-4 h-4 text-white opacity-40 shrink-0" />
-                    <span className="truncate">{highlight}</span>
-                  </li>
-                ))}
-              </ul>
+          <div className="space-y-4 flex-grow">
+            <div className="flex items-center gap-3">
+              <Layers size={14} className="text-text-secondary" />
+              <div className="label-text text-[10px] text-text-display tracking-[0.2em]">LOG_ENTRIES.txt</div>
+              <div className="h-[1px] flex-grow bg-border-visible/50" />
+            </div>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-x-8 gap-y-3">
+              {project.highlights.map((highlight: string, hIndex: number) => (
+                <li key={hIndex} className="flex items-start gap-3 font-mono text-[11px] text-text-secondary leading-tight group/item">
+                  <span className="text-text-display opacity-30 group-hover/item:opacity-100 transition-opacity">0{hIndex + 1}</span>
+                  <span className="group-hover/item:text-text-display transition-colors">{highlight}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Footer Controls */}
+          <div className="pt-6 flex items-center justify-between border-t border-border-visible mt-auto">
+            <div className="flex items-center gap-4">
+              <div className="flex flex-col">
+                <span className="label-text text-[8px] opacity-40">PERMISSIONS</span>
+                <span className="label-text text-text-display text-[9px]">{project.link === '#' ? 'RESTRICTED' : 'GRANTED'}</span>
+              </div>
+              <div className="w-[1px] h-6 bg-border-visible" />
+              <div className="flex flex-col">
+                <span className="label-text text-[8px] opacity-40">NODE_VER</span>
+                <span className="label-text text-text-display text-[9px]">v2.4.0</span>
+              </div>
             </div>
 
             {project.link !== "#" || project.btnText === "Join Waitlist" ? (
               <a 
                 href={project.link} 
-                className={`inline-flex items-center justify-center gap-2 text-sm font-semibold mt-4 border border-white/10 py-3 px-6 rounded-full transition-all hover:glass-glow ${project.isWaitlist ? 'bg-white text-black hover:bg-zinc-200' : 'bg-white/5 text-white hover:bg-white hover:text-black'}`}
+                className={`group/btn relative inline-flex items-center gap-3 font-mono text-[11px] font-bold uppercase tracking-[0.2em] py-3 px-8 transition-all overflow-hidden ${project.isWaitlist ? 'bg-text-display text-black' : 'border border-border-visible text-text-display hover:border-text-display'}`}
               >
-                {project.btnText}
-                <ExternalLink className="w-4 h-4" />
+                <span className="relative z-10 flex items-center gap-2">
+                  {project.btnText}
+                  <ExternalLink size={14} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                </span>
+                {!project.isWaitlist && (
+                  <div className="absolute inset-0 bg-text-display translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
+                )}
+                {!project.isWaitlist && (
+                  <style>{`.group\/btn:hover span { color: black !important; }`}</style>
+                )}
               </a>
             ) : (
-              <span className="inline-flex items-center justify-center gap-2 text-sm font-semibold mt-4 border border-white/10 py-3 px-6 rounded-full bg-white/5 text-white/50 cursor-not-allowed">
+              <div className="flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.2em] py-3 px-8 border border-border-visible text-text-disabled opacity-40 cursor-not-allowed">
                 {project.btnText}
-              </span>
+                <Terminal size={14} />
+              </div>
             )}
           </div>
-        </GlassCard>
+        </div>
       </div>
     </motion.div>
   );
@@ -175,45 +245,68 @@ export default function Projects() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeProject, setActiveProject] = useState("");
   const { ref: triggerRef, isInView } = useScrollTrigger();
-  const { isMobile } = useGlassEffect();
 
   return (
-    <section id="projects" className="py-24 sm:py-32 bg-zinc-950" ref={triggerRef}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+    <section id="projects" className="py-32 bg-black border-b border-border-visible relative overflow-hidden" ref={triggerRef}>
+      {/* Background Decorative Elements */}
+      <div className="absolute inset-0 dot-grid-subtle opacity-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white/[0.02] to-transparent pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white/[0.02] to-transparent pointer-events-none" />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
           <motion.div 
-            className="max-w-xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8 }}
+            className="max-w-2xl"
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h2 className="text-4xl font-bold tracking-tight text-white mb-4 italic leading-tight">Featured Projects</h2>
-            <p className="text-zinc-500 italic text-lg">Selected products built with an AI-first mindset.</p>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="h-12 w-[1px] bg-text-display/40" />
+              <div className="space-y-1">
+                <p className="label-text text-accent font-bold tracking-[0.3em]">[ SYSTEM_OUTPUTS ]</p>
+                <h2 className="text-5xl sm:text-6xl font-display font-bold tracking-tighter text-text-display uppercase leading-none">
+                  Project <span className="text-text-secondary opacity-50">Nodes</span>
+                </h2>
+              </div>
+            </div>
+            <p className="font-sans text-text-secondary text-lg pl-4 border-l border-border-visible/50 leading-relaxed max-w-xl">
+              High-fidelity digital artifacts engineered with autonomous agents. 
+              Each node represents a distinct operational milestone in technical orchestration.
+            </p>
           </motion.div>
+          
           <motion.div 
-            className="text-zinc-500 text-sm font-medium tracking-widest uppercase"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex flex-col items-end gap-3"
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+            transition={{ duration: 1, delay: 0.2 }}
           >
-            {projects.length} PRODUCTS SHIPPED / SHIPPING
+            <div className="flex items-center gap-2">
+              <Zap size={14} className="text-accent animate-pulse" />
+              <span className="label-text text-text-display tracking-[0.2em]">{projects.length} UNITS_IN_TRANSIT</span>
+            </div>
+            <div className="flex gap-1.5">
+              {[...Array(12)].map((_, i) => (
+                <div key={i} className={`w-2 h-6 border ${i < 8 ? 'bg-text-display border-text-display' : 'border-border-visible'}`} />
+              ))}
+            </div>
+            <span className="font-mono text-[10px] text-text-secondary opacity-50">STABLE_DIFFUSION_SYSTEM_READY</span>
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {projects.map((project, index) => (
             <div key={index} onClick={() => {
               if (project.isWaitlist) {
                 setActiveProject(project.title);
                 setIsModalOpen(true);
               }
-            }}>
-              <ProjectCard project={project} index={index} isInView={isInView} isMobile={isMobile} />
+            }} className={project.isWaitlist ? 'cursor-pointer' : ''}>
+              <ProjectCard project={project} index={index} isInView={isInView} />
             </div>
           ))}
         </div>
-
       </div>
 
       <WaitlistModal 
