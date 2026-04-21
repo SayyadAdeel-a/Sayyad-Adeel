@@ -1,4 +1,4 @@
-import { ArrowRight, Target, Crown, Mail, Code2, Cpu, Activity } from "lucide-react";
+import { ArrowRight, Mail, Code2, Cpu, Activity } from "lucide-react";
 import { motion } from "framer-motion";
 import { GitHubIcon, InstagramIcon } from "@/components/Icons";
 

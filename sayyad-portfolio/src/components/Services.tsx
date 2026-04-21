@@ -1,4 +1,4 @@
-import { Bot, Zap, Code, Layout, Cpu, Activity, Settings, Terminal } from 'lucide-react';
+import { Bot, Zap, Layout, Cpu, Activity, Settings, Terminal } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useScrollTrigger } from '@/hooks/useScrollTrigger';
 

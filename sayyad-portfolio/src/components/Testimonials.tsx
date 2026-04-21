@@ -1,6 +1,6 @@
 import { TestimonialsColumn } from "@/components/ui/testimonials-columns-1";
 import { motion } from "motion/react";
-import { Terminal, Database, ShieldCheck, Cpu } from "lucide-react";
+import { Terminal, ShieldCheck } from "lucide-react";
 
 const testimonials = [
   {

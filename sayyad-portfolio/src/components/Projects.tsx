@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ExternalLink, Terminal, Code2, Cpu, Activity, Zap, Box, Layers } from 'lucide-react';
+import { ExternalLink, Terminal, Activity, Zap, Box, Layers } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import WaitlistModal from './WaitlistModal';
 import { useScrollTrigger } from '@/hooks/useScrollTrigger';

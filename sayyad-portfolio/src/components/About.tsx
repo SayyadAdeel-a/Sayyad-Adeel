@@ -1,4 +1,4 @@
-import { Target, User, Rocket, ShieldCheck, Cpu, Fingerprint, Activity, Terminal } from 'lucide-react';
+import { User, ShieldCheck, Cpu, Fingerprint, Activity, Terminal } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useScrollTrigger } from '@/hooks/useScrollTrigger';
 
