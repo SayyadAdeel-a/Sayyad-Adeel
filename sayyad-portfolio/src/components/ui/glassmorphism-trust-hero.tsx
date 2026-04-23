@@ -85,7 +85,7 @@ export default function HeroSection() {
 
             <div className="space-y-4">
               <motion.h1 
-                className="font-display text-[56px] sm:text-[80px] lg:text-[110px] text-text-display leading-[0.85] tracking-tighter uppercase glow-text"
+                className="font-dot text-[64px] sm:text-[90px] lg:text-[130px] text-text-display leading-[0.8] tracking-[-0.05em] uppercase glow-text"
                 variants={itemVariants}
               >
                 Architect <br />

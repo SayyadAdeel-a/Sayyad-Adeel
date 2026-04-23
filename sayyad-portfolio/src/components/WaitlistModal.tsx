@@ -1,5 +1,7 @@
-import { X, Send, CheckCircle2, Loader2, AlertCircle } from 'lucide-react';
+import { X, Send, CheckCircle2, Loader2, AlertCircle, Terminal, Shield } from 'lucide-react';
 import { useForm, ValidationError } from '@formspree/react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { GlassCard } from './ui/GlassCard';
 
 interface WaitlistModalProps {
   isOpen: boolean;
@@ -10,121 +12,163 @@ interface WaitlistModalProps {
 export default function WaitlistModal({ isOpen, onClose, projectTitle }: WaitlistModalProps) {
   const [state, handleSubmit] = useForm('mjgpdolb');
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <div 
-        className="absolute inset-0 bg-zinc-950/80 backdrop-blur-sm transition-opacity"
-        onClick={onClose}
-      />
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity"
+            onClick={onClose}
+          />
 
-      {/* Modal content */}
-      <div className="relative w-full max-w-md overflow-hidden rounded-[2.5rem] border border-white/10 bg-zinc-900/90 p-8 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in duration-300">
-        <button 
-          onClick={onClose}
-          className="absolute right-6 top-6 rounded-full border border-white/10 bg-white/5 p-2 text-zinc-400 hover:text-white transition-colors"
-        >
-          <X size={20} />
-        </button>
-
-        {state.succeeded ? (
-          <div className="flex flex-col items-center justify-center py-12 text-center animate-in slide-in-from-bottom-4 duration-500">
-            <div className="mb-6 rounded-full bg-white/10 p-4">
-              <CheckCircle2 size={48} className="text-white" />
-            </div>
-            <h3 className="text-2xl font-bold text-white mb-2">You're on the list!</h3>
-            <p className="text-zinc-400">Thanks for your interest in {projectTitle}. We'll reach out as soon as we launch.</p>
-            <button 
-              onClick={onClose}
-              className="mt-8 text-sm font-semibold text-white/60 hover:text-white underline underline-offset-4 transition-colors"
+          {/* Modal content */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
+            className="relative w-full max-w-md perspective-3d"
+          >
+            <GlassCard 
+              className="relative p-8 md:p-10 overflow-hidden"
+              with3D={true}
+              opacity="high"
+              blur="lg"
             >
-              Back to portfolio
-            </button>
-          </div>
-        ) : (
-          <>
-            <div className="mb-8">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-4">
-                Early Access
-              </div>
-              <h2 className="text-3xl font-bold text-white tracking-tight">
-                Join {projectTitle} Waitlist
-              </h2>
-              <p className="mt-2 text-zinc-400 font-medium">Be the first to ship code from your phone.</p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="full-name" className="block text-xs font-medium text-zinc-500 uppercase tracking-widest mb-2 ml-1">
-                  Full Name
-                </label>
-                <input
-                  required
-                  id="full-name"
-                  name="name"
-                  type="text"
-                  placeholder="Sayyad Adeel"
-                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder-zinc-600 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all font-medium"
-                />
-                <ValidationError 
-                  prefix="Name" 
-                  field="name"
-                  errors={state.errors}
-                  className="mt-2 text-xs text-red-400 px-1"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="email-address" className="block text-xs font-medium text-zinc-500 uppercase tracking-widest mb-2 ml-1">
-                  Email Address
-                </label>
-                <input
-                  required
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  placeholder="adeelsayyad.a@gmail.com"
-                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder-zinc-600 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all font-medium"
-                />
-                <ValidationError 
-                  prefix="Email" 
-                  field="email"
-                  errors={state.errors}
-                  className="mt-2 text-xs text-red-400 px-1"
-                />
-              </div>
-
-              {state.errors && !state.submitting && (
-                <div className="flex items-center gap-2 rounded-xl bg-red-400/10 p-3 text-xs text-red-400 border border-red-400/10">
-                  <AlertCircle size={14} />
-                  <span>Please check your details and try again.</span>
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={state.submitting}
-                className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl bg-white px-6 py-4 font-bold text-black transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-70 disabled:hover:scale-100 mt-2"
+              <button 
+                onClick={onClose}
+                className="absolute right-6 top-6 rounded-none border border-border-visible bg-black/40 p-2 text-text-secondary hover:text-text-display hover:border-text-display transition-all z-20"
               >
-                {state.submitting ? (
-                  <Loader2 className="animate-spin" size={20} />
-                ) : (
-                  <>
-                    Join the waitlist
-                    <Send size={18} className="translate-y-[1px] transition-transform group-hover:translate-x-1" />
-                  </>
-                )}
+                <X size={16} />
               </button>
-            </form>
 
-            <p className="mt-6 text-center text-[10px] text-zinc-500 uppercase tracking-widest leading-relaxed">
-              BY SIGNING UP, YOU AGREE TO RECEIVE PRODUCT UPDATES.
-            </p>
-          </>
-        )}
-      </div>
-    </div>
+              <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+              
+              {state.succeeded ? (
+                <div className="flex flex-col items-center justify-center py-12 text-center animate-in slide-in-from-bottom-4 duration-500">
+                  <div className="mb-8 p-6 border border-success/20 bg-success/5 relative">
+                    <CheckCircle2 size={48} className="text-success" />
+                    <div className="absolute -top-1 -left-1 w-2 h-2 bg-success" />
+                    <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-success" />
+                  </div>
+                  <h3 className="text-3xl font-display font-bold text-text-display mb-4 uppercase tracking-tighter">Transmission Received</h3>
+                  <p className="text-text-secondary font-mono text-xs uppercase tracking-widest leading-relaxed">
+                    Identity verified. Node {projectTitle} waitlist updated. We will establish connection upon launch.
+                  </p>
+                  <button 
+                    onClick={onClose}
+                    className="mt-12 label-text text-accent hover:text-text-display transition-colors border-b border-accent/20 hover:border-text-display pb-1"
+                  >
+                    RETURN_TO_BASE
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <div className="mb-10">
+                    <div className="inline-flex items-center gap-3 mb-6">
+                      <div className="p-1 border border-border-visible bg-black/40">
+                        <Terminal size={12} className="text-accent" />
+                      </div>
+                      <span className="label-text text-[9px] tracking-[0.3em]">Module: Early_Access_v1.0</span>
+                    </div>
+                    
+                    <h2 className="text-4xl font-display font-bold text-text-display tracking-tighter uppercase leading-[0.9] mb-4">
+                      Join {projectTitle} <br />
+                      <span className="text-text-secondary">Waitlist</span>
+                    </h2>
+                    <p className="text-text-secondary font-mono text-[10px] uppercase tracking-widest opacity-60">
+                      SYS_LOG: Be the first to ship code from your pocket.
+                    </p>
+                  </div>
+
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="space-y-2">
+                      <label htmlFor="full-name" className="label-text text-[8px] opacity-50 ml-1">
+                        Full_Name
+                      </label>
+                      <input
+                        required
+                        id="full-name"
+                        name="name"
+                        type="text"
+                        placeholder="Sayyad Adeel"
+                        className="w-full bg-black/40 border border-border-visible px-5 py-4 text-text-primary placeholder:text-text-disabled/20 focus:border-text-secondary focus:outline-none transition-all font-mono text-sm"
+                      />
+                      <ValidationError 
+                        prefix="Name" 
+                        field="name"
+                        errors={state.errors}
+                        className="mt-2 text-[8px] font-mono text-accent uppercase tracking-widest"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label htmlFor="email-address" className="label-text text-[8px] opacity-50 ml-1">
+                        Email_Protocol
+                      </label>
+                      <input
+                        required
+                        id="email-address"
+                        name="email"
+                        type="email"
+                        placeholder="adeelsayyad.a@gmail.com"
+                        className="w-full bg-black/40 border border-border-visible px-5 py-4 text-text-primary placeholder:text-text-disabled/20 focus:border-text-secondary focus:outline-none transition-all font-mono text-sm"
+                      />
+                      <ValidationError 
+                        prefix="Email" 
+                        field="email"
+                        errors={state.errors}
+                        className="mt-2 text-[8px] font-mono text-accent uppercase tracking-widest"
+                      />
+                    </div>
+
+                    {state.errors && !state.submitting && (
+                      <div className="flex items-center gap-3 p-4 bg-accent/5 border border-accent/20 text-[9px] font-mono text-accent uppercase tracking-widest">
+                        <AlertCircle size={14} />
+                        <span>Transmission Error: Verify data fields.</span>
+                      </div>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={state.submitting}
+                      className="group relative flex w-full items-center justify-center gap-3 bg-text-display px-6 py-5 font-display font-bold text-black transition-all hover:bg-white active:scale-[0.98] disabled:opacity-50 mt-4 uppercase text-xs tracking-widest overflow-hidden"
+                    >
+                      {state.submitting ? (
+                        <Loader2 className="animate-spin" size={18} />
+                      ) : (
+                        <>
+                          <Shield size={16} />
+                          Secure My Slot
+                          <Send size={16} className="transition-transform group-hover:translate-x-1" />
+                        </>
+                      )}
+                      
+                      {/* Button scanning effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out pointer-events-none" />
+                    </button>
+                  </form>
+
+                  <div className="mt-10 flex items-center gap-4">
+                    <div className="h-px flex-grow bg-border-visible/30" />
+                    <p className="text-[8px] font-mono text-text-disabled uppercase tracking-widest">
+                      Privacy_Protocol_Active
+                    </p>
+                    <div className="h-px flex-grow bg-border-visible/30" />
+                  </div>
+                </>
+              )}
+              
+              {/* Internal scanning line */}
+              <div className="absolute inset-x-0 bottom-0 h-px bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity translate-y-[1px] group-hover:animate-[scanline_3s_linear_infinite]" />
+            </GlassCard>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 }
