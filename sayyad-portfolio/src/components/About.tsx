@@ -1,6 +1,7 @@
 import { User, ShieldCheck, Cpu, Fingerprint, Activity, Terminal } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useScrollTrigger } from '@/hooks/useScrollTrigger';
+import { GlassCard } from './ui/GlassCard';
 
 export default function About() {
   const { ref: triggerRef, isInView } = useScrollTrigger();
@@ -10,6 +11,9 @@ export default function About() {
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 dot-grid opacity-[0.03] pointer-events-none" />
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border-visible to-transparent" />
+      
+      {/* Perspective Decorative Layer (Spec Section 6.3) */}
+      <div className="absolute top-1/4 -right-12 w-64 h-64 bg-accent/5 rounded-full blur-[80px] pointer-events-none opacity-50" />
       
       <div className="absolute top-0 right-0 p-8 opacity-40 pointer-events-none select-none z-20">
         <div className="font-mono text-[9px] text-text-secondary text-right leading-relaxed tracking-widest flex flex-col items-end gap-1">
@@ -69,36 +73,36 @@ export default function About() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border-visible border border-border-visible overflow-hidden">
-              <div className="flex items-start gap-4 p-6 bg-black group hover:bg-surface-raised transition-colors">
-                <div className="p-2 border border-border-visible bg-surface group-hover:border-text-secondary transition-colors">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <GlassCard className="flex items-start gap-4 p-6" opacity="low" blur="sm" interactive={false}>
+                <div className="p-2 border border-border-visible bg-black/40">
                   <Cpu className="w-5 h-5 text-text-primary" />
                 </div>
                 <div>
                   <h4 className="text-[11px] font-mono font-bold text-text-display uppercase tracking-widest">Problem Solver</h4>
                   <p className="text-[9px] font-mono text-text-disabled mt-1 uppercase tracking-wider leading-tight">Translating logic into scalable value systems</p>
                 </div>
-              </div>
-              <div className="flex items-start gap-4 p-6 bg-black group hover:bg-surface-raised transition-colors">
-                <div className="p-2 border border-border-visible bg-surface group-hover:border-text-secondary transition-colors">
+              </GlassCard>
+              <GlassCard className="flex items-start gap-4 p-6" opacity="low" blur="sm" interactive={false}>
+                <div className="p-2 border border-border-visible bg-black/40">
                   <ShieldCheck className="w-5 h-5 text-text-primary" />
                 </div>
                 <div>
                   <h4 className="text-[11px] font-mono font-bold text-text-display uppercase tracking-widest">Agent Lead</h4>
                   <p className="text-[9px] font-mono text-text-disabled mt-1 uppercase tracking-wider leading-tight">Directing autonomous digital squads for E2E delivery</p>
                 </div>
-              </div>
+              </GlassCard>
             </div>
           </motion.div>
 
-          <div className="relative flex flex-col items-center lg:items-end justify-center w-full">
+          <div className="relative flex flex-col items-center lg:items-end justify-center w-full perspective-3d">
             <div className="w-full max-w-md space-y-8">
               
-              <motion.div 
-                className="relative group p-1 bg-gradient-to-br from-border-visible to-transparent border border-border-visible"
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              <GlassCard 
+                className="relative group p-1"
+                with3D={true}
+                opacity="high"
+                blur="lg"
               >
                 {/* Image Frame with Technical Marks */}
                 <div className="absolute -top-3 -right-3 w-12 h-12 border-t-2 border-r-2 border-accent opacity-40 z-20" />
@@ -145,13 +149,13 @@ export default function About() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </GlassCard>
               
-              <motion.div 
-                className="bg-surface border border-border-visible p-6 relative overflow-hidden group"
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+              <GlassCard 
+                className="p-6 overflow-hidden relative group"
+                opacity="med"
+                blur="md"
+                with3D={true}
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -186,7 +190,7 @@ export default function About() {
                 <div className="absolute bottom-0 right-0 p-1 opacity-[0.03] group-hover:opacity-10 transition-opacity">
                   <Fingerprint className="w-24 h-24 text-white" />
                 </div>
-              </motion.div>
+              </GlassCard>
             </div>
           </div>
 

@@ -2,6 +2,7 @@ import RadialOrbitalTimeline from "./ui/radial-orbital-timeline";
 import { Zap, Target, Rocket, GraduationCap, Code, Timer, BarChart3, Binary } from "lucide-react";
 import { motion } from "framer-motion";
 import { useScrollTrigger } from "@/hooks/useScrollTrigger";
+import { GlassCard } from "./ui/GlassCard";
 
 const journeyData = [
   {
@@ -65,14 +66,17 @@ export default function Journey() {
   const { ref: triggerRef, isInView } = useScrollTrigger();
 
   return (
-    <section id="journey" className="py-24 sm:py-32 bg-black overflow-hidden relative border-b border-border-visible" ref={triggerRef}>
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="journey" className="py-24 sm:py-32 bg-black overflow-hidden relative border-b border-border-visible perspective-3d" ref={triggerRef}>
+      {/* Background Glow Accents */}
+      <div className="absolute top-1/2 right-0 w-96 h-96 bg-interactive/5 rounded-full blur-[120px] pointer-events-none opacity-50" />
+      
+      <div className="mx-auto max-w-7xl px-6 relative z-10">
         
         <div className="flex flex-col lg:flex-row justify-between items-start mb-20 gap-12">
           <motion.div 
             className="max-w-2xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
             transition={{ duration: 0.8 }}
           >
             <div className="flex items-center gap-3 mb-4">
@@ -94,54 +98,61 @@ export default function Journey() {
             className="flex flex-col gap-4 min-w-[240px]"
             initial={{ opacity: 0, x: 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="card-surface p-4 flex items-center justify-between">
+            <GlassCard className="p-4 flex items-center justify-between" opacity="low" blur="sm" interactive={false}>
               <div className="flex items-center gap-3">
                 <BarChart3 className="w-4 h-4 text-success" />
                 <span className="label-text text-[10px]">TOTAL_MILESTONES</span>
               </div>
               <span className="font-mono text-text-display font-bold">05</span>
-            </div>
-            <div className="card-surface p-4 flex items-center justify-between">
+            </GlassCard>
+            <GlassCard className="p-4 flex items-center justify-between" opacity="low" blur="sm" interactive={false}>
               <div className="flex items-center gap-3">
                 <Binary className="w-4 h-4 text-interactive" />
                 <span className="label-text text-[10px]">COMMIT_LEVEL</span>
               </div>
               <span className="font-mono text-text-display font-bold">HIGH</span>
-            </div>
+            </GlassCard>
           </motion.div>
         </div>
         
         <motion.div 
-          className="h-[700px] card-surface relative overflow-hidden group"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
         >
-            {/* Background elements for the visualization */}
-            <div className="absolute inset-0 dot-grid-subtle opacity-30 pointer-events-none" />
-            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border-visible to-transparent" />
-            <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border-visible to-transparent" />
-            
-            <RadialOrbitalTimeline timelineData={journeyData} />
-            
-            {/* Legend / Status Indicators */}
-            <div className="absolute bottom-8 right-8 font-mono text-text-secondary text-[8px] flex flex-col items-end gap-3 pointer-events-none z-10 uppercase tracking-[0.2em]">
-                <div className="flex items-center gap-3 px-3 py-1.5 border border-border-visible bg-black/80 backdrop-blur-sm">
-                    <span className="text-text-display">STATUS: COMPLETED</span>
-                    <div className="w-2 h-2 bg-text-display"></div>
-                </div>
-                <div className="flex items-center gap-3 px-3 py-1.5 border border-border-visible bg-black/80 backdrop-blur-sm">
-                    <span className="text-text-display">STATUS: IN_PROGRESS</span>
-                    <div className="w-2 h-2 border border-text-display animate-pulse"></div>
-                </div>
-            </div>
+          <GlassCard 
+            className="h-[700px] relative overflow-hidden group"
+            opacity="med"
+            blur="lg"
+            with3D={true}
+          >
+              {/* Background elements for the visualization */}
+              <div className="absolute inset-0 dot-grid-subtle opacity-30 pointer-events-none" />
+              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border-visible to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border-visible to-transparent" />
+              
+              <RadialOrbitalTimeline timelineData={journeyData} />
+              
+              {/* Legend / Status Indicators */}
+              <div className="absolute bottom-8 right-8 font-mono text-text-secondary text-[8px] flex flex-col items-end gap-3 pointer-events-none z-10 uppercase tracking-[0.2em]">
+                  <div className="flex items-center gap-3 px-3 py-1.5 border border-border-visible bg-black/80 backdrop-blur-sm">
+                      <span className="text-text-display">STATUS: COMPLETED</span>
+                      <div className="w-2 h-2 bg-text-display"></div>
+                  </div>
+                  <div className="flex items-center gap-3 px-3 py-1.5 border border-border-visible bg-black/80 backdrop-blur-sm">
+                      <span className="text-text-display">STATUS: IN_PROGRESS</span>
+                      <div className="w-2 h-2 border border-text-display animate-pulse"></div>
+                  </div>
+              </div>
 
-            {/* Corner metadata */}
-            <div className="absolute top-4 left-4 font-mono text-[8px] text-text-disabled opacity-50 select-none">
-              COORD_SYSTEM: RADIAL_ORBITAL_V2<br />
-              PROJECTION: SPHERICAL_DATA
-            </div>
+              {/* Corner metadata */}
+              <div className="absolute top-4 left-4 font-mono text-[8px] text-text-disabled opacity-50 select-none">
+                COORD_SYSTEM: RADIAL_ORBITAL_V2<br />
+                PROJECTION: SPHERICAL_DATA
+              </div>
+          </GlassCard>
         </motion.div>
       </div>
     </section>

@@ -1,3 +1,4 @@
+/* stylelint-disable */
 @import "tailwindcss";
 
 @theme {
@@ -28,6 +29,15 @@
   --size-display-xl: 72px;
   --size-display-lg: 48px;
   --size-display-md: 36px;
+
+  /* Glassmorphism Tokens - Spec Section 3 */
+  --glass-opacity-high: 0.15;
+  --glass-opacity-med: 0.10;
+  --glass-opacity-low: 0.05;
+  --glass-blur-sm: 12px;
+  --glass-blur-md: 24px;
+  --glass-blur-lg: 40px;
+  --glow-intensity: 0.3;
 }
 
 @layer base {
@@ -141,17 +151,40 @@
   color: transparent;
 }
 
-/* Glassmorphism nothing-style */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+/* Glassmorphism Base - Spec Section 7 */
+.glass-card {
+  background: rgba(255, 255, 255, var(--glass-opacity-med));
+  backdrop-filter: blur(var(--glass-blur-md));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
 }
 
-.glass-panel-accent {
-  background: rgba(215, 25, 33, 0.03);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(215, 25, 33, 0.1);
+.glass-accent {
+  background: rgba(215, 25, 33, var(--glass-opacity-med));
+  border-color: rgba(215, 25, 33, 0.2);
+}
+
+.glass-opacity-low { background-color: rgba(255, 255, 255, var(--glass-opacity-low)); }
+.glass-opacity-med { background-color: rgba(255, 255, 255, var(--glass-opacity-med)); }
+.glass-opacity-high { background-color: rgba(255, 255, 255, var(--glass-opacity-high)); }
+
+.glass-blur-sm { backdrop-filter: blur(var(--glass-blur-sm)); }
+.glass-blur-md { backdrop-filter: blur(var(--glass-blur-md)); }
+.glass-blur-lg { backdrop-filter: blur(var(--glass-blur-lg)); }
+
+.glass-glow {
+  box-shadow: 0 0 20px rgba(255, 255, 255, var(--glow-intensity));
+}
+
+.glass-glow-accent {
+  box-shadow: 0 0 20px rgba(215, 25, 33, var(--glow-intensity));
+}
+
+/* 3D Perspective Container */
+.perspective-3d {
+  perspective: 1000px;
+  transform-style: preserve-3d;
 }
 
 /* Staccato Animation */
@@ -169,7 +202,10 @@
 
 /* Section Header Utility */
 .section-header {
-  @apply space-y-4 mb-16;
+  margin-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .pixel-border {

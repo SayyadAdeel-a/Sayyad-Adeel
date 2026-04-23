@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Quote, Activity, Server } from "lucide-react";
+import { GlassCard } from "./GlassCard";
 
 interface Testimonial {
   text: string;
@@ -15,8 +16,13 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: Testimonial, ind
   const refId = `REF_${(index + 1).toString().padStart(3, '0')}`;
   
   return (
-    <div className="max-w-xs w-full">
-      <div className="card-surface p-6 group relative overflow-hidden flex flex-col h-full border-border-visible hover:border-text-secondary transition-all duration-500">
+    <div className="max-w-xs w-full h-full">
+      <GlassCard 
+        className="group p-6 h-full flex flex-col"
+        opacity="low"
+        blur="md"
+        with3D={true}
+      >
         {/* Background Dot pattern on hover */}
         <div className="absolute inset-0 dot-grid-subtle opacity-0 group-hover:opacity-[0.05] transition-opacity pointer-events-none" />
         
@@ -41,7 +47,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: Testimonial, ind
         
         <div className="mt-auto space-y-5">
           <div className="flex items-center gap-3 pt-6 border-t border-border-visible">
-            <div className="relative p-0.5 border border-border-visible bg-black group-hover:border-text-secondary transition-all duration-500 overflow-hidden">
+            <div className="relative p-0.5 border border-border-visible bg-black/40 backdrop-blur-sm group-hover:border-text-secondary transition-all duration-500 overflow-hidden">
               <img
                 width={36}
                 height={36}
@@ -59,7 +65,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: Testimonial, ind
           
           {testimonial.origin && (
             <div className="grid grid-cols-2 gap-2">
-              <div className="flex flex-col gap-1 p-2 bg-surface border border-border-visible group-hover:bg-black transition-colors">
+              <div className="flex flex-col gap-1 p-2 bg-black/20 border border-border-visible group-hover:bg-black/40 transition-colors backdrop-blur-sm">
                 <div className="flex items-center gap-1.5">
                   <Server size={8} className="text-text-disabled" />
                   <div className="label-text text-[6px] text-text-disabled uppercase">Origin_Node</div>
@@ -68,7 +74,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: Testimonial, ind
                   {testimonial.origin}
                 </div>
               </div>
-              <div className="flex flex-col gap-1 p-2 bg-surface border border-border-visible group-hover:bg-black transition-colors">
+              <div className="flex flex-col gap-1 p-2 bg-black/20 border border-border-visible group-hover:bg-black/40 transition-colors backdrop-blur-sm">
                 <div className="flex items-center gap-1.5">
                   <Activity size={8} className="text-success" />
                   <div className="label-text text-[6px] text-text-disabled uppercase">Status_Auth</div>
@@ -83,7 +89,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: Testimonial, ind
         
         {/* Hover scanline effect */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent translate-y-[-100%] group-hover:translate-y-[100%] transition-transform duration-1500 pointer-events-none" />
-      </div>
+      </GlassCard>
     </div>
   );
 };
@@ -104,6 +110,9 @@ export const TestimonialsColumn = (props: {
           repeat: Infinity,
           ease: "linear",
           repeatType: "loop",
+          onUpdate: () => {
+            // Optimization: could add logic to pause when not in viewport if needed
+          }
         }}
         className="flex flex-col gap-8 pb-8"
       >
@@ -120,4 +129,3 @@ export const TestimonialsColumn = (props: {
     </div>
   );
 };
-

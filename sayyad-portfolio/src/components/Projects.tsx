@@ -3,6 +3,7 @@ import { ExternalLink, Terminal, Activity, Zap, Box, Layers } from 'lucide-react
 import { motion, AnimatePresence } from 'framer-motion';
 import WaitlistModal from './WaitlistModal';
 import { useScrollTrigger } from '@/hooks/useScrollTrigger';
+import { GlassCard } from './ui/GlassCard';
 
 const projects = [
   {
@@ -88,22 +89,27 @@ const projects = [
   }
 ];
 
-function ProjectCard({ project, index, isInView }: any) {
+function ProjectCard({ project, index, isInView, onClick }: any) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.8, delay: index * 0.1 }}
-      className={project.featured ? 'lg:col-span-2' : ''}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.8, delay: index * 0.05 }}
+      className={`${project.featured ? 'lg:col-span-2' : ''} h-full`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
     >
-      <div className={`group h-full flex flex-col card-surface relative overflow-hidden transition-all duration-500 ${isHovered ? 'ring-1 ring-text-display/30 shadow-[0_0_30px_rgba(255,255,255,0.05)]' : ''}`}>
-        
+      <GlassCard 
+        className={`group h-full flex flex-col relative transition-all duration-500 ${isHovered ? 'glass-glow' : ''}`}
+        with3D={true}
+        opacity="med"
+        blur="md"
+      >
         {/* Hardware Status Header */}
-        <div className="flex items-center justify-between border-b border-border-visible px-4 py-3 bg-surface/50 backdrop-blur-md">
+        <div className="flex items-center justify-between border-b border-border-visible px-4 py-3 bg-black/40 backdrop-blur-md">
           <div className="flex items-center gap-3">
             <div className="flex gap-1">
               <div className={`w-1.5 h-1.5 rounded-full ${isHovered ? 'bg-text-display' : 'bg-text-disabled'} transition-colors animate-pulse`} />
@@ -126,10 +132,16 @@ function ProjectCard({ project, index, isInView }: any) {
           {/* Grid Overlay */}
           <div className="absolute inset-0 dot-grid opacity-20 pointer-events-none" />
           
-          <img 
+          <motion.img 
             src={project.image} 
             alt={project.title}
-            className="w-full h-full object-cover transition-all duration-1000 grayscale opacity-40 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
+            animate={{ 
+              scale: isHovered ? 1.1 : 1,
+              filter: isHovered ? 'grayscale(0%)' : 'grayscale(100%)',
+              opacity: isHovered ? 1 : 0.4
+            }}
+            transition={{ duration: 0.8 }}
+            className="w-full h-full object-cover"
           />
           
           {/* Technical Metadata Overlay */}
@@ -139,7 +151,7 @@ function ProjectCard({ project, index, isInView }: any) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-black/40 backdrop-blur-[2px] p-6 flex flex-col justify-between"
+                className="absolute inset-0 bg-black/40 backdrop-blur-[2px] p-6 flex flex-col justify-between z-20"
               >
                 <div className="flex justify-between items-start">
                   <div className="space-y-1">
@@ -164,10 +176,10 @@ function ProjectCard({ project, index, isInView }: any) {
             )}
           </AnimatePresence>
 
-          <div className="absolute inset-0 scanline opacity-0 group-hover:opacity-20 pointer-events-none" />
+          <div className="absolute inset-0 scanline opacity-0 group-hover:opacity-20 pointer-events-none z-10" />
           
           {/* Tech Stack Chips */}
-          <div className="absolute bottom-4 left-4 flex flex-wrap gap-2 transition-transform duration-500 group-hover:translate-y-[-4px]">
+          <div className="absolute bottom-4 left-4 flex flex-wrap gap-2 transition-transform duration-500 group-hover:translate-y-[-4px] z-30">
             {project.tech?.map((t: string, ti: number) => (
               <span key={ti} className="label-text bg-black/90 text-text-display px-2 py-1 border border-border-visible backdrop-blur-md shadow-lg">
                 {t}
@@ -177,7 +189,7 @@ function ProjectCard({ project, index, isInView }: any) {
         </div>
 
         {/* Project Description & Data */}
-        <div className="p-8 space-y-6 flex-grow flex flex-col relative bg-surface/30">
+        <div className="p-8 space-y-6 flex-grow flex flex-col relative bg-surface/10 backdrop-blur-sm">
           <div className="flex items-start justify-between">
             <div className="space-y-3">
               <h3 className={`font-display font-bold text-text-display uppercase tracking-tighter group-hover:glow-text transition-all duration-500 ${project.featured ? 'text-4xl' : 'text-2xl'}`}>
@@ -236,9 +248,6 @@ function ProjectCard({ project, index, isInView }: any) {
                 {!project.isWaitlist && (
                   <div className="absolute inset-0 bg-text-display translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
                 )}
-                {!project.isWaitlist && (
-                  <style>{`.group\/btn:hover span { color: black !important; }`}</style>
-                )}
               </a>
             ) : (
               <div className="flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.2em] py-3 px-8 border border-border-visible text-text-disabled opacity-40 cursor-not-allowed">
@@ -248,7 +257,7 @@ function ProjectCard({ project, index, isInView }: any) {
             )}
           </div>
         </div>
-      </div>
+      </GlassCard>
     </motion.div>
   );
 }
@@ -262,13 +271,12 @@ export default function Projects() {
   const displayedProjects = showAll ? projects : projects.slice(0, 3);
 
   return (
-    <section id="projects" className="py-32 bg-black border-b border-border-visible relative overflow-hidden" ref={triggerRef}>
+    <section id="projects" className="py-32 bg-black border-b border-border-visible relative overflow-hidden perspective-3d" ref={triggerRef}>
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 dot-grid-subtle opacity-10 pointer-events-none" />
-      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white/[0.02] to-transparent pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white/[0.02] to-transparent pointer-events-none" />
+      <div className="absolute left-0 top-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[120px] pointer-events-none opacity-40" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
           <motion.div 
             className="max-w-2xl"
@@ -297,39 +305,34 @@ export default function Projects() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            <div className="flex items-center gap-2">
+            <GlassCard className="flex items-center gap-2 px-4 py-2" opacity="low" blur="sm" interactive={false}>
               <Zap size={14} className="text-accent animate-pulse" />
               <span className="label-text text-text-display tracking-[0.2em]">{projects.length} UNITS_IN_TRANSIT</span>
-            </div>
+            </GlassCard>
             <div className="flex gap-1.5">
               {[...Array(12)].map((_, i) => (
                 <div key={i} className={`w-2 h-6 border ${i < 8 ? 'bg-text-display border-text-display' : 'border-border-visible'}`} />
               ))}
             </div>
-            <span className="font-mono text-[10px] text-text-secondary opacity-50">STABLE_DIFFUSION_SYSTEM_READY</span>
+            <span className="font-mono text-[10px] text-text-secondary opacity-50 uppercase">STABLE_DIFFUSION_SYSTEM_READY</span>
           </motion.div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           <AnimatePresence mode="popLayout">
             {displayedProjects.map((project, index) => (
-              <motion.div 
-                key={project.id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
+              <ProjectCard 
+                key={project.id} 
+                project={project} 
+                index={index} 
+                isInView={isInView} 
                 onClick={() => {
                   if (project.isWaitlist) {
                     setActiveProject(project.title);
                     setIsModalOpen(true);
                   }
-                }} 
-                className={project.isWaitlist ? 'cursor-pointer' : ''}
-              >
-                <ProjectCard project={project} index={index} isInView={isInView} />
-              </motion.div>
+                }}
+              />
             ))}
           </AnimatePresence>
         </div>
@@ -345,7 +348,7 @@ export default function Projects() {
               className="group/more relative flex items-center gap-6 font-mono text-[11px] font-bold uppercase tracking-[0.3em] py-5 px-12 border border-border-visible text-text-display hover:border-text-display transition-all bg-surface/20 backdrop-blur-sm overflow-hidden"
             >
               <div className="flex items-center gap-3 relative z-10">
-                <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse shadow-[0_0_8px_rgba(var(--accent-rgb),0.8)]" />
+                <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse shadow-[0_0_8px_rgba(215,25,33,0.8)]" />
                 <span>{showAll ? 'COLLAPSE_ARCHIVE' : 'EXPAND_PROJECT_ARCHIVE'}</span>
               </div>
               <Activity size={14} className={`relative z-10 transition-transform duration-700 ${showAll ? 'rotate-180 text-accent' : 'group-hover/more:rotate-90'}`} />

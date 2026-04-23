@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
+import { GlassCard } from "./ui/GlassCard";
+
 export default function FloatingCTA() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -24,17 +26,26 @@ export default function FloatingCTA() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
-          className="fixed bottom-8 right-8 z-50 perspective-[1000px]"
+          className="fixed bottom-8 right-8 z-50 perspective-3d"
         >
           <a href="#contact" className="group">
-            <div 
-              className="flex items-center gap-3 pl-5 pr-2 py-2 font-mono font-bold text-sm bg-black border border-border-visible hover:bg-text-display transition-all active:scale-95"
+            <GlassCard 
+              className="flex items-center gap-3 pl-5 pr-2 py-2"
+              opacity="med"
+              blur="lg"
+              with3D={true}
             >
-              <span className="text-text-primary group-hover:text-black transition-colors uppercase tracking-widest text-[10px]">Hire a Builder</span>
-              <div className="bg-text-display text-black p-2 border border-black group-hover:bg-black group-hover:text-text-display group-hover:border-text-display transition-all">
+              <div className="flex items-center gap-2">
+                <Zap size={10} className="text-accent animate-pulse shadow-[0_0_8px_rgba(215,25,33,0.5)]" />
+                <span className="text-text-primary group-hover:text-text-display transition-colors uppercase tracking-widest text-[10px] font-mono font-bold">Establish_Link</span>
+              </div>
+              <div className="bg-text-display text-black p-2 rounded-full group-hover:bg-white transition-all">
                 <ArrowRight size={16} />
               </div>
-            </div>
+              
+              {/* Internal scanning line */}
+              <div className="absolute inset-x-0 top-0 h-[1px] bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity animate-[scanline_2s_linear_infinite]" />
+            </GlassCard>
           </a>
         </motion.div>
       )}

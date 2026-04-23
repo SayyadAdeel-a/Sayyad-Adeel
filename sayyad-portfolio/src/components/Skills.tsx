@@ -1,6 +1,7 @@
 import { Code2, Server, Bot, Terminal, Cpu, Zap, Activity, HardDrive, Shield } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useScrollTrigger } from '@/hooks/useScrollTrigger';
+import { GlassCard } from './ui/GlassCard';
 
 const skillCategories = [
   {
@@ -41,15 +42,15 @@ export default function Skills() {
   const { ref: triggerRef, isInView } = useScrollTrigger();
 
   return (
-    <section id="skills" className="py-32 bg-black border-b border-border-visible relative overflow-hidden" ref={triggerRef}>
+    <section id="skills" className="py-32 bg-black border-b border-border-visible relative overflow-hidden perspective-3d" ref={triggerRef}>
       {/* Decorative side indicators */}
-      <div className="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col gap-4 opacity-20 hidden xl:flex">
+      <div className="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col gap-4 opacity-10 hidden xl:flex">
         {[...Array(8)].map((_, i) => (
           <div key={i} className="w-1 h-12 bg-border-visible" />
         ))}
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 relative">
+      <div className="mx-auto max-w-7xl px-6 relative z-10">
         
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
           <div className="space-y-6">
@@ -57,7 +58,7 @@ export default function Skills() {
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
               transition={{ duration: 0.8 }}
-              className="inline-flex items-center gap-4 py-1.5 px-3 border border-border-visible bg-surface/50"
+              className="inline-flex items-center gap-4 py-1.5 px-3 border border-border-visible bg-surface/50 backdrop-blur-md"
             >
               <Terminal className="w-4 h-4 text-accent" />
               <span className="label-text text-[10px] tracking-[0.3em]">COMMAND_CENTER / SKILL_SET</span>
@@ -79,10 +80,10 @@ export default function Skills() {
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           >
-            <div className="flex items-center gap-4 px-4 py-2 border border-border-visible bg-surface/30">
+            <GlassCard className="flex items-center gap-4 px-4 py-2" opacity="low" blur="sm" interactive={false}>
               <Activity size={14} className="text-success" />
               <span className="font-mono text-[10px] text-text-secondary">SYSTEM_LOAD: 74.2%</span>
-            </div>
+            </GlassCard>
             <span className="font-mono text-[8px] text-text-disabled uppercase">Kernel_Version: 6.4.12-AG</span>
           </motion.div>
         </div>
@@ -117,22 +118,25 @@ export default function Skills() {
 function SkillCard({ category, index, isInView }: any) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.8, delay: 0.2 + (index * 0.1) }}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.8, delay: index * 0.1 }}
       className="h-full"
     >
-      <div 
-        className="group p-8 card-surface h-full flex flex-col relative overflow-hidden transition-all duration-500 hover:ring-1 hover:ring-text-display/20"
+      <GlassCard 
+        className="group h-full p-8"
+        with3D={true}
+        opacity="med"
+        blur="md"
       >
         {/* Module Header */}
         <div className="flex justify-between items-start mb-10">
-          <div className="w-14 h-14 bg-black border border-border-visible flex items-center justify-center group-hover:border-text-display transition-all duration-500 shadow-[inset_0_0_10px_rgba(255,255,255,0.02)]">
+          <div className="w-14 h-14 bg-black/40 border border-border-visible flex items-center justify-center group-hover:border-text-display transition-all duration-500 shadow-[inset_0_0_10px_rgba(255,255,255,0.02)] backdrop-blur-sm">
             <category.icon className="w-6 h-6 text-text-display group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-right">
             <span className="font-mono text-[9px] text-text-disabled tracking-[0.2em] block mb-1">{category.code}</span>
-            <span className={`font-mono text-[8px] px-2 py-0.5 border ${category.status === 'CRITICAL' ? 'border-accent/40 text-accent' : 'border-success/40 text-success'} bg-black`}>
+            <span className={`font-mono text-[8px] px-2 py-0.5 border ${category.status === 'CRITICAL' ? 'border-accent/40 text-accent' : 'border-success/40 text-success'} bg-black/40 backdrop-blur-sm`}>
               {category.status}
             </span>
           </div>
@@ -142,19 +146,29 @@ function SkillCard({ category, index, isInView }: any) {
           {category.name}
         </h3>
         
-        {/* Load Indicator */}
+        {/* Segmented Load Indicator (Spec Section 2.9) */}
         <div className="mb-8 space-y-2">
           <div className="flex justify-between items-end">
             <span className="label-text text-[8px] opacity-50">USAGE_CAPACITY</span>
             <span className="font-mono text-[10px] text-text-display">{category.load}%</span>
           </div>
-          <div className="h-1.5 w-full bg-border-visible/30 overflow-hidden">
-            <motion.div 
-              initial={{ width: 0 }}
-              animate={isInView ? { width: `${category.load}%` } : { width: 0 }}
-              transition={{ duration: 1.5, delay: 0.5 + (index * 0.1) }}
-              className={`h-full ${category.status === 'CRITICAL' ? 'bg-accent' : 'bg-text-display'}`}
-            />
+          <div className="flex gap-1 h-1.5 w-full">
+            {[...Array(10)].map((_, i) => {
+              const isActive = (i + 1) * 10 <= category.load;
+              return (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, scaleY: 0 }}
+                  animate={isInView ? { opacity: 1, scaleY: 1 } : { opacity: 0, scaleY: 0 }}
+                  transition={{ duration: 0.3, delay: 0.5 + (i * 0.05) }}
+                  className={`flex-grow h-full ${
+                    isActive 
+                      ? (category.status === 'CRITICAL' ? 'bg-accent shadow-[0_0_8px_rgba(215,25,33,0.5)]' : 'bg-text-display shadow-[0_0_8px_white]') 
+                      : 'bg-white/5'
+                  }`}
+                />
+              );
+            })}
           </div>
         </div>
         
@@ -179,7 +193,7 @@ function SkillCard({ category, index, isInView }: any) {
         </div>
 
         <div className="absolute inset-0 scanline opacity-0 group-hover:opacity-10 pointer-events-none transition-opacity" />
-      </div>
+      </GlassCard>
     </motion.div>
   );
 }

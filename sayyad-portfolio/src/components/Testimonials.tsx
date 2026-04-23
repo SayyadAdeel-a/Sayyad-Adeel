@@ -1,6 +1,7 @@
 import { TestimonialsColumn } from "@/components/ui/testimonials-columns-1";
 import { motion } from "motion/react";
 import { Terminal, ShieldCheck } from "lucide-react";
+import { GlassCard } from "./ui/GlassCard";
 
 const testimonials = [
   {
@@ -74,10 +75,10 @@ const thirdColumn = testimonials.slice(6, 9);
 
 const Testimonials = () => {
   return (
-    <section id="testimonials" className="bg-black py-24 sm:py-32 relative overflow-hidden border-t border-border-visible">
+    <section id="testimonials" className="bg-black py-24 sm:py-32 relative overflow-hidden border-t border-border-visible perspective-3d">
       {/* Background patterns */}
       <div className="absolute inset-0 dot-grid opacity-[0.04]" />
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border-visible to-transparent" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-success/5 rounded-full blur-[120px] pointer-events-none opacity-40" />
       
       <div className="container z-10 mx-auto px-4 relative">
         <motion.div
@@ -88,15 +89,15 @@ const Testimonials = () => {
           className="flex flex-col items-center justify-center max-w-3xl mx-auto mb-20"
         >
           <div className="flex items-center gap-4 mb-8">
-            <div className="flex items-center gap-2 px-3 py-1 bg-surface border border-border-visible">
+            <GlassCard className="flex items-center gap-2 px-3 py-1" opacity="low" blur="sm" interactive={false}>
               <Terminal size={12} className="text-accent" />
               <div className="label-text text-[9px] text-text-display">PEER_VALIDATION_PROTOCOL</div>
-            </div>
+            </GlassCard>
             <div className="h-px w-12 bg-border-visible hidden sm:block" />
-            <div className="flex items-center gap-2 px-3 py-1 bg-surface border border-border-visible">
+            <GlassCard className="flex items-center gap-2 px-3 py-1" opacity="low" blur="sm" interactive={false}>
               <ShieldCheck size={12} className="text-success" />
               <div className="label-text text-[9px] text-text-display">TR_AUTH_V2</div>
-            </div>
+            </GlassCard>
           </div>
 
           <h2 className="text-5xl sm:text-7xl font-display font-bold tracking-tighter text-text-display text-center leading-[0.85] uppercase glow-text">
@@ -157,4 +158,3 @@ const Testimonials = () => {
 };
 
 export default Testimonials;
-

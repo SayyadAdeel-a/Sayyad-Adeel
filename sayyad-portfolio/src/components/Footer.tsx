@@ -1,4 +1,4 @@
-
+import { GlassCard } from "./ui/GlassCard";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -6,7 +6,12 @@ export default function Footer() {
   return (
     <footer className="py-12 bg-black border-t border-border-visible">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="card-surface px-8 py-10 flex flex-col md:flex-row justify-between items-center gap-10 relative overflow-hidden">
+        <GlassCard 
+          className="px-8 py-10 flex flex-col md:flex-row justify-between items-center gap-10 relative overflow-hidden"
+          opacity="low"
+          blur="md"
+          interactive={true}
+        >
           {/* Decorative Corner Element */}
           <div className="absolute -left-10 -bottom-10 opacity-5 pointer-events-none">
             <div className="w-32 h-32 border border-text-display rounded-full"></div>
@@ -39,10 +44,12 @@ export default function Footer() {
             </div>
           </div>
           
-          <div className="absolute top-0 right-0 p-2 opacity-10 pointer-events-none">
+          <div className="absolute top-2 right-4 opacity-10 pointer-events-none">
              <div className="font-mono text-[6px] text-text-secondary">SYS_LINK_ESTABLISHED</div>
           </div>
-        </div>
+          
+          <div className="absolute inset-0 scanline opacity-0 group-hover:opacity-5 pointer-events-none transition-opacity" />
+        </GlassCard>
       </div>
     </footer>
   );
