@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Plus } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { Plus, ExternalLink } from 'lucide-react';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import WaitlistModal from './WaitlistModal';
 import { useScrollTrigger } from '@/hooks/useScrollTrigger';
 import { GlassCard } from './ui/GlassCard';
@@ -17,7 +17,6 @@ const projects = [
     btnText: "Join Waitlist",
     isWaitlist: true,
     size: "large",
-    accent: "blue"
   },
   {
     id: "PRJ-NUDGE",
@@ -62,7 +61,31 @@ const projects = [
 ];
 
 function ProjectCard({ project, index, isInView, onClick }: any) {
-  const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  
+  // Mouse position for 3D tilt
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    x.set(mouseX / width - 0.5);
+    y.set(mouseY / height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   const getGridClasses = () => {
     switch (project.size) {
@@ -74,67 +97,60 @@ function ProjectCard({ project, index, isInView, onClick }: any) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-      transition={{ 
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-        delay: index * 0.1 
-      }}
-      className={`${getGridClasses()} group flex flex-col gap-6`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      initial={{ opacity: 0, y: 60 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
+      transition={{ duration: 1.2, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      className={`${getGridClasses()} group relative flex flex-col perspective-container`}
     >
-      <div 
-        className="relative overflow-hidden rounded-[2.5rem] bg-zinc-900/20 aspect-[4/3] lg:aspect-auto h-full min-h-[300px] cursor-pointer"
+      <motion.div 
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="relative h-full"
         onClick={onClick}
       >
         <GlassCard 
-          className="h-full border-white/5 transition-all duration-700"
+          className="h-full border-white/5 shadow-diffused cursor-pointer overflow-hidden rounded-[3rem]"
           with3D={true}
           opacity="low"
           blur="lg"
           interactive={true}
         >
-          <div className="absolute inset-0 overflow-hidden">
+          {/* Spatial Metadata */}
+          <div className="absolute top-10 left-10 z-40" style={{ transform: "translateZ(50px)" }}>
+            <div className="px-6 py-2 rounded-full bg-black/50 backdrop-blur-3xl border border-white/10 shadow-weightless">
+              <span className="text-[10px] font-mono font-black tracking-[0.4em] text-accent uppercase">{project.category}</span>
+            </div>
+          </div>
+
+          {/* Project Image */}
+          <div className="absolute inset-0 z-0">
             <motion.img 
               src={project.image} 
               alt={project.title}
-              animate={{ 
-                scale: isHovered ? 1.05 : 1,
-                filter: isHovered ? 'grayscale(0%) brightness(0.8)' : 'grayscale(100%) brightness(0.5)',
-              }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 scale-110 group-hover:scale-100"
             />
           </div>
 
-          <div className="absolute top-8 left-8 z-20">
-            <div className="px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-xl border border-white/10">
-              <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-accent uppercase">{project.category}</span>
-            </div>
-          </div>
-
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-30 pointer-events-none">
-            <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-white shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-              <Plus className="w-8 h-8" />
+          {/* Bottom Info Layer */}
+          <div className="absolute bottom-0 left-0 right-0 p-12 z-30 bg-gradient-to-t from-black via-black/40 to-transparent" style={{ transform: "translateZ(30px)" }}>
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h3 className="text-4xl md:text-5xl font-display font-black text-text-display group-hover:text-accent transition-colors tracking-tighter uppercase leading-none">
+                  {project.title}
+                </h3>
+                <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-text-display group-hover:text-black transition-all">
+                  <ExternalLink className="w-5 h-5" />
+                </div>
+              </div>
+              <p className="text-xl text-text-secondary leading-relaxed max-w-sm line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                {project.description}
+              </p>
             </div>
           </div>
         </GlassCard>
-      </div>
-
-      <div className="px-4 space-y-2">
-        <div className="flex items-center justify-between">
-          <h3 className="text-2xl font-display font-bold text-text-display group-hover:text-accent transition-colors">
-            {project.title}
-          </h3>
-          <span className="text-[10px] font-mono text-text-disabled uppercase tracking-widest">{project.id}</span>
-        </div>
-        <p className="text-sm text-text-secondary leading-relaxed max-w-sm">
-          {project.description}
-        </p>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
@@ -148,35 +164,40 @@ export default function Projects() {
   const displayedProjects = showAll ? projects : projects.slice(0, 3);
 
   return (
-    <section id="projects" className="py-40 bg-black relative overflow-hidden" ref={triggerRef}>
+    <section id="projects" className="py-60 bg-black relative overflow-hidden" ref={triggerRef}>
       <div className="mx-auto max-w-[1400px] px-8">
         
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 mb-32 items-end">
+        {/* Antigravity Header */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-24 mb-48 items-end">
           <motion.div 
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
-            transition={{ duration: 1 }}
+            initial={{ opacity: 0, x: -60 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -60 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="space-y-4">
-              <div className="w-12 h-[2px] bg-accent" />
-              <h2 className="text-5xl md:text-7xl font-display font-black text-text-display leading-none tracking-tighter">
-                SELECTED <br />
-                <span className="text-text-secondary italic">WORKS.</span>
+            <div className="space-y-8">
+              <div className="flex items-center gap-6">
+                <div className="w-16 h-[2px] bg-accent" />
+                <span className="text-[11px] font-mono text-accent font-black tracking-[0.5em] uppercase">Archive</span>
+              </div>
+              <h2 className="text-6xl md:text-[7rem] font-display font-black text-text-display leading-[0.85] tracking-tighter uppercase">
+                Selected <br />
+                <span className="text-text-secondary italic">Works.</span>
               </h2>
             </div>
           </motion.div>
 
           <motion.p 
-            className="text-xl text-text-secondary leading-relaxed max-w-xl pb-2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            className="text-2xl text-text-secondary leading-relaxed max-w-sm pb-4 border-l border-white/5 pl-12"
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+            transition={{ duration: 1.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
             Each artifact represents a distinct milestone in technical orchestration. Engineered for impact, polished for production.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
+        {/* 3D Bento Gallery */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-24">
           <AnimatePresence mode="popLayout">
             {displayedProjects.map((project, index) => (
               <ProjectCard 
@@ -197,21 +218,22 @@ export default function Projects() {
           </AnimatePresence>
         </div>
 
+        {/* Spatial Archive Toggle */}
         {projects.length > 3 && (
-          <div className="mt-40 flex justify-center">
+          <div className="mt-60 flex justify-center">
             <MagneticWrapper strength={0.2}>
               <button 
                 onClick={() => setShowAll(!showAll)}
-                className="group flex items-center gap-8 px-16 py-8 rounded-full border border-white/10 hover:border-accent transition-all bg-zinc-900/50 backdrop-blur-xl"
+                className="group flex items-center gap-12 px-20 py-10 rounded-full border border-white/10 hover:border-accent transition-all bg-zinc-900/50 backdrop-blur-2xl shadow-diffused"
               >
                 <div className="flex flex-col items-start gap-1">
-                  <span className="text-[10px] font-mono text-accent font-bold tracking-[0.3em] uppercase">Archive</span>
-                  <span className="text-lg font-display font-black text-text-display">
-                    {showAll ? 'CLOSE REPOSITORY' : 'VIEW FULL ARCHIVE'}
+                  <span className="text-[10px] font-mono text-accent font-black tracking-[0.4em] uppercase">Status_Registry</span>
+                  <span className="text-2xl font-display font-black text-text-display uppercase tracking-tighter">
+                    {showAll ? 'CLOSE ARCHIVE' : 'EXPAND ARCHIVE'}
                   </span>
                 </div>
-                <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-white transition-transform group-hover:rotate-45">
-                  <Plus className="w-6 h-6" />
+                <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-white transition-all group-hover:scale-110 group-hover:rotate-90">
+                  <Plus className="w-8 h-8" />
                 </div>
               </button>
             </MagneticWrapper>

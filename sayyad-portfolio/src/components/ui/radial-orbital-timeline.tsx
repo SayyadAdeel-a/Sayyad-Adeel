@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight, Zap } from "lucide-react";
-
-import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Zap } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { GlassCard } from "./GlassCard";
 
 interface TimelineItem {
   id: number;
@@ -22,323 +22,187 @@ interface RadialOrbitalTimelineProps {
 export default function RadialOrbitalTimeline({
   timelineData,
 }: RadialOrbitalTimelineProps) {
-  const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>(
-    {}
-  );
-  const [viewMode] = useState<"orbital">("orbital");
   const [rotationAngle, setRotationAngle] = useState<number>(0);
   const [autoRotate, setAutoRotate] = useState<boolean>(true);
-  const [pulseEffect, setPulseEffect] = useState<Record<number, boolean>>({});
-  const [centerOffset] = useState<{ x: number; y: number }>({
-    x: 0,
-    y: 0,
-  });
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const orbitRef = useRef<HTMLDivElement>(null);
-  const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
-
-  const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === containerRef.current || e.target === orbitRef.current) {
-      setExpandedItems({});
-      setActiveNodeId(null);
-      setPulseEffect({});
-      setAutoRotate(true);
-    }
-  };
-
-  const toggleItem = (id: number) => {
-    setExpandedItems((prev) => {
-      const newState = { ...prev };
-      Object.keys(newState).forEach((key) => {
-        if (parseInt(key) !== id) {
-          newState[parseInt(key)] = false;
-        }
-      });
-
-      newState[id] = !prev[id];
-
-      if (!prev[id]) {
-        setActiveNodeId(id);
-        setAutoRotate(false);
-
-        const relatedItems = getRelatedItems(id);
-        const newPulseEffect: Record<number, boolean> = {};
-        relatedItems.forEach((relId) => {
-          newPulseEffect[relId] = true;
-        });
-        setPulseEffect(newPulseEffect);
-
-        centerViewOnNode(id);
-      } else {
-        setActiveNodeId(null);
-        setAutoRotate(true);
-        setPulseEffect({});
-      }
-
-      return newState;
-    });
-  };
 
   useEffect(() => {
     let rotationTimer: any;
-
-    if (autoRotate && viewMode === "orbital") {
+    if (autoRotate) {
       rotationTimer = setInterval(() => {
-        setRotationAngle((prev) => {
-          const newAngle = (prev + 0.3) % 360;
-          return Number(newAngle.toFixed(3));
-        });
-      }, 50);
+        setRotationAngle((prev) => (prev + 0.2) % 360);
+      }, 30);
     }
-
-    return () => {
-      if (rotationTimer) {
-        clearInterval(rotationTimer);
-      }
-    };
-  }, [autoRotate, viewMode]);
-
-  const centerViewOnNode = (nodeId: number) => {
-    if (viewMode !== "orbital" || !nodeRefs.current[nodeId]) return;
-
-    const nodeIndex = timelineData.findIndex((item) => item.id === nodeId);
-    const totalNodes = timelineData.length;
-    const targetAngle = (nodeIndex / totalNodes) * 360;
-
-    setRotationAngle(270 - targetAngle);
-  };
+    return () => clearInterval(rotationTimer);
+  }, [autoRotate]);
 
   const calculateNodePosition = (index: number, total: number) => {
     const angle = ((index / total) * 360 + rotationAngle) % 360;
-    const radius = 200;
+    const radius = 280;
     const radian = (angle * Math.PI) / 180;
 
-    const x = radius * Math.cos(radian) + centerOffset.x;
-    const y = radius * Math.sin(radian) + centerOffset.y;
+    const x = radius * Math.cos(radian);
+    const y = radius * Math.sin(radian);
 
-    const zIndex = Math.round(100 + 50 * Math.cos(radian));
-    const opacity = Math.max(
-      0.4,
-      Math.min(1, 0.4 + 0.6 * ((1 + Math.sin(radian)) / 2))
-    );
+    // Z-depth calculation for 3D effect
+    const z = Math.sin(radian) * 100;
+    const scale = 0.8 + (Math.sin(radian) + 1) * 0.2;
+    const opacity = 0.4 + (Math.sin(radian) + 1) * 0.3;
 
-    return { x, y, angle, zIndex, opacity };
+    return { x, y, z, scale, opacity, angle };
   };
 
-  const getRelatedItems = (itemId: number): number[] => {
-    const currentItem = timelineData.find((item) => item.id === itemId);
-    return currentItem ? currentItem.relatedIds : [];
-  };
-
-  const isRelatedToActive = (itemId: number): boolean => {
-    if (!activeNodeId) return false;
-    const relatedItems = getRelatedItems(activeNodeId);
-    return relatedItems.includes(itemId);
-  };
-
-  const getStatusStyles = (status: TimelineItem["status"]): string => {
-    switch (status) {
-      case "completed":
-        return "text-white bg-black border-white";
-      case "in-progress":
-        return "text-black bg-white border-black";
-      case "pending":
-        return "text-white bg-black/40 border-white/50";
-      default:
-        return "text-white bg-black/40 border-white/50";
+  const handleNodeClick = (id: number) => {
+    if (activeNodeId === id) {
+      setActiveNodeId(null);
+      setAutoRotate(true);
+    } else {
+      setActiveNodeId(id);
+      setAutoRotate(false);
     }
   };
 
   return (
-    <div className="w-full h-[600px] flex flex-col items-center justify-center overflow-hidden border-t border-b border-border-visible bg-black"
+    <div 
+      className="w-full h-full flex flex-col items-center justify-center overflow-hidden bg-black perspective-container"
       ref={containerRef}
-      onClick={handleContainerClick}
     >
-      <div className="relative w-full max-w-4xl h-full flex items-center justify-center">
-        <div
-          className="absolute w-full h-full flex items-center justify-center"
-          ref={orbitRef}
-          style={{
-            perspective: "1000px",
-            transform: `translate(${centerOffset.x}px, ${centerOffset.y}px)`,
-          }}
-        >
-          <div className="absolute w-16 h-16 bg-text-display animate-pulse flex items-center justify-center z-10 glow-text">
-            <div className="absolute w-20 h-20 border border-border-visible animate-ping opacity-70"></div>
-            <div
-              className="absolute w-24 h-24 border border-border-visible animate-ping opacity-50"
-              style={{ animationDelay: "0.5s" }}
-            ></div>
-            <div className="w-8 h-8 bg-black border border-border-visible"></div>
+      <div className="relative w-full h-full flex items-center justify-center transform-style-3d">
+        
+        {/* Core Orbital Ring */}
+        <div className="absolute w-[560px] h-[560px] border border-white/5 rounded-full z-0" />
+        <div className="absolute w-[300px] h-[300px] border border-white/5 rounded-full z-0 opacity-40" />
+        
+        {/* Central Core Aura */}
+        <div className="absolute z-10 flex items-center justify-center">
+          <div className="w-32 h-32 bg-accent/10 rounded-full blur-[80px] animate-pulse" />
+          <div className="w-12 h-12 rounded-full border border-accent/30 bg-black flex items-center justify-center shadow-accent">
+            <Zap className="w-5 h-5 text-accent animate-pulse" />
           </div>
+        </div>
 
-          <div className="absolute w-[450px] h-[450px] border border-border-visible border-dashed opacity-20"></div>
-          <div className="absolute w-[300px] h-[300px] border border-border-visible border-dashed opacity-40"></div>
+        {/* Nodes */}
+        {timelineData.map((item, index) => {
+          const pos = calculateNodePosition(index, timelineData.length);
+          const isActive = activeNodeId === item.id;
+          const Icon = item.icon;
 
-          {timelineData.map((item, index) => {
-            const position = calculateNodePosition(index, timelineData.length);
-            const isExpanded = expandedItems[item.id];
-            const isRelated = isRelatedToActive(item.id);
-            const isPulsing = pulseEffect[item.id];
-            const Icon = item.icon;
-
-            const nodeStyle = {
-              transform: `translate(${position.x}px, ${position.y}px)`,
-              zIndex: isExpanded ? 200 : position.zIndex,
-              opacity: isExpanded ? 1 : position.opacity,
-            };
-
-            return (
-              <div
-                key={item.id}
-                ref={(el) => { nodeRefs.current[item.id] = el; }}
-                className="absolute transition-all duration-700 cursor-pointer"
-                style={nodeStyle}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleItem(item.id);
-                }}
-              >
-                <div
-                  className={`absolute rounded-full -inset-1 ${
-                    isPulsing ? "animate-pulse duration-1000" : ""
-                  }`}
-                  style={{
-                    background: `radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%)`,
-                    width: `${item.energy * 0.5 + 40}px`,
-                    height: `${item.energy * 0.5 + 40}px`,
-                    left: `-${(item.energy * 0.5 + 40 - 40) / 2}px`,
-                    top: `-${(item.energy * 0.5 + 40 - 40) / 2}px`,
-                  }}
-                ></div>
-
-                <div
-                  className={`
-                  w-10 h-10 flex items-center justify-center
-                  ${
-                    isExpanded
-                      ? "bg-text-display text-black"
-                      : isRelated
-                      ? "bg-text-secondary text-black"
-                      : "bg-black text-text-display"
-                  }
-                  border
-                  ${
-                    isExpanded
-                      ? "border-text-display shadow-[0_0_20px_rgba(255,255,255,0.4)]"
-                      : isRelated
-                      ? "border-text-display animate-pulse"
-                      : "border-border-visible"
-                  }
-                  transition-all duration-300 transform
-                  ${isExpanded ? "scale-150 rotate-45" : ""}
-                `}
-                  style={!isExpanded ? {
-                    boxShadow: "0 0 0px rgba(255, 255, 255, 0)"
-                  } : {}}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = "0 0 16px rgba(255, 255, 255, 0.3)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = "0 0 0px rgba(255, 255, 255, 0)";
-                  }}
-                >
-                  <Icon size={16} />
+          return (
+            <div
+              key={item.id}
+              className="absolute transition-all duration-700 cursor-pointer group"
+              style={{
+                transform: `translate3d(${pos.x}px, ${pos.y}px, ${pos.z}px) scale(${pos.scale})`,
+                opacity: pos.opacity,
+                zIndex: isActive ? 500 : Math.round(pos.z + 100),
+              }}
+              onClick={() => handleNodeClick(item.id)}
+            >
+              {/* Node Visual */}
+              <div className="relative">
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center border transition-all duration-500 ${
+                  isActive 
+                    ? "bg-text-display border-white text-black shadow-diffused" 
+                    : "bg-zinc-900/80 border-white/10 text-text-secondary group-hover:border-accent group-hover:text-accent shadow-weightless"
+                }`}>
+                  <Icon className="w-6 h-6" />
                 </div>
-
-                <div
-                  className={`
-                  absolute top-12 whitespace-nowrap
-                  label-text
-                  transition-all duration-300
-                  ${isExpanded ? "text-text-display scale-110 glow-text" : "text-text-secondary"}
-                `}
-                >
+                
+                {/* Node Label */}
+                <div className={`absolute top-full mt-4 left-1/2 -translate-x-1/2 whitespace-nowrap label-text text-[10px] tracking-widest uppercase transition-all duration-500 ${
+                  isActive ? "text-text-display font-black opacity-100" : "text-text-disabled opacity-40 group-hover:opacity-100"
+                }`}>
                   {item.title}
                 </div>
 
-                {isExpanded && (
-                  <div className="absolute top-20 left-1/2 -translate-x-1/2 w-72 card-surface p-4 overflow-visible z-[300]">
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-px h-3 bg-border-visible"></div>
-                    <CardHeader className="pb-2 px-0 pt-0">
-                      <div className="flex justify-between items-center">
-                        <div
-                          className={`px-2 py-0.5 label-text border border-border-visible ${getStatusStyles(
-                            item.status
-                          )}`}
-                        >
-                          {item.status === "completed"
-                            ? "COMPLETE"
-                            : item.status === "in-progress"
-                            ? "IN PROGRESS"
-                            : "PENDING"}
-                        </div>
-                        <span className="label-text">
-                          {item.date}
-                        </span>
-                      </div>
-                      <CardTitle className="text-sm mt-3 font-display font-bold tracking-tight text-text-display uppercase">
-                        {item.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="text-xs font-sans text-text-secondary leading-relaxed px-0 pb-0">
-                      <p>{item.content}</p>
-
-                      <div className="mt-6 pt-4 border-t border-border-visible">
-                        <div className="flex justify-between items-center label-text mb-2">
-                          <span className="flex items-center gap-1">
-                            <Zap size={10} className="text-text-display" />
-                            ENERGY
-                          </span>
-                          <span className="text-text-display">{item.energy}%</span>
-                        </div>
-                        <div className="w-full h-1 border border-border-visible bg-black overflow-hidden">
-                          <div
-                            className="h-full bg-text-display"
-                            style={{ width: `${item.energy}%` }}
-                          ></div>
-                        </div>
-                      </div>
-
-                      {item.relatedIds.length > 0 && (
-                        <div className="mt-4 pt-4 border-t border-border-visible">
-                          <div className="flex items-center mb-3">
-                            <h4 className="label-text">
-                              Connected Nodes
-                            </h4>
-                          </div>
-                          <div className="flex flex-wrap gap-2">
-                            {item.relatedIds.map((relatedId) => {
-                              const relatedItem = timelineData.find(
-                                (i) => i.id === relatedId
-                              );
-                              return (
-                                <button
-                                  key={relatedId}
-                                  className="flex items-center gap-2 h-7 px-3 label-text border border-border-visible bg-black hover:bg-surface text-text-display transition-all"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    toggleItem(relatedId);
-                                  }}
-                                >
-                                  {relatedItem?.title}
-                                  <ArrowRight
-                                    size={10}
-                                    className="text-text-secondary"
-                                  />
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
-                    </CardContent>
-                  </div>
+                {/* Pulse Aura */}
+                {isActive && (
+                  <div className="absolute inset-0 bg-accent/20 rounded-full blur-2xl animate-ping -z-10" />
                 )}
               </div>
-            );
-          })}
+
+              {/* Detail Card Overlay */}
+              <AnimatePresence>
+                {isActive && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8, y: 40 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, y: 40 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                    className="absolute bottom-24 left-1/2 -translate-x-1/2 w-[400px] z-[1000] pointer-events-none"
+                  >
+                    <GlassCard 
+                      className="p-12 border-white/10 shadow-diffused pointer-events-auto"
+                      opacity="med"
+                      blur="lg"
+                      with3D={true}
+                    >
+                      <div className="space-y-8">
+                        <div className="flex justify-between items-center">
+                          <span className="text-[10px] font-mono text-accent font-bold tracking-[0.4em] uppercase">{item.category}</span>
+                          <span className="text-[10px] font-mono text-text-disabled uppercase">{item.date}</span>
+                        </div>
+
+                        <div className="space-y-4">
+                          <h4 className="text-3xl font-display font-black text-text-display leading-none tracking-tighter uppercase">{item.title}</h4>
+                          <p className="text-lg text-text-secondary leading-relaxed font-sans">{item.content}</p>
+                        </div>
+
+                        <div className="pt-6 border-t border-white/5 space-y-4">
+                          <div className="flex justify-between items-center text-[10px] font-mono text-text-disabled tracking-widest uppercase">
+                            <span>Orchestration Energy</span>
+                            <span className="text-accent">{item.energy}%</span>
+                          </div>
+                          <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                            <motion.div 
+                              initial={{ width: 0 }}
+                              animate={{ width: `${item.energy}%` }}
+                              className="h-full bg-accent"
+                            />
+                          </div>
+                        </div>
+
+                        {item.relatedIds.length > 0 && (
+                          <div className="flex flex-wrap gap-2 pt-4">
+                            {item.relatedIds.map(rid => (
+                              <div key={rid} className="px-3 py-1 border border-white/5 bg-zinc-900/50 rounded-full text-[8px] font-mono text-text-disabled uppercase tracking-widest">
+                                Node_{rid}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </GlassCard>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          );
+        })}
+
+        {/* Floating Background Dust */}
+        <div className="absolute inset-0 pointer-events-none opacity-20">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-accent/40 rounded-full"
+              animate={{
+                x: [Math.random() * 800 - 400, Math.random() * 800 - 400],
+                y: [Math.random() * 800 - 400, Math.random() * 800 - 400],
+                opacity: [0.1, 0.5, 0.1],
+              }}
+              transition={{
+                duration: Math.random() * 10 + 10,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+            />
+          ))}
         </div>
       </div>
     </div>
