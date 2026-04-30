@@ -9,63 +9,63 @@ const testimonials = [
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix",
     name: "Briana Patton",
     role: "Stealth AI Founder",
-    origin: "SAN_FRANCISCO_NODE"
+    origin: "SAN FRANCISCO"
   },
   {
     text: "Building in public with Adeel has been an education. His focus on Koda's mobile-first DX is a masterclass in modern build tools.",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie",
     name: "Bilal Ahmed",
     role: "Senior DevTools Engineer",
-    origin: "LONDON_NODE"
+    origin: "LONDON"
   },
   {
     text: "The integration of Gemini and OpenAI into the workflow was seamless. Exceptional understanding of the AI-first stack.",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
     name: "Saman Malik",
     role: "Product Lead @ AI Startup",
-    origin: "DUBAI_NODE"
+    origin: "DUBAI"
   },
   {
     text: "This ERP's seamless integration enhanced our business operations and efficiency. Highly recommend for its intuitive interface.",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Omar",
     name: "Omar Raza",
     role: "SaaS CEO",
-    origin: "KARACHI_NODE"
+    origin: "KARACHI"
   },
   {
     text: "Its robust features and quick support have transformed our workflow, making us significantly more efficient.",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Zainab",
     name: "Zainab Hussain",
     role: "Project Manager",
-    origin: "SINGAPORE_NODE"
+    origin: "SINGAPORE"
   },
   {
     text: "The smooth implementation exceeded expectations. It streamlined processes, improving overall business performance.",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Aliza",
     name: "Aliza Khan",
     role: "Business Analyst",
-    origin: "TORONTO_NODE"
+    origin: "TORONTO"
   },
   {
     text: "Adeel is a rare breed of developer who understands both the deep technical side of LLMs and the commercial side of SaaS.",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Farhan",
     name: "Farhan Siddiqui",
     role: "Tech Entrepreneur",
-    origin: "AUSTIN_NODE"
+    origin: "AUSTIN"
   },
   {
     text: "They delivered a solution that exceeded expectations, understanding our needs and enhancing our operations.",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sana",
     name: "Sana Sheikh",
     role: "Product Designer",
-    origin: "BERLIN_NODE"
+    origin: "BERLIN"
   },
   {
     text: "Using these AI-first architectures, our online presence and conversions significantly improved.",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Hassan",
     name: "Hassan Ali",
     role: "E-commerce Manager",
-    origin: "SYDNEY_NODE"
+    origin: "SYDNEY"
   },
 ];
 
@@ -91,12 +91,12 @@ const Testimonials = () => {
           <div className="flex items-center gap-4 mb-8">
             <GlassCard className="flex items-center gap-2 px-3 py-1" opacity="low" blur="sm" interactive={false}>
               <Terminal size={12} className="text-accent" />
-              <div className="label-text text-[9px] text-text-display">PEER_VALIDATION_PROTOCOL</div>
+              <div className="label-text text-[9px] text-text-display">PEER VALIDATION</div>
             </GlassCard>
             <div className="h-px w-12 bg-border-visible hidden sm:block" />
             <GlassCard className="flex items-center gap-2 px-3 py-1" opacity="low" blur="sm" interactive={false}>
               <ShieldCheck size={12} className="text-success" />
-              <div className="label-text text-[9px] text-text-display">TR_AUTH_V2</div>
+              <div className="label-text text-[9px] text-text-display">VERIFIED TRUST</div>
             </GlassCard>
           </div>
 
@@ -107,23 +107,23 @@ const Testimonials = () => {
           
           <div className="mt-8 flex flex-col items-center">
             <p className="text-center text-text-secondary text-lg font-sans max-w-lg leading-relaxed">
-              Analyzing transmission quality across <span className="text-text-primary">global builder nodes</span>. Independent third-party feedback verified by automated protocol.
+              Global feedback from founders, engineers, and creators. Independent insights from around the world.
             </p>
             
             <div className="mt-10 flex gap-12 items-center">
               <div className="flex flex-col items-center">
                 <div className="text-2xl font-display font-bold text-text-display">9+</div>
-                <div className="label-text text-[8px] opacity-50 uppercase tracking-[0.2em]">GLOBAL_NODES</div>
+                <div className="label-text text-[8px] opacity-50 uppercase tracking-[0.2em]">LOCATIONS</div>
               </div>
               <div className="h-8 w-px bg-border-visible" />
               <div className="flex flex-col items-center">
                 <div className="text-2xl font-display font-bold text-text-display">100%</div>
-                <div className="label-text text-[8px] opacity-50 uppercase tracking-[0.2em]">UPTIME_RATING</div>
+                <div className="label-text text-[8px] opacity-50 uppercase tracking-[0.2em]">SUCCESS RATE</div>
               </div>
               <div className="h-8 w-px bg-border-visible" />
               <div className="flex flex-col items-center">
                 <div className="text-2xl font-display font-bold text-text-display">A++</div>
-                <div className="label-text text-[8px] opacity-50 uppercase tracking-[0.2em]">SLA_GRADE</div>
+                <div className="label-text text-[8px] opacity-50 uppercase tracking-[0.2em]">QUALITY GRADE</div>
               </div>
             </div>
           </div>
@@ -144,7 +144,7 @@ const Testimonials = () => {
             <div className="absolute top-0 left-0 h-full w-1/3 bg-accent/50 animate-[scanline_8s_linear_infinite]" />
           </div>
           <div className="label-text text-[9px] tracking-[0.5em] text-text-disabled group-hover:text-text-primary transition-colors">
-            END_OF_VALIDATED_TRANSMISSIONS // SYSTEM_ID: 0x9F_SAFE
+            END OF TRANSMISSIONS // GLOBAL TRUST
           </div>
           <div className="mt-4 flex gap-1.5">
             {[...Array(16)].map((_, i) => (

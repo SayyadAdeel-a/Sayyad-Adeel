@@ -19,11 +19,9 @@ export default function About() {
         <div className="font-mono text-[9px] text-text-secondary text-right leading-relaxed tracking-widest flex flex-col items-end gap-1">
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-success rounded-full animate-pulse" />
-            <span>SYS_OS: NOTHING_CORE_V1.0</span>
+            <span>OPERATIONAL</span>
           </div>
           <div>LOC: 34.7717° N, 72.3602° E</div>
-          <div className="text-text-disabled">BUILD_HASH: 0x8F2C4E...</div>
-          <div className="mt-2 py-0.5 px-2 bg-white/5 border border-white/10 text-white">STATUS: OPERATIONAL</div>
         </div>
       </div>
 
@@ -40,7 +38,7 @@ export default function About() {
               <div className="p-1.5 bg-surface border border-border-visible">
                 <User className="w-3.5 h-3.5 text-text-secondary" />
               </div>
-              <span className="label-text">IDENTITY_MANIFEST / 0x01</span>
+              <span className="label-text">IDENTITY / PROFILE</span>
             </div>
             
             <div className="space-y-6">
@@ -124,10 +122,7 @@ export default function About() {
                   <div className="absolute top-4 left-4 flex flex-col gap-1 z-20">
                     <div className="font-mono text-[8px] text-text-display bg-black/60 backdrop-blur-md px-2 py-0.5 border border-white/10 flex items-center gap-2">
                       <span className="w-1 h-1 bg-accent rounded-full animate-pulse" />
-                      REC: STREAM_LIVE_FEED
-                    </div>
-                    <div className="font-mono text-[7px] text-white/50 bg-black/40 px-2 py-0.5 border border-white/5">
-                      FPS: 60.0 // BITRATE: 12.4 Mbps
+                      LIVE_STATUS: STABLE
                     </div>
                   </div>
 
@@ -135,11 +130,9 @@ export default function About() {
                     <div className="flex justify-between items-end">
                       <div className="space-y-1">
                         <div className="font-display text-2xl font-bold tracking-tight text-text-display uppercase leading-none">Sayyad Adeel</div>
-                        <div className="label-text text-accent font-bold tracking-[0.2em]">CORE_ORCHESTRATOR</div>
+                        <div className="label-text text-accent font-bold tracking-[0.2em]">SaaS ORCHESTRATOR</div>
                       </div>
                       <div className="text-right">
-                        <div className="label-text text-[7px] opacity-40">SYS_ID: 9823-XA</div>
-                        <div className="label-text text-[7px] opacity-40">VER: 2.0.4-LTS</div>
                         <div className="mt-1 flex gap-0.5">
                           {[...Array(5)].map((_, i) => (
                             <div key={i} className={`w-2 h-0.5 ${i < 4 ? 'bg-accent shadow-[0_0_5px_rgba(215,25,33,0.5)]' : 'bg-white/10'}`} />
@@ -162,7 +155,7 @@ export default function About() {
                     <div className="p-1 border border-accent/20 bg-accent/5">
                       <Terminal size={12} className="text-accent" />
                     </div>
-                    <span className="label-text text-text-display text-[9px]">CURRENT_OPERATIONAL_FOCUS</span>
+                    <span className="label-text text-text-display text-[9px]">OPERATIONAL FOCUS</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Activity size={10} className="text-success animate-pulse" />
@@ -177,12 +170,12 @@ export default function About() {
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-3 bg-black/40 border border-border-visible">
-                      <div className="label-text text-[7px] opacity-50 mb-1">PROJECT_TARGET</div>
-                      <div className="font-mono text-[10px] text-text-display uppercase tracking-wider">Koda_Mobile_DX</div>
+                      <div className="label-text text-[7px] opacity-50 mb-1">TARGET</div>
+                      <div className="font-mono text-[10px] text-text-display uppercase tracking-wider">Koda AI IDE</div>
                     </div>
                     <div className="p-3 bg-black/40 border border-border-visible">
-                      <div className="label-text text-[7px] opacity-50 mb-1">LOAD_CAPACITY</div>
-                      <div className="font-mono text-[10px] text-text-display uppercase tracking-wider">87%_UTILIZED</div>
+                      <div className="label-text text-[7px] opacity-50 mb-1">CAPACITY</div>
+                      <div className="font-mono text-[10px] text-text-display uppercase tracking-wider">HIGH</div>
                     </div>
                   </div>
                 </div>

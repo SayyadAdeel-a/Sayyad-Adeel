@@ -61,7 +61,7 @@ export default function Skills() {
               className="inline-flex items-center gap-4 py-1.5 px-3 border border-border-visible bg-surface/50 backdrop-blur-md"
             >
               <Terminal className="w-4 h-4 text-accent" />
-              <span className="label-text text-[10px] tracking-[0.3em]">COMMAND_CENTER / SKILL_SET</span>
+              <span className="label-text text-[10px] tracking-[0.3em]">SKILLS / EXPERTISE</span>
             </motion.div>
             
             <motion.h2 
@@ -82,9 +82,8 @@ export default function Skills() {
           >
             <GlassCard className="flex items-center gap-4 px-4 py-2" opacity="low" blur="sm" interactive={false}>
               <Activity size={14} className="text-success" />
-              <span className="font-mono text-[10px] text-text-secondary">SYSTEM_LOAD: 74.2%</span>
+              <span className="font-mono text-[10px] text-text-secondary">ACTIVE_STACK: OPTIMIZED</span>
             </GlassCard>
-            <span className="font-mono text-[8px] text-text-disabled uppercase">Kernel_Version: 6.4.12-AG</span>
           </motion.div>
         </div>
 
@@ -135,7 +134,7 @@ function SkillCard({ category, index, isInView }: any) {
             <category.icon className="w-6 h-6 text-text-display group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-right">
-            <span className="font-mono text-[9px] text-text-disabled tracking-[0.2em] block mb-1">{category.code}</span>
+            <span className="font-mono text-[9px] text-text-disabled tracking-[0.2em] block mb-1">STABLE</span>
             <span className={`font-mono text-[8px] px-2 py-0.5 border ${category.status === 'CRITICAL' ? 'border-accent/40 text-accent' : 'border-success/40 text-success'} bg-black/40 backdrop-blur-sm`}>
               {category.status}
             </span>
@@ -149,7 +148,7 @@ function SkillCard({ category, index, isInView }: any) {
         {/* Segmented Load Indicator (Spec Section 2.9) */}
         <div className="mb-8 space-y-2">
           <div className="flex justify-between items-end">
-            <span className="label-text text-[8px] opacity-50">USAGE_CAPACITY</span>
+            <span className="label-text text-[8px] opacity-50">EXPERTISE_LEVEL</span>
             <span className="font-mono text-[10px] text-text-display">{category.load}%</span>
           </div>
           <div className="flex gap-1 h-1.5 w-full">
@@ -172,7 +171,6 @@ function SkillCard({ category, index, isInView }: any) {
           </div>
         </div>
         
-        {/* Skill List */}
         <div className="grid grid-cols-1 gap-4 mt-auto">
           {category.skills.map((skill: string, sIndex: number) => (
             <div key={sIndex} className="flex items-center justify-between group/item">
@@ -182,7 +180,6 @@ function SkillCard({ category, index, isInView }: any) {
                   {skill}
                 </span>
               </div>
-              <span className="font-mono text-[8px] opacity-0 group-hover/item:opacity-30 transition-opacity">OK</span>
             </div>
           ))}
         </div>

@@ -74,16 +74,13 @@ export default function WaitlistModal({ isOpen, onClose, projectTitle }: Waitlis
                       <div className="p-1 border border-border-visible bg-black/40">
                         <Terminal size={12} className="text-accent" />
                       </div>
-                      <span className="label-text text-[9px] tracking-[0.3em]">Module: Early_Access_v1.0</span>
+                      <span className="label-text text-[9px] tracking-[0.3em]">EARLY ACCESS</span>
                     </div>
                     
                     <h2 className="text-4xl font-display font-bold text-text-display tracking-tighter uppercase leading-[0.9] mb-4">
                       Join {projectTitle} <br />
                       <span className="text-text-secondary">Waitlist</span>
                     </h2>
-                    <p className="text-text-secondary font-mono text-[10px] uppercase tracking-widest opacity-60">
-                      SYS_LOG: Be the first to ship code from your pocket.
-                    </p>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -148,8 +145,7 @@ export default function WaitlistModal({ isOpen, onClose, projectTitle }: Waitlis
                           <Loader2 className="animate-spin" size={16} />
                         ) : (
                           <>
-                            <Shield size={14} className="text-accent" />
-                            SECURE_ACCESS_NODE
+                            JOIN WAITLIST
                             <Send size={14} className="transition-transform group-hover:translate-x-1" />
                           </>
                         )}
@@ -162,9 +158,6 @@ export default function WaitlistModal({ isOpen, onClose, projectTitle }: Waitlis
 
                   <div className="mt-10 flex items-center gap-4">
                     <div className="h-px flex-grow bg-border-visible/30" />
-                    <p className="text-[8px] font-mono text-text-disabled uppercase tracking-widest">
-                      Privacy_Protocol_Active
-                    </p>
                     <div className="h-px flex-grow bg-border-visible/30" />
                   </div>
                 </>

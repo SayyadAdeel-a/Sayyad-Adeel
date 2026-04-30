@@ -37,7 +37,7 @@ export default function CurrentFocus() {
             className="inline-flex items-center gap-3"
           >
             <Terminal className="w-4 h-4 text-text-secondary" />
-            <span className="label-text">LIVE STATUS / WORKING ON</span>
+            <span className="label-text">CURRENTLY WORKING ON</span>
           </motion.div>
           
           <motion.h2 
@@ -71,7 +71,7 @@ export default function CurrentFocus() {
               <p className="text-text-secondary text-sm leading-relaxed mb-8 flex-grow">{item.description}</p>
               
               <div className="pt-4 border-t border-border border-dashed flex justify-between items-center">
-                <span className="label-text">TASK_ID: {index + 1}</span>
+                <span className="label-text">PROJECT {index + 1}</span>
                 <div className="h-1 w-8 bg-text-secondary opacity-30" />
               </div>
               

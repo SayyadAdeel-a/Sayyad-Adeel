@@ -81,7 +81,7 @@ export default function Journey() {
           >
             <div className="flex items-center gap-3 mb-4">
               <Timer className="w-4 h-4 text-text-secondary" />
-              <span className="label-text text-text-display">[ CHRONOLOGY_INDEX ]</span>
+              <span className="label-text text-text-display">CHRONOLOGY / HISTORY</span>
             </div>
             
             <h2 className="text-5xl sm:text-7xl font-display font-bold tracking-tighter text-text-display mb-8 uppercase leading-none glow-text">
@@ -103,16 +103,16 @@ export default function Journey() {
             <GlassCard className="p-4 flex items-center justify-between" opacity="low" blur="sm" interactive={false}>
               <div className="flex items-center gap-3">
                 <BarChart3 className="w-4 h-4 text-success" />
-                <span className="label-text text-[10px]">TOTAL_MILESTONES</span>
+                <span className="label-text text-[10px]">TOTAL MILESTONES</span>
               </div>
               <span className="font-mono text-text-display font-bold">05</span>
             </GlassCard>
             <GlassCard className="p-4 flex items-center justify-between" opacity="low" blur="sm" interactive={false}>
               <div className="flex items-center gap-3">
                 <Binary className="w-4 h-4 text-interactive" />
-                <span className="label-text text-[10px]">COMMIT_LEVEL</span>
+                <span className="label-text text-[10px]">COMMIT STATUS</span>
               </div>
-              <span className="font-mono text-text-display font-bold">HIGH</span>
+              <span className="font-mono text-text-display font-bold">STABLE</span>
             </GlassCard>
           </motion.div>
         </div>
@@ -138,19 +138,19 @@ export default function Journey() {
               {/* Legend / Status Indicators */}
               <div className="absolute bottom-8 right-8 font-mono text-text-secondary text-[8px] flex flex-col items-end gap-3 pointer-events-none z-10 uppercase tracking-[0.2em]">
                   <div className="flex items-center gap-3 px-3 py-1.5 border border-border-visible bg-black/80 backdrop-blur-sm">
-                      <span className="text-text-display">STATUS: COMPLETED</span>
+                      <span className="text-text-display">COMPLETED</span>
                       <div className="w-2 h-2 bg-text-display"></div>
                   </div>
                   <div className="flex items-center gap-3 px-3 py-1.5 border border-border-visible bg-black/80 backdrop-blur-sm">
-                      <span className="text-text-display">STATUS: IN_PROGRESS</span>
+                      <span className="text-text-display">IN PROGRESS</span>
                       <div className="w-2 h-2 border border-text-display animate-pulse"></div>
                   </div>
               </div>
 
               {/* Corner metadata */}
               <div className="absolute top-4 left-4 font-mono text-[8px] text-text-disabled opacity-50 select-none">
-                COORD_SYSTEM: RADIAL_ORBITAL_V2<br />
-                PROJECTION: SPHERICAL_DATA
+                TIMELINE V2.4<br />
+                PROJECT HISTORY
               </div>
           </GlassCard>
         </motion.div>

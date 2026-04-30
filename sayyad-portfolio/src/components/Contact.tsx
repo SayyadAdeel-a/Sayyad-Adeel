@@ -31,7 +31,7 @@ export default function Contact() {
             <div className="space-y-6">
               <GlassCard className="inline-flex items-center gap-4 py-1.5 px-3" opacity="low" blur="sm" interactive={false}>
                 <Network className="w-3.5 h-3.5 text-text-secondary" />
-                <span className="label-text text-[10px] tracking-[0.3em]">COMMS_PROTOCOL / ESTABLISH_LINK</span>
+                <span className="label-text text-[10px] tracking-[0.3em]">CONTACT / CONNECT</span>
               </GlassCard>
               
               <h2 className="text-6xl sm:text-7xl font-display font-bold tracking-tighter text-text-display leading-[0.85] uppercase glow-text">
@@ -51,29 +51,23 @@ export default function Contact() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <GlassCard className="p-6 space-y-3" opacity="low" blur="sm">
                   <div className="flex items-center justify-between">
-                    <div className="label-text text-[8px] text-text-disabled uppercase">Availability</div>
+                    <div className="label-text text-[8px] text-text-disabled uppercase">Status</div>
                     <div className="w-2 h-2 bg-success rounded-full shadow-[0_0_8px_rgba(74,158,92,0.5)] animate-pulse" />
                   </div>
-                  <div className="font-mono text-xs text-text-display tracking-widest uppercase">Q2_ACTIVE (OPEN)</div>
-                  <div className="h-0.5 w-full bg-white/5 overflow-hidden">
-                    <div className="h-full w-3/4 bg-success" />
-                  </div>
+                  <div className="font-mono text-xs text-text-display tracking-widest uppercase">AVAILABLE</div>
                 </GlassCard>
                 <GlassCard className="p-6 space-y-3" opacity="low" blur="sm">
                   <div className="flex items-center justify-between">
-                    <div className="label-text text-[8px] text-text-disabled uppercase">Latency</div>
+                    <div className="label-text text-[8px] text-text-disabled uppercase">Response Time</div>
                     <Zap size={10} className="text-warning" />
                   </div>
-                  <div className="font-mono text-xs text-text-display tracking-widest uppercase">&lt; 24H_RESPONSE</div>
-                  <div className="h-0.5 w-full bg-white/5 overflow-hidden">
-                    <div className="h-full w-full bg-warning/50 animate-[scanline_4s_linear_infinite]" />
-                  </div>
+                  <div className="font-mono text-xs text-text-display tracking-widest uppercase">&lt; 24 HOURS</div>
                 </GlassCard>
               </div>
             </div>
 
             <div className="space-y-6 pt-4">
-              <div className="label-text text-text-disabled text-[9px] uppercase tracking-[0.4em] mb-4">Network_Entry_Points</div>
+               <div className="label-text text-text-disabled text-[9px] uppercase tracking-[0.4em] mb-4">SOCIAL_LINKS</div>
               <div className="flex flex-wrap gap-4">
                 {socialLinks.map((link, index) => (
                   <a 
@@ -108,13 +102,9 @@ export default function Contact() {
               <div className="flex items-center justify-between border-b border-border-visible/20 px-6 py-5 bg-black/40 backdrop-blur-md">
                 <div className="flex items-center gap-3">
                   <Terminal size={14} className="text-accent" />
-                  <span className="label-text text-[10px] text-text-display tracking-widest uppercase">Message_Upload_Interface_v2.4</span>
+                  <span className="label-text text-[10px] text-text-display tracking-widest uppercase">SEND MESSAGE</span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="hidden sm:flex items-center gap-2 px-2 py-0.5 border border-white/5 bg-white/5 backdrop-blur-sm">
-                    <div className="w-1 h-1 bg-success rounded-full" />
-                    <span className="label-text text-[7px] text-success">ENCRYPTION_ACTIVE</span>
-                  </div>
                   <ShieldCheck size={14} className="text-text-disabled group-hover:text-success transition-colors" />
                 </div>
               </div>
@@ -132,7 +122,7 @@ export default function Contact() {
                 >
                   <div className="relative group/field">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="label-text text-[8px] text-text-disabled group-focus-within/field:text-text-display transition-colors uppercase tracking-[0.2em]">01_Identity_Token</span>
+                      <span className="label-text text-[8px] text-text-disabled group-focus-within/field:text-text-display transition-colors uppercase tracking-[0.2em]">01_NAME</span>
                       <User size={10} className="text-text-disabled group-focus-within/field:text-accent transition-colors" />
                     </div>
                     <input 
@@ -146,7 +136,7 @@ export default function Contact() {
 
                   <div className="relative group/field">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="label-text text-[8px] text-text-disabled group-focus-within/field:text-text-display transition-colors uppercase tracking-[0.2em]">02_Return_Node</span>
+                      <span className="label-text text-[8px] text-text-disabled group-focus-within/field:text-text-display transition-colors uppercase tracking-[0.2em]">02_EMAIL</span>
                       <Globe size={10} className="text-text-disabled group-focus-within/field:text-accent transition-colors" />
                     </div>
                     <input 
@@ -160,17 +150,16 @@ export default function Contact() {
 
                   <div className="sm:col-span-2 relative group/field">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="label-text text-[8px] text-text-disabled group-focus-within/field:text-text-display transition-colors uppercase tracking-[0.2em]">03_Transmission_Payload</span>
+                      <span className="label-text text-[8px] text-text-disabled group-focus-within/field:text-text-display transition-colors uppercase tracking-[0.2em]">03_MESSAGE</span>
                       <MessageSquare size={10} className="text-text-disabled group-focus-within/field:text-accent transition-colors" />
                     </div>
                     <textarea 
                       name="message" 
                       rows={4}
                       required
-                      placeholder="Define vision, project parameters, or system ping..."
+                      placeholder="Define vision, project parameters, or questions..."
                       className="w-full bg-black/40 border-2 border-border-visible/50 focus:border-accent p-6 text-text-primary placeholder:text-text-disabled/20 focus:outline-none transition-all font-mono text-sm resize-none tracking-tight leading-relaxed backdrop-blur-md"
                     />
-                    <div className="absolute bottom-4 right-4 label-text text-[7px] text-text-disabled opacity-40">BYTES_REMAINING: 2048</div>
                   </div>
                   
                   <div className="sm:col-span-2 space-y-6">
@@ -186,18 +175,6 @@ export default function Contact() {
                       </span>
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />
                     </motion.button>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="flex gap-1">
-                          {[...Array(8)].map((_, i) => (
-                            <div key={i} className={`w-1 h-3 ${i < 6 ? 'bg-accent/40 shadow-[0_0_8px_rgba(215,25,33,0.3)]' : 'bg-white/5'}`} />
-                          ))}
-                        </div>
-                        <span className="label-text text-[7px] text-text-disabled tracking-widest uppercase">Transmit_Power: 85%</span>
-                      </div>
-                      <span className="label-text text-[7px] text-text-disabled uppercase tracking-widest group-hover:text-success transition-colors">Awaiting_Input_Data</span>
-                    </div>
                   </div>
                 </form>
               </div>

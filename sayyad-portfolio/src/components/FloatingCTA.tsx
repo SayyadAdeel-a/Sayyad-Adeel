@@ -37,7 +37,7 @@ export default function FloatingCTA() {
             >
               <div className="flex items-center gap-2">
                 <Zap size={10} className="text-accent animate-pulse shadow-[0_0_8px_rgba(215,25,33,0.5)]" />
-                <span className="text-text-primary group-hover:text-text-display transition-colors uppercase tracking-widest text-[10px] font-mono font-bold">Establish_Link</span>
+                <span className="text-text-primary group-hover:text-text-display transition-colors uppercase tracking-widest text-[10px] font-mono font-bold">Work With Me</span>
               </div>
               <div className="bg-text-display text-black p-2 rounded-full group-hover:bg-white transition-all">
                 <ArrowRight size={16} />

@@ -64,7 +64,7 @@ export default function Services() {
               className="inline-flex items-center gap-3"
             >
               <Terminal className="w-4 h-4 text-text-secondary" />
-              <span className="label-text">CORE_OPERATIONS / CAPABILITIES</span>
+              <span className="label-text">CORE SERVICES / CAPABILITIES</span>
             </motion.div>
             
             <motion.h2 
@@ -83,9 +83,8 @@ export default function Services() {
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           >
-            <span>[ SYSTEM_READY ]</span>
-            <span>[ NODES_ACTIVE: 04 ]</span>
-            <span>[ LOAD_BALANCER: OPTIMIZED ]</span>
+            <span>[ READY ]</span>
+            <span>[ ACTIVE ]</span>
           </motion.div>
         </div>
 
@@ -107,7 +106,7 @@ export default function Services() {
                 <div className="p-10 flex flex-col h-full relative">
                   {/* ID Label */}
                   <div className="absolute top-4 right-4 font-mono text-[10px] text-text-disabled group-hover:text-text-display transition-colors">
-                    {service.id}
+                    #{index + 1}
                   </div>
 
                   <div className="flex items-center gap-6 mb-10">
@@ -118,7 +117,7 @@ export default function Services() {
                       <div className="absolute -bottom-0.5 -right-0.5 w-1 h-1 bg-text-display opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
                     <div className="h-px flex-grow bg-border-visible" />
-                    <span className="font-mono text-[9px] text-text-disabled tracking-[0.2em] group-hover:text-text-secondary transition-colors">{service.code}</span>
+                    <span className="font-mono text-[9px] text-text-disabled tracking-[0.2em] group-hover:text-text-secondary transition-colors">CAPABILITY</span>
                   </div>
                   
                   <h3 className="text-2xl font-display font-bold text-text-display mb-6 uppercase tracking-tighter group-hover:glow-text transition-all">{service.title}</h3>
@@ -129,7 +128,7 @@ export default function Services() {
                   <div className="space-y-4 mt-auto">
                     <div className="flex items-center gap-2">
                       <Activity className="w-3 h-3 text-success animate-pulse" />
-                      <span className="label-text text-[8px]">CORE_SPECIFICATIONS</span>
+                      <span className="label-text text-[8px]">SPECIFICATIONS</span>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {service.tech.map((t, ti) => (

@@ -20,7 +20,7 @@ export default function Footer() {
           
           <div className="flex flex-col gap-4 text-center md:text-left z-10">
             <div className="text-text-primary font-display font-bold text-sm uppercase tracking-tighter">
-              SAYYAD ADEEL <span className="text-text-secondary">/ CORE</span>
+              SAYYAD ADEEL
             </div>
             <div className="text-text-secondary font-mono text-[10px] uppercase tracking-widest leading-relaxed">
               © {currentYear} — BUILT WITH AI IN SWAT, PAKISTAN<br />
@@ -39,13 +39,13 @@ export default function Footer() {
             <div className="flex gap-4 items-center">
               <div className="h-[1px] w-12 bg-border-visible" />
               <div className="font-mono text-[8px] text-text-disabled tracking-[0.3em] uppercase">
-                BUILD_VER: 2.4.0_STABLE
+                PRODUCTION STABLE
               </div>
             </div>
           </div>
           
           <div className="absolute top-2 right-4 opacity-10 pointer-events-none">
-             <div className="font-mono text-[6px] text-text-secondary">SYS_LINK_ESTABLISHED</div>
+             <div className="font-mono text-[6px] text-text-secondary">ESTABLISHED 2024</div>
           </div>
           
           <div className="absolute inset-0 scanline opacity-0 group-hover:opacity-5 pointer-events-none transition-opacity" />

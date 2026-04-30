@@ -23,7 +23,7 @@ export default function Newsletter() {
             >
               <GlassCard className="label-text py-1 px-4 border border-border-visible mb-6 inline-flex items-center gap-2" opacity="low" blur="sm" interactive={false}>
                 <Rocket size={12} className="text-text-display" />
-                <span className="tracking-widest uppercase">Build_In_Public</span>
+                <span className="tracking-widest uppercase">BUILD IN PUBLIC</span>
               </GlassCard>
               <h2 className="text-4xl sm:text-5xl font-display font-bold text-text-display tracking-tighter mb-6 leading-[1.1] uppercase glow-text">
                 Follow the journey <br />
@@ -41,7 +41,7 @@ export default function Newsletter() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <div className="absolute -top-6 left-0 label-text opacity-30 text-[8px] uppercase tracking-widest">Subscription_Module_v1.0</div>
+              <div className="absolute -top-6 left-0 label-text opacity-30 text-[8px] uppercase tracking-widest">NEWSLETTER SUBSCRIPTION</div>
               <form 
                 action="https://formspree.io/f/mjgpdolb" 
                 method="POST"
@@ -74,12 +74,11 @@ export default function Newsletter() {
             </motion.div>
           </div>
           
-          {/* Decorative technical elements */}
+          {/* Decorative elements */}
           <div className="absolute bottom-4 right-4 p-2 opacity-10">
             <div className="label-text text-[6px] leading-tight font-mono">
-              01001110 01001111 01010100 01001000 01001001 01001110 01000111<br/>
-              SY_LOG_ENABLED: TRUE<br/>
-              BUFFER_SIZE: 2048KB
+              ESTABLISHED 2024<br/>
+              SHIPPING WEEKLY
             </div>
           </div>
           <div className="absolute inset-0 scanline opacity-0 group-hover:opacity-10 pointer-events-none transition-opacity" />

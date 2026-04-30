@@ -121,25 +121,15 @@ function ProjectCard({ project, index, isInView, onClick }: any) {
         opacity="med"
         blur="md"
       >
-        {/* Hardware Status Header */}
+        {/* Status Header */}
         <div className="flex items-center justify-between border-b border-border-visible px-5 py-4 bg-black/40 backdrop-blur-md">
           <div className="flex items-center gap-4">
-            <div className="flex gap-1.5">
-              <div className={`w-1.5 h-1.5 rounded-none ${isHovered ? 'bg-text-display shadow-[0_0_8px_white]' : 'bg-text-disabled opacity-30'} transition-all duration-300`} />
-              <div className={`w-1.5 h-1.5 rounded-none ${project.status === 'ACTIVE_BUILD' ? 'bg-accent shadow-[0_0_8px_rgba(215,25,33,0.8)]' : 'bg-text-disabled opacity-20'}`} />
-            </div>
-            <span className="label-text text-[9px] tracking-[0.3em] font-black">{project.id}</span>
+            <div className={`w-1.5 h-1.5 rounded-none ${isHovered ? 'bg-text-display' : 'bg-text-disabled opacity-30'} transition-all duration-300`} />
+            <span className="label-text text-[9px] tracking-[0.3em] font-black uppercase">NODE_{index + 1}</span>
           </div>
-          <div className="flex items-center gap-5">
-            <div className="hidden sm:flex items-center gap-2.5 opacity-40 group-hover:opacity-100 transition-opacity">
-              <Activity size={10} className="text-accent" />
-              <span className="font-mono text-[9px] tracking-widest">{project.metrics.latency}</span>
-            </div>
-            <div className="h-4 w-[px] bg-border-visible/50" />
-            <div className="flex items-center gap-2">
-              <div className="w-1 h-1 bg-success rounded-full animate-pulse" />
-              <span className="label-text text-[9px] text-text-display tracking-[0.2em]">{project.status || 'DEPLOYED'}</span>
-            </div>
+          <div className="flex items-center gap-2">
+            <div className="w-1 h-1 bg-success rounded-full animate-pulse" />
+            <span className="label-text text-[9px] text-text-display tracking-[0.2em]">{project.status || 'STABLE'}</span>
           </div>
         </div>
 
@@ -158,32 +148,20 @@ function ProjectCard({ project, index, isInView, onClick }: any) {
             className="w-full h-full object-cover"
           />
           
-          {/* Technical Metadata Overlay */}
+          {/* Hover Overlay */}
           <AnimatePresence>
             {isHovered && (
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-black/40 backdrop-blur-[1px] p-8 flex flex-col justify-between z-20"
+                className="absolute inset-0 bg-black/60 backdrop-blur-[1px] p-8 flex flex-col justify-end z-20"
               >
-                <div className="flex justify-between items-start">
-                  <div className="space-y-1.5">
-                    <p className="label-text text-white/50 text-[7px] tracking-[0.4em]">CORE_ARCH</p>
-                    <p className="font-mono text-[10px] text-white font-black">STABLE_V4_X64</p>
-                  </div>
-                  <div className="text-right space-y-1.5">
-                    <p className="label-text text-white/50 text-[7px] tracking-[0.4em]">SECURITY</p>
-                    <p className="font-mono text-[10px] text-white font-black">ENCRYPTED_AES</p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-3 gap-6 pt-10">
-                  {Object.entries(project.metrics).map(([key, value]: [string, any]) => (
-                    <div key={key} className="border-l border-white/20 pl-4 py-1">
-                      <p className="label-text text-white/40 text-[7px] tracking-[0.3em] mb-1">{key.toUpperCase()}</p>
-                      <p className="font-mono text-[11px] text-white font-bold">{value}</p>
-                    </div>
+                <div className="flex gap-4">
+                  {project.tech?.map((t: string, ti: number) => (
+                    <span key={ti} className="label-text text-white/60 text-[9px] tracking-widest border-l border-white/20 pl-3">
+                      {t.toUpperCase()}
+                    </span>
                   ))}
                 </div>
               </motion.div>
@@ -192,10 +170,10 @@ function ProjectCard({ project, index, isInView, onClick }: any) {
 
           <div className="absolute inset-0 scanline opacity-0 group-hover:opacity-10 pointer-events-none z-10" />
           
-          {/* Tech Stack Chips */}
-          <div className="absolute bottom-6 left-6 flex flex-wrap gap-2.5 transition-all duration-500 group-hover:translate-y-[-4px] z-30">
-            {project.tech?.map((t: string, ti: number) => (
-              <span key={ti} className="label-text bg-black/95 text-text-display px-2.5 py-1.5 border border-border-visible backdrop-blur-md shadow-2xl text-[8px] tracking-[0.2em]">
+          {/* Tech Tags */}
+          <div className="absolute bottom-6 left-6 flex flex-wrap gap-2.5 z-30">
+            {project.tech?.slice(0, 2).map((t: string, ti: number) => (
+              <span key={ti} className="label-text bg-black/90 text-text-display px-3 py-1.5 border border-border-visible backdrop-blur-md text-[8px] tracking-[0.2em]">
                 {t}
               </span>
             ))}
@@ -225,7 +203,7 @@ function ProjectCard({ project, index, isInView, onClick }: any) {
           <div className="space-y-6 flex-grow">
             <div className="flex items-center gap-4">
               <Terminal size={14} className="text-accent opacity-60" />
-              <div className="label-text text-[9px] text-text-disabled tracking-[0.4em]">LOG_ENTRIES.txt</div>
+              <div className="label-text text-[9px] text-text-disabled tracking-[0.4em]">HIGHLIGHTS</div>
               <div className="h-px flex-grow bg-border-visible/30" />
             </div>
             <ul className="space-y-4">
@@ -238,18 +216,11 @@ function ProjectCard({ project, index, isInView, onClick }: any) {
             </ul>
           </div>
 
-          {/* Footer Controls */}
+          {/* Footer */}
           <div className="pt-8 flex items-center justify-between border-t border-border-visible/50 mt-auto">
-            <div className="flex items-center gap-6">
-              <div className="flex flex-col gap-1">
-                <span className="label-text text-[7px] opacity-30 tracking-[0.4em]">PERMISSION</span>
-                <span className={`font-mono text-[9px] font-black ${project.link === '#' ? 'text-accent' : 'text-interactive'}`}>{project.link === '#' ? 'RESTRICTED' : 'GRANTED'}</span>
-              </div>
-              <div className="w-px h-8 bg-border-visible/50" />
-              <div className="flex flex-col gap-1">
-                <span className="label-text text-[7px] opacity-30 tracking-[0.4em]">VERSION</span>
-                <span className="font-mono text-[9px] text-text-primary font-black uppercase">v2.4.0_STABLE</span>
-              </div>
+            <div className="flex items-center gap-4">
+              <div className="w-1.5 h-1.5 bg-accent/20" />
+              <span className="font-mono text-[9px] text-text-disabled tracking-widest uppercase">STABLE</span>
             </div>
 
             {project.link !== "#" || project.btnText === "Join Waitlist" ? (
@@ -300,9 +271,8 @@ export default function Projects() {
             <div className="flex items-center gap-6 mb-8">
               <div className="h-16 w-1 bg-accent shadow-[0_0_15px_rgba(215,25,33,0.5)]" />
               <div className="space-y-1.5">
-                <p className="label-text text-accent font-black tracking-[0.4em] text-[10px]">[ OUTPUT_REGISTRY ]</p>
                 <h2 className="text-6xl sm:text-8xl font-dot font-black tracking-[-0.04em] text-text-display uppercase leading-[0.85]">
-                  Project <span className="text-text-secondary opacity-40 outline-text-white italic">Nodes</span>
+                  Featured <span className="text-text-secondary opacity-40 outline-text-white italic">Work</span>
                 </h2>
               </div>
             </div>
@@ -318,16 +288,11 @@ export default function Projects() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            <GlassCard className="flex items-center gap-3 px-5 py-2.5" opacity="low" blur="sm" interactive={false}>
-              <Zap size={14} className="text-accent animate-pulse shadow-[0_0_8px_rgba(215,25,33,0.8)]" />
-              <span className="label-text text-text-display tracking-[0.3em] font-black text-[10px]">{projects.length} UNITS_IN_TRANSIT</span>
-            </GlassCard>
             <div className="flex gap-2">
-              {[...Array(16)].map((_, i) => (
-                <div key={i} className={`w-1.5 h-8 border-x border-border-visible/30 ${i < 8 ? 'bg-accent/40 shadow-[0_0_10px_rgba(215,25,33,0.2)]' : 'bg-transparent'}`} />
+              {[...Array(8)].map((_, i) => (
+                <div key={i} className={`w-1.5 h-8 border-x border-border-visible/30 ${i < 4 ? 'bg-accent/40' : 'bg-transparent'}`} />
               ))}
             </div>
-            <span className="font-mono text-[9px] text-text-disabled tracking-[0.3em] uppercase opacity-40">STABLE_DIFFUSION_SYSTEM_READY</span>
           </motion.div>
         </div>
 
@@ -362,17 +327,10 @@ export default function Projects() {
                 className="group/more relative flex items-center gap-8 font-mono text-[11px] font-black uppercase tracking-[0.4em] py-6 px-16 border border-border-visible text-text-display hover:border-text-display transition-all bg-surface/10 backdrop-blur-md overflow-hidden"
               >
                 <div className="flex items-center gap-4 relative z-10">
-                  <div className={`w-2 h-2 rounded-none animate-pulse ${showAll ? 'bg-accent shadow-[0_0_10px_red]' : 'bg-text-display shadow-[0_0_10px_white]'}`} />
-                  <span>{showAll ? 'COLLAPSE_ARCHIVE' : 'EXPAND_PROJECT_ARCHIVE'}</span>
+                  <div className={`w-2 h-2 rounded-none ${showAll ? 'bg-accent' : 'bg-text-display'}`} />
+                  <span>{showAll ? 'SHOW LESS' : 'VIEW FULL ARCHIVE'}</span>
                 </div>
                 <Activity size={16} className={`relative z-10 transition-transform duration-700 ${showAll ? 'rotate-180 text-accent' : 'group-hover/more:rotate-90'}`} />
-                
-                {/* Button Hover Background */}
-                <div className="absolute inset-0 bg-text-display/5 translate-y-full group-hover/more:translate-y-0 transition-transform duration-500 ease-out" />
-                
-                {/* Hardware Accents */}
-                <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-white/20" />
-                <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-white/20" />
               </button>
             </MagneticWrapper>
           </motion.div>

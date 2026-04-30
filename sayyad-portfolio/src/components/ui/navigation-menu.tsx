@@ -199,7 +199,7 @@ export default function NavigationMenu() {
             className="absolute top-20 left-1/2 -translate-x-1/2 flex items-center gap-3 px-4 py-1.5 bg-black/60 border border-border-visible rounded-full backdrop-blur-xl pointer-events-none"
           >
             <div className="w-1.5 h-1.5 bg-accent rounded-none animate-pulse" />
-            <span className="font-mono text-[9px] text-text-display tracking-[0.3em] uppercase">SYSTEM_MINIMIZED</span>
+            <span className="font-mono text-[9px] text-text-display tracking-[0.3em] uppercase">MINIMIZED</span>
           </motion.div>
         )}
       </AnimatePresence>
