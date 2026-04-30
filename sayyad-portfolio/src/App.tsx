@@ -4,7 +4,7 @@ import About from '@/components/About'
 import Services from '@/components/Services'
 import Skills from '@/components/Skills'
 import Journey from '@/components/Journey'
-import Testimonials from '@/components/Testimonials'
+
 import Projects from '@/components/Projects'
 import Newsletter from '@/components/Newsletter'
 import Contact from '@/components/Contact'
@@ -21,7 +21,7 @@ function App() {
         <Services />
         <Skills />
         <Journey />
-        <Testimonials />
+
         <Projects />
         <Newsletter />
         <Contact />
