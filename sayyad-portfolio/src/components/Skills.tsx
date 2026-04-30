@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useScrollTrigger } from '@/hooks/useScrollTrigger';
 import { GlassCard } from './ui/GlassCard';
 
@@ -9,23 +10,23 @@ const skills = [
   "Vercel", "GitHub Actions", "Docker", "Edge Runtime"
 ];
 
-const InfiniteStream = ({ items, speed = 20, reverse = false }: { items: string[], speed?: number, reverse?: boolean }) => {
+const InfiniteStream = ({ items, speed = 20, reverse = false, zIndex = 0 }: { items: string[], speed?: number, reverse?: boolean, zIndex?: number }) => {
   return (
-    <div className="flex overflow-hidden group select-none py-4">
+    <div className="flex overflow-hidden group select-none py-6" style={{ transformStyle: 'preserve-3d', zIndex }}>
       <motion.div 
-        className="flex gap-8 whitespace-nowrap"
+        className="flex gap-12 whitespace-nowrap"
         animate={{ x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
         transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
       >
         {[...items, ...items].map((item, i) => (
           <GlassCard 
             key={i} 
-            className="px-10 py-5 border-white/5 hover:border-accent transition-colors flex items-center justify-center min-w-[200px]"
+            className="px-12 py-6 border-white/5 hover:border-accent transition-all flex items-center justify-center min-w-[240px] shadow-weightless"
             opacity="low"
-            blur="sm"
+            blur="lg"
             with3D={true}
           >
-            <span className="text-sm font-mono font-bold tracking-[0.3em] text-text-secondary group-hover:text-text-display uppercase transition-colors">
+            <span className="text-[11px] font-mono font-black tracking-[0.4em] text-text-secondary group-hover:text-accent uppercase transition-colors">
               {item}
             </span>
           </GlassCard>
@@ -36,67 +37,97 @@ const InfiniteStream = ({ items, speed = 20, reverse = false }: { items: string[
 };
 
 export default function Skills() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const { ref: triggerRef, isInView } = useScrollTrigger();
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
+  
+  const rotateX = useSpring(useTransform(scrollYProgress, [0, 1], [45, 65]), springConfig);
+  const rotateZ = useSpring(useTransform(scrollYProgress, [0, 1], [-20, -45]), springConfig);
+  const scale = useSpring(useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1.1, 0.9]), springConfig);
+  const z = useSpring(useTransform(scrollYProgress, [0, 0.5, 1], [-200, 0, -200]), springConfig);
 
   return (
-    <section id="skills" className="py-40 bg-black relative overflow-hidden" ref={triggerRef}>
-      <div className="mx-auto max-w-[1400px] px-8">
-        
-        {/* Asymmetric Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 mb-32 items-start">
+    <section 
+      id="skills" 
+      className="py-60 bg-black relative overflow-hidden perspective-container" 
+      ref={triggerRef}
+    >
+      <div className="mx-auto max-w-[1400px] px-8 relative z-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 mb-40 items-start">
           <motion.div 
             initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="space-y-4">
-              <div className="w-12 h-[2px] bg-accent" />
-              <h2 className="text-5xl md:text-7xl font-display font-black text-text-display leading-none tracking-tighter">
-                TECHNICAL <br />
-                <span className="text-text-secondary italic">ECOSYSTEM.</span>
+            <div className="space-y-6">
+              <div className="w-16 h-[2px] bg-accent" />
+              <h2 className="text-6xl md:text-8xl font-display font-black text-text-display leading-none tracking-tighter uppercase">
+                Technical <br />
+                <span className="text-text-secondary italic">Ecosystem.</span>
               </h2>
             </div>
           </motion.div>
 
           <motion.p 
-            className="text-lg text-text-secondary leading-relaxed pt-8 border-t border-white/5"
+            className="text-xl text-text-secondary leading-relaxed pt-12 border-t border-white/5 max-w-sm"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            A high-performance stack curated for rapid orchestration and production-grade stability. 
-            Bridging AI logic with modern frontend architecture.
+            A high-performance stack curated for rapid orchestration. Weightless logic, spatial interfaces.
           </motion.p>
         </div>
+      </div>
 
-        {/* Infinite Streams - Density 4 (Airy) */}
-        <div className="space-y-8 relative">
-          <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-black to-transparent z-10" />
-          <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-black to-transparent z-10" />
-          
-          <InfiniteStream items={skills.slice(0, 8)} speed={30} />
-          <InfiniteStream items={skills.slice(8, 16)} speed={40} reverse={true} />
-          <InfiniteStream items={skills.slice(4, 12)} speed={35} />
-        </div>
+      {/* Antigravity Isometric Stream Engine */}
+      <div 
+        ref={containerRef}
+        className="relative h-[800px] flex items-center justify-center pointer-events-none sm:pointer-events-auto"
+        style={{ perspective: '2000px' }}
+      >
+        <motion.div 
+          style={{ 
+            rotateX, 
+            rotateZ, 
+            scale,
+            z,
+            transformStyle: 'preserve-3d'
+          }}
+          className="w-[150%] flex flex-col gap-12"
+        >
+          <InfiniteStream items={skills.slice(0, 8)} speed={40} zIndex={30} />
+          <InfiniteStream items={skills.slice(8, 16)} speed={55} reverse={true} zIndex={20} />
+          <InfiniteStream items={skills.slice(4, 12)} speed={45} zIndex={10} />
+        </motion.div>
 
-        {/* Bottom Status Grid - Asymmetric Detail */}
-        <div className="mt-40 grid grid-cols-1 md:grid-cols-3 gap-12 pt-20 border-t border-white/5">
+        {/* Ambient Depth Shadows */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-30 pointer-events-none" />
+      </div>
+
+      <div className="mx-auto max-w-[1400px] px-8 relative z-20">
+        <div className="mt-40 grid grid-cols-1 md:grid-cols-3 gap-16 pt-24 border-t border-white/5">
           {[
             { label: "Logic", value: "Autonomous Agents", desc: "Orchestrating Claude, Gemini, and OpenAI pipelines." },
-            { label: "Interface", value: "High-Fidelity UI", desc: "Crafting fluid, spring-based kinetic experiences." },
+            { label: "Interface", value: "Spatial UI", desc: "Crafting fluid, spring-based weightless experiences." },
             { label: "Core", value: "Production Ready", desc: "Type-safe architectures deployed at industrial scale." }
           ].map((item, i) => (
             <motion.div 
               key={i}
-              className="space-y-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ delay: 0.4 + (i * 0.1) }}
+              className="space-y-6"
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+              transition={{ delay: 0.6 + (i * 0.1), duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <span className="text-[10px] font-mono text-accent font-bold tracking-[0.4em] uppercase">{item.label}</span>
-              <div className="space-y-2">
-                <h4 className="text-2xl font-display font-bold text-text-display">{item.value}</h4>
-                <p className="text-sm text-text-secondary leading-relaxed">{item.desc}</p>
+              <span className="text-[10px] font-mono text-accent font-bold tracking-[0.5em] uppercase">{item.label}</span>
+              <div className="space-y-3">
+                <h4 className="text-3xl font-display font-black text-text-display leading-tight">{item.value}</h4>
+                <p className="text-base text-text-secondary leading-relaxed">{item.desc}</p>
               </div>
             </motion.div>
           ))}

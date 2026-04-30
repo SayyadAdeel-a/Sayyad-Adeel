@@ -68,9 +68,9 @@ export const GlassCard = ({
         mass: 1 
       }}
       className={`
-        relative overflow-hidden transition-all duration-500
+        relative overflow-hidden transition-all duration-700
         ${getGlassBaseClass()}
-        ${interactive ? 'hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)] cursor-pointer' : ''}
+        ${interactive ? 'hover:shadow-diffused cursor-pointer' : 'shadow-weightless'}
         ${className}
       `}
     >
