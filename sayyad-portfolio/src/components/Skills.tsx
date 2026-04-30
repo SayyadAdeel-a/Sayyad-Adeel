@@ -1,196 +1,107 @@
-import { Code2, Server, Bot, Terminal, Cpu, Zap, Activity, HardDrive, Shield } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useScrollTrigger } from '@/hooks/useScrollTrigger';
 import { GlassCard } from './ui/GlassCard';
 
-const skillCategories = [
-  {
-    name: "AI AGENTS",
-    icon: Bot,
-    code: "0x_AGENT_STACK",
-    load: 94,
-    status: "READY",
-    skills: ["CLAUDE_CODE", "COPILOT", "GEMINI_PRO", "CURSOR_AI"]
-  },
-  {
-    name: "FRONTEND CORE",
-    icon: Code2,
-    code: "0x_FRONT_DEPL",
-    load: 88,
-    status: "OPTIMIZED",
-    skills: ["REACT_JS", "NEXT_JS", "FLUTTER", "TYPESCRIPT"]
-  },
-  {
-    name: "BACKEND LOGIC",
-    icon: Server,
-    code: "0x_BACK_DEPL",
-    load: 72,
-    status: "STABLE",
-    skills: ["SUPABASE", "NODE_JS", "EDGE_FUNCTIONS", "POSTGRES"]
-  },
-  {
-    name: "ORCHESTRATION",
-    icon: Cpu,
-    code: "0x_SYS_ARCH",
-    load: 91,
-    status: "CRITICAL",
-    skills: ["PROMPT_ENG", "GIT_HUB", "VERCEL", "AUTOMATION"]
-  }
+const skills = [
+  "Next.js 15", "React 19", "TypeScript", "Tailwind v4", 
+  "Framer Motion", "Node.js", "Supabase", "PostgreSQL",
+  "Claude 3.5", "GPT-4o", "Gemini Pro", "Cursor AI",
+  "Vercel", "GitHub Actions", "Docker", "Edge Runtime"
 ];
+
+const InfiniteStream = ({ items, speed = 20, reverse = false }: { items: string[], speed?: number, reverse?: boolean }) => {
+  return (
+    <div className="flex overflow-hidden group select-none py-4">
+      <motion.div 
+        className="flex gap-8 whitespace-nowrap"
+        animate={{ x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
+        transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
+      >
+        {[...items, ...items].map((item, i) => (
+          <GlassCard 
+            key={i} 
+            className="px-10 py-5 border-white/5 hover:border-accent transition-colors flex items-center justify-center min-w-[200px]"
+            opacity="low"
+            blur="sm"
+            with3D={true}
+          >
+            <span className="text-sm font-mono font-bold tracking-[0.3em] text-text-secondary group-hover:text-text-display uppercase transition-colors">
+              {item}
+            </span>
+          </GlassCard>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
 
 export default function Skills() {
   const { ref: triggerRef, isInView } = useScrollTrigger();
 
   return (
-    <section id="skills" className="py-32 bg-black border-b border-border-visible relative overflow-hidden perspective-3d" ref={triggerRef}>
-      {/* Decorative side indicators */}
-      <div className="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col gap-4 opacity-10 hidden xl:flex">
-        {[...Array(8)].map((_, i) => (
-          <div key={i} className="w-1 h-12 bg-border-visible" />
-        ))}
-      </div>
-
-      <div className="mx-auto max-w-7xl px-6 relative z-10">
+    <section id="skills" className="py-40 bg-black relative overflow-hidden" ref={triggerRef}>
+      <div className="mx-auto max-w-[1400px] px-8">
         
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
-          <div className="space-y-6">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-              transition={{ duration: 0.8 }}
-              className="inline-flex items-center gap-4 py-1.5 px-3 border border-border-visible bg-surface/50 backdrop-blur-md"
-            >
-              <Terminal className="w-4 h-4 text-accent" />
-              <span className="label-text text-[10px] tracking-[0.3em]">SKILLS / EXPERTISE</span>
-            </motion.div>
-            
-            <motion.h2 
-              className="text-5xl sm:text-6xl font-display font-bold tracking-tighter text-text-display uppercase glow-text leading-none"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-            >
-              Agent <span className="text-text-secondary opacity-30">&</span> Logic <br />
-              Orchestration
-            </motion.h2>
-          </div>
-
+        {/* Asymmetric Header */}
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 mb-32 items-start">
           <motion.div 
-            className="flex flex-col items-end gap-2"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+            initial={{ opacity: 0, x: -40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+            transition={{ duration: 1 }}
           >
-            <GlassCard className="flex items-center gap-4 px-4 py-2" opacity="low" blur="sm" interactive={false}>
-              <Activity size={14} className="text-success" />
-              <span className="font-mono text-[10px] text-text-secondary">ACTIVE_STACK: OPTIMIZED</span>
-            </GlassCard>
+            <div className="space-y-4">
+              <div className="w-12 h-[2px] bg-accent" />
+              <h2 className="text-5xl md:text-7xl font-display font-black text-text-display leading-none tracking-tighter">
+                TECHNICAL <br />
+                <span className="text-text-secondary italic">ECOSYSTEM.</span>
+              </h2>
+            </div>
           </motion.div>
+
+          <motion.p 
+            className="text-lg text-text-secondary leading-relaxed pt-8 border-t border-white/5"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 1, delay: 0.2 }}
+          >
+            A high-performance stack curated for rapid orchestration and production-grade stability. 
+            Bridging AI logic with modern frontend architecture.
+          </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {skillCategories.map((category, index) => (
-            <SkillCard key={index} category={category} index={index} isInView={isInView} />
+        {/* Infinite Streams - Density 4 (Airy) */}
+        <div className="space-y-8 relative">
+          <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-black to-transparent z-10" />
+          <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-black to-transparent z-10" />
+          
+          <InfiniteStream items={skills.slice(0, 8)} speed={30} />
+          <InfiniteStream items={skills.slice(8, 16)} speed={40} reverse={true} />
+          <InfiniteStream items={skills.slice(4, 12)} speed={35} />
+        </div>
+
+        {/* Bottom Status Grid - Asymmetric Detail */}
+        <div className="mt-40 grid grid-cols-1 md:grid-cols-3 gap-12 pt-20 border-t border-white/5">
+          {[
+            { label: "Logic", value: "Autonomous Agents", desc: "Orchestrating Claude, Gemini, and OpenAI pipelines." },
+            { label: "Interface", value: "High-Fidelity UI", desc: "Crafting fluid, spring-based kinetic experiences." },
+            { label: "Core", value: "Production Ready", desc: "Type-safe architectures deployed at industrial scale." }
+          ].map((item, i) => (
+            <motion.div 
+              key={i}
+              className="space-y-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ delay: 0.4 + (i * 0.1) }}
+            >
+              <span className="text-[10px] font-mono text-accent font-bold tracking-[0.4em] uppercase">{item.label}</span>
+              <div className="space-y-2">
+                <h4 className="text-2xl font-display font-bold text-text-display">{item.value}</h4>
+                <p className="text-sm text-text-secondary leading-relaxed">{item.desc}</p>
+              </div>
+            </motion.div>
           ))}
         </div>
-
-        {/* Bottom Technical Bar */}
-        <div className="mt-20 pt-8 border-t border-border-visible/50 flex flex-wrap gap-12 justify-center opacity-40">
-          <div className="flex items-center gap-3">
-            <Zap size={14} />
-            <span className="label-text text-[9px]">High Throughput</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Shield size={14} />
-            <span className="label-text text-[9px]">End-to-End Encryption</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <HardDrive size={14} />
-            <span className="label-text text-[9px]">Edge Optimized</span>
-          </div>
-        </div>
-
       </div>
     </section>
-  );
-}
-
-function SkillCard({ category, index, isInView }: any) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.8, delay: index * 0.1 }}
-      className="h-full"
-    >
-      <GlassCard 
-        className="group h-full p-8"
-        with3D={true}
-        opacity="med"
-        blur="md"
-      >
-        {/* Module Header */}
-        <div className="flex justify-between items-start mb-10">
-          <div className="w-14 h-14 bg-black/40 border border-border-visible flex items-center justify-center group-hover:border-text-display transition-all duration-500 shadow-[inset_0_0_10px_rgba(255,255,255,0.02)] backdrop-blur-sm">
-            <category.icon className="w-6 h-6 text-text-display group-hover:scale-110 transition-transform" />
-          </div>
-          <div className="text-right">
-            <span className="font-mono text-[9px] text-text-disabled tracking-[0.2em] block mb-1">STABLE</span>
-            <span className={`font-mono text-[8px] px-2 py-0.5 border ${category.status === 'CRITICAL' ? 'border-accent/40 text-accent' : 'border-success/40 text-success'} bg-black/40 backdrop-blur-sm`}>
-              {category.status}
-            </span>
-          </div>
-        </div>
-        
-        <h3 className="text-xl font-display font-bold text-text-display mb-8 uppercase tracking-tighter group-hover:translate-x-2 transition-transform">
-          {category.name}
-        </h3>
-        
-        {/* Segmented Load Indicator (Spec Section 2.9) */}
-        <div className="mb-8 space-y-2">
-          <div className="flex justify-between items-end">
-            <span className="label-text text-[8px] opacity-50">EXPERTISE_LEVEL</span>
-            <span className="font-mono text-[10px] text-text-display">{category.load}%</span>
-          </div>
-          <div className="flex gap-1 h-1.5 w-full">
-            {[...Array(10)].map((_, i) => {
-              const isActive = (i + 1) * 10 <= category.load;
-              return (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, scaleY: 0 }}
-                  animate={isInView ? { opacity: 1, scaleY: 1 } : { opacity: 0, scaleY: 0 }}
-                  transition={{ duration: 0.3, delay: 0.5 + (i * 0.05) }}
-                  className={`flex-grow h-full ${
-                    isActive 
-                      ? (category.status === 'CRITICAL' ? 'bg-accent shadow-[0_0_8px_rgba(215,25,33,0.5)]' : 'bg-text-display shadow-[0_0_8px_white]') 
-                      : 'bg-white/5'
-                  }`}
-                />
-              );
-            })}
-          </div>
-        </div>
-        
-        <div className="grid grid-cols-1 gap-4 mt-auto">
-          {category.skills.map((skill: string, sIndex: number) => (
-            <div key={sIndex} className="flex items-center justify-between group/item">
-              <div className="flex items-center gap-3">
-                <div className="w-1 h-1 bg-border-visible group-hover/item:bg-text-display transition-colors" />
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-secondary group-hover/item:text-text-display transition-colors">
-                  {skill}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-        
-        {/* Background Decorative Element */}
-        <div className="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700 pointer-events-none">
-          <category.icon size={120} strokeWidth={1} />
-        </div>
-
-        <div className="absolute inset-0 scanline opacity-0 group-hover:opacity-10 pointer-events-none transition-opacity" />
-      </GlassCard>
-    </motion.div>
   );
 }

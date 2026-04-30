@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Zap } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { GlassCard } from "./ui/GlassCard";
 
 export default function FloatingCTA() {
@@ -8,7 +8,7 @@ export default function FloatingCTA() {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.pageYOffset > 500) {
+      if (window.scrollY > 800) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -23,28 +23,27 @@ export default function FloatingCTA() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.8, y: 20 }}
+          initial={{ opacity: 0, scale: 0.9, y: 40 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.8, y: 20 }}
-          className="fixed bottom-8 right-8 z-50 perspective-3d"
+          exit={{ opacity: 0, scale: 0.9, y: 40 }}
+          transition={{ type: "spring", damping: 20, stiffness: 300 }}
+          className="fixed bottom-12 right-12 z-50"
         >
-          <a href="#contact" className="group">
+          <a href="#contact" className="group block">
             <GlassCard 
-              className="flex items-center gap-3 pl-5 pr-2 py-2"
-              opacity="med"
+              className="flex items-center gap-6 pl-8 pr-3 py-3 rounded-full border-white/10"
+              opacity="low"
               blur="lg"
               with3D={true}
+              interactive={true}
             >
-              <div className="flex items-center gap-2">
-                <Zap size={10} className="text-accent animate-pulse shadow-[0_0_8px_rgba(215,25,33,0.5)]" />
-                <span className="text-text-primary group-hover:text-text-display transition-colors uppercase tracking-widest text-[10px] font-mono font-bold">Work With Me</span>
+              <div className="flex flex-col items-start">
+                <span className="text-[9px] font-mono text-accent font-bold tracking-[0.4em] uppercase">Connect</span>
+                <span className="text-sm font-display font-bold text-text-display">START PROJECT</span>
               </div>
-              <div className="bg-text-display text-black p-2 rounded-full group-hover:bg-white transition-all">
-                <ArrowRight size={16} />
+              <div className="w-10 h-10 rounded-full bg-text-display text-black flex items-center justify-center group-hover:bg-white transition-all">
+                <ArrowUpRight size={20} />
               </div>
-              
-              {/* Internal scanning line */}
-              <div className="absolute inset-x-0 top-0 h-[1px] bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity animate-[scanline_2s_linear_infinite]" />
             </GlassCard>
           </a>
         </motion.div>

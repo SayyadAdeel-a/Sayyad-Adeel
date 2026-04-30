@@ -1,4 +1,4 @@
-import HeroSection from '@/components/ui/glassmorphism-trust-hero'
+import Hero from '@/components/Hero'
 import NavigationMenu from '@/components/ui/navigation-menu'
 import About from '@/components/About'
 import Services from '@/components/Services'
@@ -13,9 +13,9 @@ import FloatingCTA from '@/components/FloatingCTA'
 
 function App() {
   return (
-    <main className="min-h-screen bg-black selection:bg-white selection:text-black noise-overlay">
+    <main className="min-h-screen bg-black selection:bg-accent selection:text-white noise-overlay overflow-x-hidden">
       <NavigationMenu />
-      <HeroSection />
+      <Hero />
       <div className="space-y-0">
         <About />
         <Services />

@@ -1,13 +1,12 @@
 "use client";
 import * as React from "react";
-import { motion, useScroll, useMotionValueEvent, type Variants, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent, type Variants } from "framer-motion";
 import { Home, User, Briefcase, Code, Mail, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { name: "Home", href: "#", icon: Home },
   { name: "About", href: "#about", icon: User },
-  { name: "Journey", href: "#journey", icon: Briefcase },
   { name: "Services", href: "#services", icon: Briefcase },
   { name: "Projects", href: "#projects", icon: Code },
   { name: "Contact", href: "#contact", icon: Mail },
@@ -21,12 +20,9 @@ const containerVariants: Variants = {
     opacity: 1,
     width: "auto",
     transition: {
-      y: { type: "spring", damping: 18, stiffness: 250 },
+      y: { type: "spring", damping: 20, stiffness: 300 },
       opacity: { duration: 0.3 },
-      damping: 20,
-      stiffness: 300,
-      staggerChildren: 0.07,
-      delayChildren: 0.2,
+      staggerChildren: 0.05,
     },
   },
   collapsed: {
@@ -37,21 +33,18 @@ const containerVariants: Variants = {
       type: "spring",
       damping: 20,
       stiffness: 300,
-      when: "afterChildren",
-      staggerChildren: 0.05,
-      staggerDirection: -1,
     },
   },
 };
 
 const logoVariants: Variants = {
-  expanded: { opacity: 1, x: 0, rotate: 0, transition: { type: "spring", damping: 15 } },
-  collapsed: { opacity: 0, x: -25, rotate: -180, transition: { duration: 0.3 } },
+  expanded: { opacity: 1, x: 0, transition: { type: "spring", damping: 15 } },
+  collapsed: { opacity: 0, x: -25, transition: { duration: 0.3 } },
 };
 
 const itemVariants: Variants = {
-  expanded: { opacity: 1, x: 0, scale: 1, transition: { type: "spring", damping: 15 } },
-  collapsed: { opacity: 0, x: -20, scale: 0.95, transition: { duration: 0.2 } },
+  expanded: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", damping: 15 } },
+  collapsed: { opacity: 0, y: 20, scale: 0.95, transition: { duration: 0.2 } },
 };
 
 const collapsedIconVariants: Variants = {
@@ -63,7 +56,7 @@ const collapsedIconVariants: Variants = {
       type: "spring",
       damping: 15,
       stiffness: 300,
-      delay: 0.15,
+      delay: 0.1,
     }
   },
 }
@@ -79,7 +72,7 @@ export default function NavigationMenu() {
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = lastScrollY.current;
     
-    if (isExpanded && latest > previous && latest > 150) {
+    if (isExpanded && latest > previous && latest > 100) {
       setExpanded(false);
       scrollPositionOnCollapse.current = latest; 
     } 
@@ -89,13 +82,6 @@ export default function NavigationMenu() {
     
     lastScrollY.current = latest;
   });
-
-  const handleNavClick = (e: React.MouseEvent) => {
-    if (!isExpanded) {
-      e.preventDefault();
-      setExpanded(true);
-    }
-  };
 
   const scrollToSection = (e: React.MouseEvent, item: typeof navItems[0]) => {
     setActiveTab(item.name);
@@ -115,36 +101,30 @@ export default function NavigationMenu() {
   };
 
   return (
-    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] perspective-3d">
+    <div className="fixed top-8 left-1/2 -translate-x-1/2 z-[100]">
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
         animate={isExpanded ? "expanded" : "collapsed"}
         variants={containerVariants}
-        whileHover={!isExpanded ? { scale: 1.05 } : {}}
-        whileTap={!isExpanded ? { scale: 0.98 } : {}}
-        onClick={handleNavClick}
+        onClick={() => !isExpanded && setExpanded(true)}
         className={cn(
-          "flex items-center overflow-hidden rounded-full border border-border-visible/50 bg-black/40 backdrop-blur-xl h-14 transition-all relative group shadow-[0_0_40px_rgba(0,0,0,0.5)]",
+          "flex items-center overflow-hidden rounded-full border border-white/10 bg-zinc-950/50 backdrop-blur-2xl h-14 transition-all relative group shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)]",
           !isExpanded && "cursor-pointer justify-center px-0 w-14"
         )}
       >
-        {/* Glow Border Effect */}
-        <div className="absolute inset-[-1px] rounded-full bg-gradient-to-r from-transparent via-text-display/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-        
         <motion.div
           variants={logoVariants}
-          className="flex-shrink-0 flex items-center font-bold pl-5 pr-2"
+          className="flex-shrink-0 flex items-center pl-5 pr-2"
         >
-          <div className="w-8 h-8 rounded-full flex items-center justify-center text-text-primary font-mono text-xs border border-border-visible bg-black/40 relative group-hover:border-accent/50 transition-colors overflow-hidden">
-            <span className="relative z-10">S</span>
-            <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="w-8 h-8 rounded-full flex items-center justify-center text-text-display font-display font-black text-xs border border-white/10 bg-zinc-900/50">
+            S
           </div>
         </motion.div>
         
         <motion.div
           className={cn(
-            "flex items-center gap-1 sm:gap-2 pr-4 pl-2 relative",
-            !isExpanded && "pointer-events-none hidden"
+            "flex items-center gap-1 pr-4 pl-2",
+            !isExpanded && "hidden"
           )}
         >
           {navItems.map((item) => (
@@ -152,10 +132,7 @@ export default function NavigationMenu() {
               key={item.name}
               href={item.href}
               variants={itemVariants}
-              onClick={(e) => {
-                e.stopPropagation();
-                scrollToSection(e, item);
-              }}
+              onClick={(e) => scrollToSection(e, item)}
               className={cn(
                 "group/item flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] transition-all px-5 py-2.5 rounded-full relative z-10",
                 activeTab === item.name ? "text-text-display" : "text-text-secondary hover:text-text-display"
@@ -163,9 +140,9 @@ export default function NavigationMenu() {
             >
               {activeTab === item.name && (
                 <motion.div 
-                  layoutId="active-nav"
-                  className="absolute inset-0 bg-white/10 backdrop-blur-xl rounded-full -z-10 border border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
-                  transition={{ type: "spring", bounce: 0.1, duration: 0.5 }}
+                  layoutId="active-nav-pill"
+                  className="absolute inset-0 bg-white/5 rounded-full -z-10 border border-white/10"
+                  transition={{ type: "spring", bounce: 0.1, duration: 0.6 }}
                 />
               )}
               <item.icon className={cn("w-3.5 h-3.5 transition-colors", activeTab === item.name ? "text-accent" : "group-hover/item:text-text-display")} />
@@ -178,31 +155,11 @@ export default function NavigationMenu() {
           <motion.div
             variants={collapsedIconVariants}
             animate={isExpanded ? "expanded" : "collapsed"}
-            className="relative"
           >
-            <Menu className="h-5 w-5 text-text-primary" />
-            <div className="absolute -top-1 -right-1 w-2 h-2 bg-accent rounded-full animate-pulse shadow-[0_0_12px_rgba(215,25,33,0.8)]" />
+            <Menu className="h-5 w-5 text-text-display" />
           </motion.div>
         </div>
-
-        {/* Scanline Effect - Standardized */}
-        <div className="absolute inset-0 scanline opacity-5 pointer-events-none" />
       </motion.nav>
-
-      {/* Floating Status Indicator */}
-      <AnimatePresence>
-        {!isExpanded && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 15 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 15 }}
-            className="absolute top-20 left-1/2 -translate-x-1/2 flex items-center gap-3 px-4 py-1.5 bg-black/60 border border-border-visible rounded-full backdrop-blur-xl pointer-events-none"
-          >
-            <div className="w-1.5 h-1.5 bg-accent rounded-none animate-pulse" />
-            <span className="font-mono text-[9px] text-text-display tracking-[0.3em] uppercase">MINIMIZED</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

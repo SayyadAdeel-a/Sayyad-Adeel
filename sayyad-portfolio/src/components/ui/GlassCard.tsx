@@ -63,8 +63,8 @@ export const GlassCard = ({
       } : {}}
       transition={{ 
         type: 'spring', 
-        stiffness: 150, 
-        damping: 15,
+        stiffness: 100, 
+        damping: 20,
         mass: 1 
       }}
       className={`

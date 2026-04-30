@@ -25,7 +25,7 @@ export const MagneticWrapper = ({
   const y = useMotionValue(0);
 
   // Apply spring physics for smooth "pulling" feel
-  const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
+  const springConfig = { damping: 20, stiffness: 100, mass: 0.1 };
   const springX = useSpring(x, springConfig);
   const springY = useSpring(y, springConfig);
 
