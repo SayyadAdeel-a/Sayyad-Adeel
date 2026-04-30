@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ExternalLink, Activity, Zap, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import WaitlistModal from './WaitlistModal';
 import { useScrollTrigger } from '@/hooks/useScrollTrigger';
@@ -86,7 +86,6 @@ function ProjectCard({ project, index, isInView, onClick }: any) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Card Container - Density 4 (Airy) */}
       <div 
         className="relative overflow-hidden rounded-[2.5rem] bg-zinc-900/20 aspect-[4/3] lg:aspect-auto h-full min-h-[300px] cursor-pointer"
         onClick={onClick}
@@ -111,14 +110,12 @@ function ProjectCard({ project, index, isInView, onClick }: any) {
             />
           </div>
 
-          {/* Floating Category Tag */}
           <div className="absolute top-8 left-8 z-20">
             <div className="px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-xl border border-white/10">
               <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-accent uppercase">{project.category}</span>
             </div>
           </div>
 
-          {/* Magnetic Interaction Indicator */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-30 pointer-events-none">
             <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-white shadow-[0_0_30px_rgba(59,130,246,0.5)]">
               <Plus className="w-8 h-8" />
@@ -127,7 +124,6 @@ function ProjectCard({ project, index, isInView, onClick }: any) {
         </GlassCard>
       </div>
 
-      {/* External Labels - Asymmetric Gallery Style */}
       <div className="px-4 space-y-2">
         <div className="flex items-center justify-between">
           <h3 className="text-2xl font-display font-bold text-text-display group-hover:text-accent transition-colors">
@@ -155,7 +151,6 @@ export default function Projects() {
     <section id="projects" className="py-40 bg-black relative overflow-hidden" ref={triggerRef}>
       <div className="mx-auto max-w-[1400px] px-8">
         
-        {/* Asymmetric Header */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 mb-32 items-end">
           <motion.div 
             initial={{ opacity: 0, x: -40 }}
@@ -181,7 +176,6 @@ export default function Projects() {
           </motion.p>
         </div>
 
-        {/* Bento 2.0 Asymmetric Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
           <AnimatePresence mode="popLayout">
             {displayedProjects.map((project, index) => (
@@ -203,7 +197,6 @@ export default function Projects() {
           </AnimatePresence>
         </div>
 
-        {/* View Archive CTA */}
         {projects.length > 3 && (
           <div className="mt-40 flex justify-center">
             <MagneticWrapper strength={0.2}>

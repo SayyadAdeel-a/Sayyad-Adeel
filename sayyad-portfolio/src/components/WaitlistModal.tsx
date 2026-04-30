@@ -1,4 +1,4 @@
-import { X, Send, CheckCircle2, Loader2, AlertCircle, Terminal, Shield } from 'lucide-react';
+import { X, Send, CheckCircle2, Loader2, AlertCircle } from 'lucide-react';
 import { useForm, ValidationError } from '@formspree/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GlassCard } from './ui/GlassCard';
@@ -22,7 +22,7 @@ export default function WaitlistModal({ isOpen, onClose, projectTitle }: Waitlis
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity"
+            className="absolute inset-0 bg-black/90 backdrop-blur-xl transition-opacity"
             onClick={onClose}
           />
 
@@ -32,61 +32,59 @@ export default function WaitlistModal({ isOpen, onClose, projectTitle }: Waitlis
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", damping: 20, stiffness: 300 }}
-            className="relative w-full max-w-md perspective-3d"
+            className="relative w-full max-w-xl"
           >
             <GlassCard 
-              className="relative p-8 md:p-10 overflow-hidden"
+              className="relative p-12 md:p-20 border-white/5"
               with3D={true}
               opacity="high"
               blur="lg"
+              interactive={false}
             >
               <button 
                 onClick={onClose}
-                className="absolute right-6 top-6 rounded-none border border-border-visible bg-black/40 p-2 text-text-secondary hover:text-text-display hover:border-text-display transition-all z-20"
+                className="absolute right-12 top-12 rounded-full border border-white/5 bg-zinc-900/50 p-4 text-text-secondary hover:text-text-display hover:border-accent transition-all z-20"
               >
-                <X size={16} />
+                <X size={20} />
               </button>
 
               <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
               
               {state.succeeded ? (
-                <div className="flex flex-col items-center justify-center py-12 text-center animate-in slide-in-from-bottom-4 duration-500">
-                  <div className="mb-8 p-6 border border-success/20 bg-success/5 relative">
-                    <CheckCircle2 size={48} className="text-success" />
-                    <div className="absolute -top-1 -left-1 w-2 h-2 bg-success" />
-                    <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-success" />
+                <div className="flex flex-col items-center justify-center py-20 text-center">
+                  <div className="mb-12 w-24 h-24 rounded-full border border-success/20 bg-success/5 flex items-center justify-center">
+                    <CheckCircle2 size={40} className="text-success" />
                   </div>
-                  <h3 className="text-3xl font-display font-bold text-text-display mb-4 uppercase tracking-tighter">Transmission Received</h3>
-                  <p className="text-text-secondary font-mono text-xs uppercase tracking-widest leading-relaxed">
-                    Identity verified. Node {projectTitle} waitlist updated. We will establish connection upon launch.
+                  <h3 className="text-4xl font-display font-black text-text-display mb-6 uppercase tracking-tighter">SUCCESS.</h3>
+                  <p className="text-lg text-text-secondary leading-relaxed max-w-sm">
+                    Connection established. You are now prioritized for the {projectTitle} launch cycle.
                   </p>
                   <button 
                     onClick={onClose}
-                    className="mt-12 label-text text-accent hover:text-text-display transition-colors border-b border-accent/20 hover:border-text-display pb-1"
+                    className="mt-16 text-[10px] font-mono text-accent hover:text-text-display transition-colors tracking-[0.4em] uppercase"
                   >
-                    RETURN_TO_BASE
+                    Close Window
                   </button>
                 </div>
               ) : (
                 <>
-                  <div className="mb-10">
-                    <div className="inline-flex items-center gap-3 mb-6">
-                      <div className="p-1 border border-border-visible bg-black/40">
-                        <Terminal size={12} className="text-accent" />
-                      </div>
-                      <span className="label-text text-[9px] tracking-[0.3em]">EARLY ACCESS</span>
+                  <div className="mb-16">
+                    <div className="flex items-center gap-4 mb-8">
+                      <div className="w-12 h-[2px] bg-accent" />
+                      <span className="text-[10px] font-mono text-accent font-bold tracking-[0.4em] uppercase">Access</span>
                     </div>
                     
-                    <h2 className="text-4xl font-display font-bold text-text-display tracking-tighter uppercase leading-[0.9] mb-4">
-                      Join {projectTitle} <br />
-                      <span className="text-text-secondary">Waitlist</span>
+                    <h2 className="text-5xl font-display font-black text-text-display tracking-tighter uppercase leading-[0.9]">
+                      Join the <br />
+                      <span className="text-text-secondary italic">{projectTitle}</span> <br />
+                      Waitlist.
                     </h2>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="space-y-2">
-                      <label htmlFor="full-name" className="label-text text-[8px] opacity-50 ml-1">
-                        Full_Name
+                  <form onSubmit={handleSubmit} className="space-y-12">
+                    <div className="space-y-4">
+                      <label htmlFor="full-name" className="text-[10px] font-mono text-text-disabled uppercase tracking-[0.3em] ml-2">
+                        Full Name
                       </label>
                       <input
                         required
@@ -94,77 +92,71 @@ export default function WaitlistModal({ isOpen, onClose, projectTitle }: Waitlis
                         name="name"
                         type="text"
                         placeholder="Sayyad Adeel"
-                        className="w-full bg-black/40 border border-border-visible px-5 py-4 text-text-primary placeholder:text-text-disabled/20 focus:border-text-secondary focus:outline-none transition-all font-mono text-sm"
+                        className="w-full bg-zinc-950/50 border border-white/5 rounded-3xl px-8 py-6 text-text-display placeholder:text-text-disabled/20 focus:border-accent focus:outline-none transition-all font-sans"
                       />
                       <ValidationError 
                         prefix="Name" 
                         field="name"
                         errors={state.errors}
-                        className="mt-2 text-[8px] font-mono text-accent uppercase tracking-widest"
+                        className="mt-4 text-[10px] font-mono text-accent uppercase tracking-widest"
                       />
                     </div>
 
-                    <div className="space-y-2">
-                      <label htmlFor="email-address" className="label-text text-[8px] opacity-50 ml-1">
-                        Email_Protocol
+                    <div className="space-y-4">
+                      <label htmlFor="email-address" className="text-[10px] font-mono text-text-disabled uppercase tracking-[0.3em] ml-2">
+                        Email Address
                       </label>
                       <input
                         required
                         id="email-address"
                         name="email"
                         type="email"
-                        placeholder="adeelsayyad.a@gmail.com"
-                        className="w-full bg-black/40 border border-border-visible px-5 py-4 text-text-primary placeholder:text-text-disabled/20 focus:border-text-secondary focus:outline-none transition-all font-mono text-sm"
+                        placeholder="adeel@orchestrator.com"
+                        className="w-full bg-zinc-950/50 border border-white/5 rounded-3xl px-8 py-6 text-text-display placeholder:text-text-disabled/20 focus:border-accent focus:outline-none transition-all font-sans"
                       />
                       <ValidationError 
                         prefix="Email" 
                         field="email"
                         errors={state.errors}
-                        className="mt-2 text-[8px] font-mono text-accent uppercase tracking-widest"
+                        className="mt-4 text-[10px] font-mono text-accent uppercase tracking-widest"
                       />
                     </div>
 
                     {state.errors && !state.submitting && (
-                      <div className="flex items-center gap-3 p-4 bg-accent/5 border border-accent/20 text-[9px] font-mono text-accent uppercase tracking-widest">
-                        <AlertCircle size={14} />
-                        <span>Transmission Error: Verify data fields.</span>
+                      <div className="flex items-center gap-4 p-6 bg-accent/5 border border-white/5 text-[10px] font-mono text-accent uppercase tracking-[0.3em]">
+                        <AlertCircle size={16} />
+                        <span>Validation Error: Check Fields</span>
                       </div>
                     )}
 
-                    <MagneticWrapper strength={0.2} className="w-full">
-                      <button
-                        type="submit"
-                        disabled={state.submitting}
-                        className="group relative flex w-full items-center justify-center gap-4 bg-text-display px-8 py-5 font-mono font-black text-black transition-all hover:bg-white active:scale-[0.98] disabled:opacity-50 mt-4 uppercase text-[10px] tracking-[0.3em] overflow-hidden"
-                      >
-                        {/* Hardware Accents */}
-                        <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-black/20" />
-                        <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-black/20" />
-                        
-                        {state.submitting ? (
-                          <Loader2 className="animate-spin" size={16} />
-                        ) : (
-                          <>
-                            JOIN WAITLIST
-                            <Send size={14} className="transition-transform group-hover:translate-x-1" />
-                          </>
-                        )}
-                        
-                        {/* Button scanning effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out pointer-events-none" />
-                      </button>
-                    </MagneticWrapper>
+                    <div className="pt-8">
+                      <MagneticWrapper strength={0.2}>
+                        <button
+                          type="submit"
+                          disabled={state.submitting}
+                          className="group flex items-center gap-8 px-16 py-8 rounded-full bg-text-display text-black hover:bg-white transition-all disabled:opacity-50"
+                        >
+                          <div className="flex flex-col items-start gap-1 text-left">
+                            <span className="text-[10px] font-mono text-accent font-bold tracking-[0.3em] uppercase">
+                              {state.submitting ? 'Transmitting' : 'Request Access'}
+                            </span>
+                            <span className="text-lg font-display font-black">
+                              {state.submitting ? 'PROCESSING...' : 'JOIN WAITLIST'}
+                            </span>
+                          </div>
+                          <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white transition-transform group-hover:translate-x-2">
+                            {state.submitting ? (
+                              <Loader2 className="animate-spin w-6 h-6" />
+                            ) : (
+                              <Send size={24} />
+                            )}
+                          </div>
+                        </button>
+                      </MagneticWrapper>
+                    </div>
                   </form>
-
-                  <div className="mt-10 flex items-center gap-4">
-                    <div className="h-px flex-grow bg-border-visible/30" />
-                    <div className="h-px flex-grow bg-border-visible/30" />
-                  </div>
                 </>
               )}
-              
-              {/* Internal scanning line */}
-              <div className="absolute inset-x-0 bottom-0 h-px bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity translate-y-[1px] group-hover:animate-[scanline_3s_linear_infinite]" />
             </GlassCard>
           </motion.div>
         </div>

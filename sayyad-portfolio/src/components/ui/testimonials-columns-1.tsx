@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { Quote, Activity, Server } from "lucide-react";
+import { Quote, MapPin } from "lucide-react";
 import { GlassCard } from "./GlassCard";
 
 interface Testimonial {
@@ -12,83 +12,45 @@ interface Testimonial {
   origin?: string;
 }
 
-const TestimonialCard = ({ testimonial, index }: { testimonial: Testimonial, index: number }) => {
-  const refId = `REF_${(index + 1).toString().padStart(3, '0')}`;
-  
+const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
   return (
-    <div className="max-w-xs w-full h-full">
+    <div className="max-w-xs w-full">
       <GlassCard 
-        className="group p-6 h-full flex flex-col"
+        className="group p-10 h-full flex flex-col border-white/5"
         opacity="low"
-        blur="md"
+        blur="lg"
         with3D={true}
+        interactive={true}
       >
-        {/* Background Dot pattern on hover */}
-        <div className="absolute inset-0 dot-grid-subtle opacity-0 group-hover:opacity-[0.05] transition-opacity pointer-events-none" />
-        
-        <div className="flex justify-between items-start mb-6">
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-accent shadow-[0_0_8px_rgba(215,25,33,0.5)]" />
-            <div className="label-text text-[8px] text-text-display tracking-widest">{refId}</div>
-          </div>
-          <div className="flex gap-1">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="w-1 h-1 bg-border-visible group-hover:bg-text-disabled transition-colors" />
-            ))}
-          </div>
-        </div>
-        
-        <div className="mb-8 relative pl-4 border-l border-border-visible/50 group-hover:border-accent/30 transition-colors">
-          <Quote size={12} className="text-accent opacity-40 mb-3" />
-          <p className="text-text-secondary font-sans text-[13px] leading-relaxed relative z-10 italic">
+        <div className="mb-10 relative">
+          <Quote size={20} className="text-accent opacity-20 mb-6" />
+          <p className="text-text-secondary font-sans text-lg leading-relaxed relative z-10 italic">
             "{testimonial.text}"
           </p>
         </div>
         
-        <div className="mt-auto space-y-5">
-          <div className="flex items-center gap-3 pt-6 border-t border-border-visible">
-            <div className="relative p-0.5 border border-border-visible bg-black/40 backdrop-blur-sm group-hover:border-text-secondary transition-all duration-500 overflow-hidden">
+        <div className="mt-auto space-y-8">
+          <div className="flex items-center gap-4 pt-8 border-t border-white/5">
+            <div className="relative w-12 h-12 rounded-full overflow-hidden border border-white/10 group-hover:border-accent transition-colors">
               <img
-                width={36}
-                height={36}
                 src={testimonial.image}
                 alt={testimonial.name}
-                className="h-9 w-9 grayscale group-hover:grayscale-0 transition-all duration-700 object-cover"
+                className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 object-cover"
               />
-              <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <div className="flex flex-col">
-              <div className="font-display font-bold tracking-tight text-text-display text-[12px] uppercase leading-none">{testimonial.name}</div>
-              <div className="label-text mt-1 text-text-disabled text-[8px] tracking-wider">{testimonial.role}</div>
+              <div className="font-display font-bold text-text-display text-sm uppercase tracking-tight">{testimonial.name}</div>
+              <div className="text-[10px] font-mono text-text-disabled uppercase tracking-widest mt-1">{testimonial.role}</div>
             </div>
           </div>
           
           {testimonial.origin && (
-            <div className="grid grid-cols-2 gap-2">
-              <div className="flex flex-col gap-1 p-2 bg-black/20 border border-border-visible group-hover:bg-black/40 transition-colors backdrop-blur-sm">
-                <div className="flex items-center gap-1.5">
-                  <Server size={8} className="text-text-disabled" />
-                  <div className="label-text text-[6px] text-text-disabled uppercase">Origin_Node</div>
-                </div>
-                <div className="label-text text-[7px] text-text-display truncate">
-                  {testimonial.origin}
-                </div>
-              </div>
-              <div className="flex flex-col gap-1 p-2 bg-black/20 border border-border-visible group-hover:bg-black/40 transition-colors backdrop-blur-sm">
-                <div className="flex items-center gap-1.5">
-                  <Activity size={8} className="text-success" />
-                  <div className="label-text text-[6px] text-text-disabled uppercase">Status_Auth</div>
-                </div>
-                <div className="label-text text-[7px] text-success">
-                  VERIFIED
-                </div>
-              </div>
+            <div className="flex items-center gap-3">
+              <MapPin size={10} className="text-accent" />
+              <span className="text-[10px] font-mono text-text-disabled uppercase tracking-[0.3em]">{testimonial.origin}</span>
             </div>
           )}
         </div>
-        
-        {/* Hover scanline effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent translate-y-[-100%] group-hover:translate-y-[100%] transition-transform duration-1500 pointer-events-none" />
       </GlassCard>
     </div>
   );
@@ -106,21 +68,18 @@ export const TestimonialsColumn = (props: {
           translateY: "-50%",
         }}
         transition={{
-          duration: props.duration || 10,
+          duration: props.duration || 20,
           repeat: Infinity,
           ease: "linear",
           repeatType: "loop",
-          onUpdate: () => {
-            // Optimization: could add logic to pause when not in viewport if needed
-          }
         }}
-        className="flex flex-col gap-8 pb-8"
+        className="flex flex-col gap-12 pb-12"
       >
         {[
           ...new Array(2).fill(0).map((_, groupIndex) => (
             <React.Fragment key={groupIndex}>
               {props.testimonials.map((testimonial, i) => (
-                <TestimonialCard key={`${groupIndex}-${i}`} testimonial={testimonial} index={i} />
+                <TestimonialCard key={`${groupIndex}-${i}`} testimonial={testimonial} />
               ))}
             </React.Fragment>
           )),
