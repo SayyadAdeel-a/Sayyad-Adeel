@@ -48,7 +48,7 @@ export const GlassCard = ({
     const blurClass = `glass-blur-${blur}`;
     const accentClass = accent ? 'glass-accent' : '';
     
-    return `${base} ${opacityClass} ${blurClass} ${accentClass}`;
+    return `${base} ${opacityClass} ${blurClass} ${accentClass} border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]`;
   };
 
   return (
@@ -63,14 +63,14 @@ export const GlassCard = ({
       } : {}}
       transition={{ 
         type: 'spring', 
-        stiffness: 260, 
-        damping: 20,
+        stiffness: 150, 
+        damping: 15,
         mass: 1 
       }}
       className={`
-        relative overflow-hidden transition-shadow duration-500
+        relative overflow-hidden transition-all duration-500
         ${getGlassBaseClass()}
-        ${interactive ? 'hover:shadow-[0_0_40px_rgba(255,255,255,0.05)] cursor-pointer' : ''}
+        ${interactive ? 'hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)] cursor-pointer' : ''}
         ${className}
       `}
     >

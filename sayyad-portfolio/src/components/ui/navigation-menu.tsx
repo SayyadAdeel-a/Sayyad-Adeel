@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { motion, useScroll, useMotionValueEvent, type Variants, AnimatePresence } from "framer-motion";
-import { Home, User, Briefcase, Code, Mail, Menu, Zap } from "lucide-react";
+import { Home, User, Briefcase, Code, Mail, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -157,18 +157,18 @@ export default function NavigationMenu() {
                 scrollToSection(e, item);
               }}
               className={cn(
-                "group/item flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.1em] transition-all px-4 py-2 rounded-full relative z-10",
+                "group/item flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] transition-all px-5 py-2.5 rounded-full relative z-10",
                 activeTab === item.name ? "text-text-display" : "text-text-secondary hover:text-text-display"
               )}
             >
               {activeTab === item.name && (
                 <motion.div 
                   layoutId="active-nav"
-                  className="absolute inset-0 bg-white/10 backdrop-blur-md rounded-full -z-10 border border-white/10"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  className="absolute inset-0 bg-white/10 backdrop-blur-xl rounded-full -z-10 border border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
+                  transition={{ type: "spring", bounce: 0.1, duration: 0.5 }}
                 />
               )}
-              <item.icon className={cn("w-3.5 h-3.5", activeTab === item.name && "text-accent")} />
+              <item.icon className={cn("w-3.5 h-3.5 transition-colors", activeTab === item.name ? "text-accent" : "group-hover/item:text-text-display")} />
               <span className="hidden sm:inline">{item.name}</span>
             </motion.a>
           ))}
@@ -180,12 +180,12 @@ export default function NavigationMenu() {
             animate={isExpanded ? "expanded" : "collapsed"}
             className="relative"
           >
-            <Menu className="h-6 w-6 text-text-primary" />
-            <div className="absolute -top-1 -right-1 w-2 h-2 bg-accent rounded-full animate-pulse shadow-[0_0_8px_rgba(215,25,33,0.8)]" />
+            <Menu className="h-5 w-5 text-text-primary" />
+            <div className="absolute -top-1 -right-1 w-2 h-2 bg-accent rounded-full animate-pulse shadow-[0_0_12px_rgba(215,25,33,0.8)]" />
           </motion.div>
         </div>
 
-        {/* Scanline Effect */}
+        {/* Scanline Effect - Standardized */}
         <div className="absolute inset-0 scanline opacity-5 pointer-events-none" />
       </motion.nav>
 
@@ -193,13 +193,13 @@ export default function NavigationMenu() {
       <AnimatePresence>
         {!isExpanded && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 10 }}
+            initial={{ opacity: 0, scale: 0.8, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 10 }}
-            className="absolute top-16 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1 bg-black/40 border border-border-visible rounded-full backdrop-blur-md pointer-events-none"
+            exit={{ opacity: 0, scale: 0.8, y: 15 }}
+            className="absolute top-20 left-1/2 -translate-x-1/2 flex items-center gap-3 px-4 py-1.5 bg-black/60 border border-border-visible rounded-full backdrop-blur-xl pointer-events-none"
           >
-            <Zap size={8} className="text-accent animate-pulse" />
-            <span className="font-mono text-[8px] text-text-display tracking-widest uppercase">System_Minimized</span>
+            <div className="w-1.5 h-1.5 bg-accent rounded-none animate-pulse" />
+            <span className="font-mono text-[9px] text-text-display tracking-[0.3em] uppercase">SYSTEM_MINIMIZED</span>
           </motion.div>
         )}
       </AnimatePresence>

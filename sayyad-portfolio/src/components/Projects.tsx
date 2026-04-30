@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { ExternalLink, Terminal, Activity, Zap, Box, Layers } from 'lucide-react';
+import { ExternalLink, Terminal, Activity, Zap, Box, Layers, Shield, Cpu, Monitor, Database } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import WaitlistModal from './WaitlistModal';
 import { useScrollTrigger } from '@/hooks/useScrollTrigger';
 import { GlassCard } from './ui/GlassCard';
+import { MagneticWrapper } from './ui/MagneticWrapper';
 
 const projects = [
   {
@@ -18,7 +19,8 @@ const projects = [
     status: "ACTIVE_BUILD",
     tech: ["Flutter", "OpenAI", "Edge Runtime"],
     metrics: { cpu: "84%", latency: "12ms", uptime: "99.9%" },
-    featured: true
+    featured: true,
+    icon: Cpu
   },
   {
     id: "PRJ-001B",
@@ -30,7 +32,8 @@ const projects = [
     btnText: "Live Demo →",
     tech: ["Next.js 16", "Firebase", "PostHog", "Tailwind v4"],
     metrics: { cpu: "14%", latency: "18ms", uptime: "100%" },
-    featured: false
+    featured: false,
+    icon: Shield
   },
   {
     id: "PRJ-002",
@@ -41,7 +44,8 @@ const projects = [
     link: "https://tenreq.qzz.io/",
     btnText: "Live Demo →",
     tech: ["React", "Supabase", "Node.js"],
-    metrics: { cpu: "12%", latency: "45ms", uptime: "100%" }
+    metrics: { cpu: "12%", latency: "45ms", uptime: "100%" },
+    icon: Activity
   },
   {
     id: "PRJ-003",
@@ -52,7 +56,8 @@ const projects = [
     link: "#",
     btnText: "Review Stack",
     tech: ["Next.js", "Supabase", "TypeScript"],
-    metrics: { cpu: "31%", latency: "28ms", uptime: "99.8%" }
+    metrics: { cpu: "31%", latency: "28ms", uptime: "99.8%" },
+    icon: Database
   },
   {
     id: "PRJ-004",
@@ -63,7 +68,8 @@ const projects = [
     link: "#",
     btnText: "Coming Soon",
     tech: ["Python", "OpenAI", "FFmpeg"],
-    metrics: { cpu: "92%", latency: "140ms", uptime: "N/A" }
+    metrics: { cpu: "92%", latency: "140ms", uptime: "N/A" },
+    icon: Box
   },
   {
     id: "PRJ-005",
@@ -74,7 +80,8 @@ const projects = [
     link: "https://everywheres.app",
     btnText: "Visit Site",
     tech: ["React Native", "Supabase", "Maps"],
-    metrics: { cpu: "08%", latency: "110ms", uptime: "100%" }
+    metrics: { cpu: "08%", latency: "110ms", uptime: "100%" },
+    icon: Monitor
   },
   {
     id: "PRJ-006",
@@ -85,7 +92,8 @@ const projects = [
     link: "https://vidtoolbox.qzz.io/",
     btnText: "Explore Tools →",
     tech: ["React", "AI APIs"],
-    metrics: { cpu: "44%", latency: "32ms", uptime: "99.9%" }
+    metrics: { cpu: "44%", latency: "32ms", uptime: "99.9%" },
+    icon: Layers
   }
 ];
 
@@ -94,53 +102,59 @@ function ProjectCard({ project, index, isInView, onClick }: any) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.8, delay: index * 0.05 }}
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      transition={{ 
+        type: "spring",
+        stiffness: 100,
+        damping: 20,
+        delay: index * 0.1 
+      }}
       className={`${project.featured ? 'lg:col-span-2' : ''} h-full`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
       <GlassCard 
-        className={`group h-full flex flex-col relative transition-all duration-500 ${isHovered ? 'glass-glow' : ''}`}
+        className={`group h-full flex flex-col relative transition-all duration-500 overflow-hidden ${isHovered ? 'border-accent/30 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.4)]' : ''}`}
         with3D={true}
         opacity="med"
         blur="md"
       >
         {/* Hardware Status Header */}
-        <div className="flex items-center justify-between border-b border-border-visible px-4 py-3 bg-black/40 backdrop-blur-md">
-          <div className="flex items-center gap-3">
-            <div className="flex gap-1">
-              <div className={`w-1.5 h-1.5 rounded-full ${isHovered ? 'bg-text-display' : 'bg-text-disabled'} transition-colors animate-pulse`} />
-              <div className={`w-1.5 h-1.5 rounded-full ${project.status === 'ACTIVE_BUILD' ? 'bg-accent' : 'bg-text-disabled opacity-30'}`} />
-            </div>
-            <span className="label-text text-[10px] tracking-widest">{project.id}</span>
-          </div>
+        <div className="flex items-center justify-between border-b border-border-visible px-5 py-4 bg-black/40 backdrop-blur-md">
           <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-2 opacity-50">
-              <Activity size={10} />
-              <span className="font-mono text-[8px]">{project.metrics.latency}</span>
+            <div className="flex gap-1.5">
+              <div className={`w-1.5 h-1.5 rounded-none ${isHovered ? 'bg-text-display shadow-[0_0_8px_white]' : 'bg-text-disabled opacity-30'} transition-all duration-300`} />
+              <div className={`w-1.5 h-1.5 rounded-none ${project.status === 'ACTIVE_BUILD' ? 'bg-accent shadow-[0_0_8px_rgba(215,25,33,0.8)]' : 'bg-text-disabled opacity-20'}`} />
             </div>
-            <div className="h-4 w-[1px] bg-border-visible" />
-            <span className="label-text text-[9px] text-text-display">{project.status || 'DEPLOYED'}</span>
+            <span className="label-text text-[9px] tracking-[0.3em] font-black">{project.id}</span>
+          </div>
+          <div className="flex items-center gap-5">
+            <div className="hidden sm:flex items-center gap-2.5 opacity-40 group-hover:opacity-100 transition-opacity">
+              <Activity size={10} className="text-accent" />
+              <span className="font-mono text-[9px] tracking-widest">{project.metrics.latency}</span>
+            </div>
+            <div className="h-4 w-[px] bg-border-visible/50" />
+            <div className="flex items-center gap-2">
+              <div className="w-1 h-1 bg-success rounded-full animate-pulse" />
+              <span className="label-text text-[9px] text-text-display tracking-[0.2em]">{project.status || 'DEPLOYED'}</span>
+            </div>
           </div>
         </div>
 
         {/* Viewport Area */}
-        <div className={`relative overflow-hidden bg-black ${project.featured ? 'h-96' : 'h-72'}`}>
-          {/* Grid Overlay */}
-          <div className="absolute inset-0 dot-grid opacity-20 pointer-events-none" />
+        <div className={`relative overflow-hidden bg-black ${project.featured ? 'h-[450px]' : 'h-72'}`}>
+          <div className="absolute inset-0 dot-grid opacity-10 pointer-events-none z-10" />
           
           <motion.img 
             src={project.image} 
             alt={project.title}
             animate={{ 
-              scale: isHovered ? 1.1 : 1,
-              filter: isHovered ? 'grayscale(0%)' : 'grayscale(100%)',
-              opacity: isHovered ? 1 : 0.4
+              scale: isHovered ? 1.05 : 1,
+              filter: isHovered ? 'grayscale(0%) brightness(0.8)' : 'grayscale(100%) brightness(0.4)',
             }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="w-full h-full object-cover"
           />
           
@@ -151,24 +165,24 @@ function ProjectCard({ project, index, isInView, onClick }: any) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-black/40 backdrop-blur-[2px] p-6 flex flex-col justify-between z-20"
+                className="absolute inset-0 bg-black/40 backdrop-blur-[1px] p-8 flex flex-col justify-between z-20"
               >
                 <div className="flex justify-between items-start">
-                  <div className="space-y-1">
-                    <p className="label-text text-white text-[8px] opacity-70">CORE_ARCHITECTURE</p>
-                    <p className="font-mono text-[10px] text-white">X86-64_COMPATIBLE</p>
+                  <div className="space-y-1.5">
+                    <p className="label-text text-white/50 text-[7px] tracking-[0.4em]">CORE_ARCH</p>
+                    <p className="font-mono text-[10px] text-white font-black">STABLE_V4_X64</p>
                   </div>
-                  <div className="text-right">
-                    <p className="label-text text-white text-[8px] opacity-70">ENCRYPTION</p>
-                    <p className="font-mono text-[10px] text-white">AES-256-GCM</p>
+                  <div className="text-right space-y-1.5">
+                    <p className="label-text text-white/50 text-[7px] tracking-[0.4em]">SECURITY</p>
+                    <p className="font-mono text-[10px] text-white font-black">ENCRYPTED_AES</p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-6 pt-10">
                   {Object.entries(project.metrics).map(([key, value]: [string, any]) => (
-                    <div key={key} className="border-l border-white/20 pl-3">
-                      <p className="label-text text-white text-[8px] opacity-50">{key.toUpperCase()}</p>
-                      <p className="font-mono text-xs text-white">{value}</p>
+                    <div key={key} className="border-l border-white/20 pl-4 py-1">
+                      <p className="label-text text-white/40 text-[7px] tracking-[0.3em] mb-1">{key.toUpperCase()}</p>
+                      <p className="font-mono text-[11px] text-white font-bold">{value}</p>
                     </div>
                   ))}
                 </div>
@@ -176,83 +190,82 @@ function ProjectCard({ project, index, isInView, onClick }: any) {
             )}
           </AnimatePresence>
 
-          <div className="absolute inset-0 scanline opacity-0 group-hover:opacity-20 pointer-events-none z-10" />
+          <div className="absolute inset-0 scanline opacity-0 group-hover:opacity-10 pointer-events-none z-10" />
           
           {/* Tech Stack Chips */}
-          <div className="absolute bottom-4 left-4 flex flex-wrap gap-2 transition-transform duration-500 group-hover:translate-y-[-4px] z-30">
+          <div className="absolute bottom-6 left-6 flex flex-wrap gap-2.5 transition-all duration-500 group-hover:translate-y-[-4px] z-30">
             {project.tech?.map((t: string, ti: number) => (
-              <span key={ti} className="label-text bg-black/90 text-text-display px-2 py-1 border border-border-visible backdrop-blur-md shadow-lg">
+              <span key={ti} className="label-text bg-black/95 text-text-display px-2.5 py-1.5 border border-border-visible backdrop-blur-md shadow-2xl text-[8px] tracking-[0.2em]">
                 {t}
               </span>
             ))}
           </div>
+          
+          {/* Floating Icon */}
+          {project.icon && (
+            <div className="absolute top-6 left-6 z-30 p-2.5 bg-black/60 border border-white/10 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity">
+              <project.icon className="w-4 h-4 text-accent" />
+            </div>
+          )}
         </div>
 
         {/* Project Description & Data */}
-        <div className="p-8 space-y-6 flex-grow flex flex-col relative bg-surface/10 backdrop-blur-sm">
+        <div className="p-10 space-y-8 flex-grow flex flex-col relative bg-surface/5">
           <div className="flex items-start justify-between">
-            <div className="space-y-3">
-              <h3 className={`font-display font-bold text-text-display uppercase tracking-tighter group-hover:glow-text transition-all duration-500 ${project.featured ? 'text-4xl' : 'text-2xl'}`}>
+            <div className="space-y-4">
+              <h3 className={`font-dot font-black text-text-display uppercase tracking-[-0.04em] group-hover:text-accent transition-colors duration-500 leading-none ${project.featured ? 'text-5xl sm:text-7xl' : 'text-3xl'}`}>
                 {project.title}
               </h3>
-              <p className="font-sans text-text-secondary text-sm leading-relaxed max-w-lg">
+              <p className="font-sans text-text-secondary text-base leading-relaxed max-w-lg border-l border-border-visible pl-6 py-1">
                 {project.description}
               </p>
             </div>
-            {project.featured && (
-              <div className="hidden lg:block">
-                <Box size={24} className="text-text-display opacity-20" />
-              </div>
-            )}
           </div>
 
-          <div className="space-y-4 flex-grow">
-            <div className="flex items-center gap-3">
-              <Layers size={14} className="text-text-secondary" />
-              <div className="label-text text-[10px] text-text-display tracking-[0.2em]">LOG_ENTRIES.txt</div>
-              <div className="h-[1px] flex-grow bg-border-visible/50" />
+          <div className="space-y-6 flex-grow">
+            <div className="flex items-center gap-4">
+              <Terminal size={14} className="text-accent opacity-60" />
+              <div className="label-text text-[9px] text-text-disabled tracking-[0.4em]">LOG_ENTRIES.txt</div>
+              <div className="h-px flex-grow bg-border-visible/30" />
             </div>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-x-8 gap-y-3">
+            <ul className="space-y-4">
               {project.highlights.map((highlight: string, hIndex: number) => (
-                <li key={hIndex} className="flex items-start gap-3 font-mono text-[11px] text-text-secondary leading-tight group/item">
-                  <span className="text-text-display opacity-30 group-hover/item:opacity-100 transition-opacity">0{hIndex + 1}</span>
-                  <span className="group-hover/item:text-text-display transition-colors">{highlight}</span>
+                <li key={hIndex} className="flex items-center gap-5 font-mono text-[11px] text-text-secondary group/item">
+                  <span className="text-[10px] text-text-disabled opacity-30 group-hover/item:opacity-100 group-hover/item:text-accent transition-all">0{hIndex + 1}</span>
+                  <span className="group-hover/item:text-text-display transition-colors tracking-wide leading-tight">{highlight}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Footer Controls */}
-          <div className="pt-6 flex items-center justify-between border-t border-border-visible mt-auto">
-            <div className="flex items-center gap-4">
-              <div className="flex flex-col">
-                <span className="label-text text-[8px] opacity-40">PERMISSIONS</span>
-                <span className="label-text text-text-display text-[9px]">{project.link === '#' ? 'RESTRICTED' : 'GRANTED'}</span>
+          <div className="pt-8 flex items-center justify-between border-t border-border-visible/50 mt-auto">
+            <div className="flex items-center gap-6">
+              <div className="flex flex-col gap-1">
+                <span className="label-text text-[7px] opacity-30 tracking-[0.4em]">PERMISSION</span>
+                <span className={`font-mono text-[9px] font-black ${project.link === '#' ? 'text-accent' : 'text-interactive'}`}>{project.link === '#' ? 'RESTRICTED' : 'GRANTED'}</span>
               </div>
-              <div className="w-[1px] h-6 bg-border-visible" />
-              <div className="flex flex-col">
-                <span className="label-text text-[8px] opacity-40">NODE_VER</span>
-                <span className="label-text text-text-display text-[9px]">v2.4.0</span>
+              <div className="w-px h-8 bg-border-visible/50" />
+              <div className="flex flex-col gap-1">
+                <span className="label-text text-[7px] opacity-30 tracking-[0.4em]">VERSION</span>
+                <span className="font-mono text-[9px] text-text-primary font-black uppercase">v2.4.0_STABLE</span>
               </div>
             </div>
 
             {project.link !== "#" || project.btnText === "Join Waitlist" ? (
-              <a 
-                href={project.link} 
-                className={`group/btn relative inline-flex items-center gap-3 font-mono text-[11px] font-bold uppercase tracking-[0.2em] py-3 px-8 transition-all overflow-hidden ${project.isWaitlist ? 'bg-text-display text-black' : 'border border-border-visible text-text-display hover:border-text-display'}`}
-              >
-                <span className="relative z-10 flex items-center gap-2">
+              <MagneticWrapper strength={0.2}>
+                <a 
+                  href={project.link} 
+                  className={`group/btn relative inline-flex items-center gap-4 font-mono text-[10px] font-black uppercase tracking-[0.3em] py-4 px-10 transition-all ${project.isWaitlist ? 'bg-text-display text-black hover:bg-white' : 'border border-border-visible text-text-display hover:border-text-display hover:bg-white/5'}`}
+                >
                   {project.btnText}
                   <ExternalLink size={14} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
-                </span>
-                {!project.isWaitlist && (
-                  <div className="absolute inset-0 bg-text-display translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
-                )}
-              </a>
+                </a>
+              </MagneticWrapper>
             ) : (
-              <div className="flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.2em] py-3 px-8 border border-border-visible text-text-disabled opacity-40 cursor-not-allowed">
+              <div className="flex items-center gap-4 font-mono text-[10px] font-black uppercase tracking-[0.3em] py-4 px-10 border border-border-visible text-text-disabled opacity-30 cursor-not-allowed">
                 {project.btnText}
-                <Terminal size={14} />
+                <Box size={14} />
               </div>
             )}
           </div>
@@ -271,54 +284,54 @@ export default function Projects() {
   const displayedProjects = showAll ? projects : projects.slice(0, 3);
 
   return (
-    <section id="projects" className="py-32 bg-black border-b border-border-visible relative overflow-hidden perspective-3d" ref={triggerRef}>
+    <section id="projects" className="py-40 bg-black border-b border-border-visible relative overflow-hidden perspective-3d" ref={triggerRef}>
       {/* Background Decorative Elements */}
-      <div className="absolute inset-0 dot-grid-subtle opacity-10 pointer-events-none" />
-      <div className="absolute left-0 top-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[120px] pointer-events-none opacity-40" />
+      <div className="absolute inset-0 dot-grid opacity-10 pointer-events-none" />
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[60rem] h-[60rem] bg-accent/5 rounded-full blur-[160px] pointer-events-none opacity-30" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+      <div className="mx-auto max-w-7xl px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row justify-between items-end mb-24 gap-12">
           <motion.div 
             className="max-w-2xl"
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="h-12 w-[1px] bg-text-display/40" />
-              <div className="space-y-1">
-                <p className="label-text text-accent font-bold tracking-[0.3em]">[ SYSTEM_OUTPUTS ]</p>
-                <h2 className="text-5xl sm:text-6xl font-display font-bold tracking-tighter text-text-display uppercase leading-none">
-                  Project <span className="text-text-secondary opacity-50">Nodes</span>
+            <div className="flex items-center gap-6 mb-8">
+              <div className="h-16 w-1 bg-accent shadow-[0_0_15px_rgba(215,25,33,0.5)]" />
+              <div className="space-y-1.5">
+                <p className="label-text text-accent font-black tracking-[0.4em] text-[10px]">[ OUTPUT_REGISTRY ]</p>
+                <h2 className="text-6xl sm:text-8xl font-dot font-black tracking-[-0.04em] text-text-display uppercase leading-[0.85]">
+                  Project <span className="text-text-secondary opacity-40 outline-text-white italic">Nodes</span>
                 </h2>
               </div>
             </div>
-            <p className="font-sans text-text-secondary text-lg pl-4 border-l border-border-visible/50 leading-relaxed max-w-xl">
+            <p className="font-sans text-text-secondary text-xl pl-8 border-l border-border-visible/50 leading-relaxed max-w-xl py-1">
               High-fidelity digital artifacts engineered with autonomous agents. 
               Each node represents a distinct operational milestone in technical orchestration.
             </p>
           </motion.div>
           
           <motion.div 
-            className="flex flex-col items-end gap-3"
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+            className="flex flex-col items-end gap-5"
+            initial={{ opacity: 0, x: 40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            <GlassCard className="flex items-center gap-2 px-4 py-2" opacity="low" blur="sm" interactive={false}>
-              <Zap size={14} className="text-accent animate-pulse" />
-              <span className="label-text text-text-display tracking-[0.2em]">{projects.length} UNITS_IN_TRANSIT</span>
+            <GlassCard className="flex items-center gap-3 px-5 py-2.5" opacity="low" blur="sm" interactive={false}>
+              <Zap size={14} className="text-accent animate-pulse shadow-[0_0_8px_rgba(215,25,33,0.8)]" />
+              <span className="label-text text-text-display tracking-[0.3em] font-black text-[10px]">{projects.length} UNITS_IN_TRANSIT</span>
             </GlassCard>
-            <div className="flex gap-1.5">
-              {[...Array(12)].map((_, i) => (
-                <div key={i} className={`w-2 h-6 border ${i < 8 ? 'bg-text-display border-text-display' : 'border-border-visible'}`} />
+            <div className="flex gap-2">
+              {[...Array(16)].map((_, i) => (
+                <div key={i} className={`w-1.5 h-8 border-x border-border-visible/30 ${i < 8 ? 'bg-accent/40 shadow-[0_0_10px_rgba(215,25,33,0.2)]' : 'bg-transparent'}`} />
               ))}
             </div>
-            <span className="font-mono text-[10px] text-text-secondary opacity-50 uppercase">STABLE_DIFFUSION_SYSTEM_READY</span>
+            <span className="font-mono text-[9px] text-text-disabled tracking-[0.3em] uppercase opacity-40">STABLE_DIFFUSION_SYSTEM_READY</span>
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
           <AnimatePresence mode="popLayout">
             {displayedProjects.map((project, index) => (
               <ProjectCard 
@@ -341,27 +354,27 @@ export default function Projects() {
           <motion.div 
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            className="mt-20 flex justify-center"
+            className="mt-24 flex justify-center"
           >
-            <button 
-              onClick={() => setShowAll(!showAll)}
-              className="group/more relative flex items-center gap-6 font-mono text-[11px] font-bold uppercase tracking-[0.3em] py-5 px-12 border border-border-visible text-text-display hover:border-text-display transition-all bg-surface/20 backdrop-blur-sm overflow-hidden"
-            >
-              <div className="flex items-center gap-3 relative z-10">
-                <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse shadow-[0_0_8px_rgba(215,25,33,0.8)]" />
-                <span>{showAll ? 'COLLAPSE_ARCHIVE' : 'EXPAND_PROJECT_ARCHIVE'}</span>
-              </div>
-              <Activity size={14} className={`relative z-10 transition-transform duration-700 ${showAll ? 'rotate-180 text-accent' : 'group-hover/more:rotate-90'}`} />
-              
-              {/* Button Hover Background */}
-              <div className="absolute inset-0 bg-text-display/5 translate-y-full group-hover/more:translate-y-0 transition-transform duration-500 ease-out" />
-              
-              {/* Corner Accents */}
-              <div className="absolute top-0 left-0 w-2 h-[1px] bg-text-display opacity-0 group-hover/more:opacity-100 transition-opacity" />
-              <div className="absolute top-0 left-0 w-[1px] h-2 bg-text-display opacity-0 group-hover/more:opacity-100 transition-opacity" />
-              <div className="absolute bottom-0 right-0 w-2 h-[1px] bg-text-display opacity-0 group-hover/more:opacity-100 transition-opacity" />
-              <div className="absolute bottom-0 right-0 w-[1px] h-2 bg-text-display opacity-0 group-hover/more:opacity-100 transition-opacity" />
-            </button>
+            <MagneticWrapper strength={0.2}>
+              <button 
+                onClick={() => setShowAll(!showAll)}
+                className="group/more relative flex items-center gap-8 font-mono text-[11px] font-black uppercase tracking-[0.4em] py-6 px-16 border border-border-visible text-text-display hover:border-text-display transition-all bg-surface/10 backdrop-blur-md overflow-hidden"
+              >
+                <div className="flex items-center gap-4 relative z-10">
+                  <div className={`w-2 h-2 rounded-none animate-pulse ${showAll ? 'bg-accent shadow-[0_0_10px_red]' : 'bg-text-display shadow-[0_0_10px_white]'}`} />
+                  <span>{showAll ? 'COLLAPSE_ARCHIVE' : 'EXPAND_PROJECT_ARCHIVE'}</span>
+                </div>
+                <Activity size={16} className={`relative z-10 transition-transform duration-700 ${showAll ? 'rotate-180 text-accent' : 'group-hover/more:rotate-90'}`} />
+                
+                {/* Button Hover Background */}
+                <div className="absolute inset-0 bg-text-display/5 translate-y-full group-hover/more:translate-y-0 transition-transform duration-500 ease-out" />
+                
+                {/* Hardware Accents */}
+                <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-white/20" />
+                <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-white/20" />
+              </button>
+            </MagneticWrapper>
           </motion.div>
         )}
       </div>

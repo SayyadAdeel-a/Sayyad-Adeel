@@ -2,6 +2,7 @@ import { X, Send, CheckCircle2, Loader2, AlertCircle, Terminal, Shield } from 'l
 import { useForm, ValidationError } from '@formspree/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GlassCard } from './ui/GlassCard';
+import { MagneticWrapper } from './ui/MagneticWrapper';
 
 interface WaitlistModalProps {
   isOpen: boolean;
@@ -133,24 +134,30 @@ export default function WaitlistModal({ isOpen, onClose, projectTitle }: Waitlis
                       </div>
                     )}
 
-                    <button
-                      type="submit"
-                      disabled={state.submitting}
-                      className="group relative flex w-full items-center justify-center gap-3 bg-text-display px-6 py-5 font-display font-bold text-black transition-all hover:bg-white active:scale-[0.98] disabled:opacity-50 mt-4 uppercase text-xs tracking-widest overflow-hidden"
-                    >
-                      {state.submitting ? (
-                        <Loader2 className="animate-spin" size={18} />
-                      ) : (
-                        <>
-                          <Shield size={16} />
-                          Secure My Slot
-                          <Send size={16} className="transition-transform group-hover:translate-x-1" />
-                        </>
-                      )}
-                      
-                      {/* Button scanning effect */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out pointer-events-none" />
-                    </button>
+                    <MagneticWrapper strength={0.2} className="w-full">
+                      <button
+                        type="submit"
+                        disabled={state.submitting}
+                        className="group relative flex w-full items-center justify-center gap-4 bg-text-display px-8 py-5 font-mono font-black text-black transition-all hover:bg-white active:scale-[0.98] disabled:opacity-50 mt-4 uppercase text-[10px] tracking-[0.3em] overflow-hidden"
+                      >
+                        {/* Hardware Accents */}
+                        <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-black/20" />
+                        <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-black/20" />
+                        
+                        {state.submitting ? (
+                          <Loader2 className="animate-spin" size={16} />
+                        ) : (
+                          <>
+                            <Shield size={14} className="text-accent" />
+                            SECURE_ACCESS_NODE
+                            <Send size={14} className="transition-transform group-hover:translate-x-1" />
+                          </>
+                        )}
+                        
+                        {/* Button scanning effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out pointer-events-none" />
+                      </button>
+                    </MagneticWrapper>
                   </form>
 
                   <div className="mt-10 flex items-center gap-4">
